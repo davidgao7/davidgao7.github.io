@@ -81,7 +81,7 @@ analytics:
 # Site Author
 author:
   name             : "Tengjun Gao"
-  avatar           : "本人.png"
+  avatar           : "/images/本人.png"
   bio              : "Code With Life"
   location         : "Lincoln"
   employer         :
