@@ -10,10 +10,10 @@ locale                   : "en-US"
 title                    : "David(Tengjun) Gao / Hello World!"
 title_separator          : "-"
 name                     : &name "Tengjun Gao"
-description              : &description "personal description"
-url                      : https://academicpages.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+description              : &description "Welcome to my channel!"
+url                      : https://davidgao7.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "academicpages/academicpages.github.io"
+repository               : "davidgao7/davidgao7.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
@@ -81,7 +81,7 @@ analytics:
 # Site Author
 author:
   name             : "Tengjun Gao"
-  avatar           : "/images/本人.png"
+  avatar           : "davidgao7.github.io/images/本人.png"
   bio              : "Code With Life"
   location         : "Lincoln"
   employer         :
