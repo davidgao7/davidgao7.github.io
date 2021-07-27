@@ -1,22 +1,28 @@
 # main links links
+# link to the markdown file under the pages
+# TODO: create a AI section and add what you have learned for ML,DL as blog! 
+
 main:
   - title: "Publications"
     url: /publications/
 
   - title: "Talks"
-    url: /talks/    
+    url: /talks/
 
   - title: "Teaching"
-    url: /teaching/    
-    
+    url: /teaching/
+
   - title: "Portfolio"
     url: /portfolio/
-        
+
   - title: "Blog Posts"
     url: /year-archive/
-    
+
   - title: "CV"
     url: /cv/
-    
+
   - title: "Guide"
     url: /markdown/
+
+  - title: "Machine Learning & Deep Learning"
+    url: /AI/
