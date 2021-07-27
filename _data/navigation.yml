@@ -1,8 +1,11 @@
 # main links links
 # link to the markdown file under the pages
-# TODO: create a AI section and add what you have learned for ML,DL as blog! 
+# TODO: create a AI section and add what you have learned for ML,DL as blog!
 
 main:
+  - title: "Machine Learning & Deep Learning"
+    url: /ai/
+
   - title: "Publications"
     url: /publications/
 
@@ -23,6 +26,3 @@ main:
 
   - title: "Guide"
     url: /markdown/
-
-  - title: "Machine Learning & Deep Learning"
-    url: /AI/
