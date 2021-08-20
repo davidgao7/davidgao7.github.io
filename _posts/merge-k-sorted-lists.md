@@ -79,3 +79,9 @@ int (*p2)[3][8] = b; // pointer to the first element b[0] of the array b,
 - python:
 
 ## 类似题目
+- [归并排序](https://www.nowcoder.com/practice/23ed40416d9c4c72816edb12daa3bdff?sourceQid=724&sourceTpId=196)
+- [链表合并](https://www.nowcoder.com/practice/27c833289e5f4f5e9ba3718ce9136759?sourceQid=724&sourceTpId=196)
+- [最小区间](https://www.nowcoder.com/practice/65cfde9e5b9b4cf2b6bafa5f3ef33fa6?tpId=196&&tqId=37081&rp=1&ru=/activity/oj&qru=/ta/job-code-total/question-ranking)
+- [查找第k大的元素](https://www.nowcoder.com/practice/673454422d1b4a168aed31e449d87c00?sourceQid=724&sourceTpId=196)
+- [找出单向链表中的一个节点，该节点到尾指针的距离为k](https://www.nowcoder.com/practice/65cfde9e5b9b4cf2b6bafa5f3ef33fa6?tpId=196&&tqId=37081&rp=1&ru=/activity/oj&qru=/ta/job-code-total/question-ranking)
+- [非递归实现binary search](https://www.nowcoder.com/practice/c953813dd1aa4eacbc3d403dff60a23a?sourceQid=724&sourceTpId=196)
