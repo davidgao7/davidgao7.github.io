@@ -40,6 +40,8 @@ We can expected that we will spend some time on thinking how we update element.
 我一开始学的java， pointer不熟，趁现在恶补一下
 
 - & stands for address referencing
+- \* stands for a pointer declaration
+---
 - for *single value*
 ```cpp
 int n;
@@ -79,6 +81,64 @@ int (*p2)[3][8] = b; // pointer to the first element b[0] of the array b,
 
 我现在的sorting都是基于二分法：即把原先的container(array, list, vector...) 拆开分成几部然后单个排序，接着合成最终答案。如果你记不住，两句话就是‘解决不了大困难，我还解决不了小困难吗?’，‘解决了真么多小困难，那还有大困难吗?’。
 
+### 定义
+我们首先来看题目是怎么定义一个node的
+
+Python:
+```python
+class ListNode
+  def __init__(self, val=0, next=None):
+    self.val = val
+    self.next = next
+```
+
+C++:
+```cpp
+struct ListNode{
+  int val;
+  ListNode* next;
+}// Node structure
+```
+
+我刚开始没感觉有什么不同，然后在遍历linked list时意识到python没有pointer，都是object。那咋整？不急，python比cpp“聪明”，他会自己判断是不是pointer
+
+其实定义的时候，就只有一行不同：
+
+```cpp
+ListNode result(0); //.......(1a)
+ListNode *ptr = &result;//...(2b)
+```
+
+```python
+dummy = ListNode(-1) #.......(1a)
+x = dummy            #.......(2b)
+```
+
+主要来看每个block的（2b）行，在cpp中我们用了一个pointer指向result node的address。
+
+在ptr变化的同时，result也会同时变化。
+
+### 题解
+在理解了怎样manipulate linked list之后，我们来想想解法。
+
+我们有
+```
+l1: 1 -> 2 -> 5
+l2: 0 -> 8 -> 3
+l3: 3 -> 4
+```
+每一个sublist都是有序的，我们需要合成一个大list，似曾相识？对，mergesort！
+
+1. 首先确定框架
+  - 把一整个list换成merge n 个小lists
+  - 我们可以不用真的把list拆成小list，可以用left,right做为index指向我们想要的首尾
+
+```cpp
+ListNode *merge(std::vector<ListNode*> &lists, int left, int right){
+  /* cases */
+  return result;
+}
+```
 
 
 
