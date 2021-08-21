@@ -72,11 +72,15 @@ int (*p2)[3][8] = b; // pointer to the first element b[0] of the array b,
 
 *PS. 入门应该学C的，即使预计会到明年毕业。。*
 
-### 方法一： Language with pointer
-- cpp: Merge sort like,
+### 中心思想： Pointer(or pointer like)
+- 换汤不换药，终究是个排序题
+- 那说到排序题，什么space/time complexity，是不是又要整一堆？
+- 为什么面试会问你mergesort？
 
-### 方法二： Language without pointer
-- python:
+我现在的sorting都是基于二分法：即把原先的container(array, list, vector...) 拆开分成几部然后单个排序，接着合成最终答案。如果你记不住，两句话就是‘解决不了大困难，我还解决不了小困难吗?’，‘解决了真么多小困难，那还有大困难吗?’。
+
+
+
 
 ## 类似题目
 - [归并排序](https://www.nowcoder.com/practice/23ed40416d9c4c72816edb12daa3bdff?sourceQid=724&sourceTpId=196)
