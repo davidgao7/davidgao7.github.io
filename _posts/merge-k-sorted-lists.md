@@ -85,3 +85,10 @@ int (*p2)[3][8] = b; // pointer to the first element b[0] of the array b,
 - [查找第k大的元素](https://www.nowcoder.com/practice/673454422d1b4a168aed31e449d87c00?sourceQid=724&sourceTpId=196)
 - [找出单向链表中的一个节点，该节点到尾指针的距离为k](https://www.nowcoder.com/practice/65cfde9e5b9b4cf2b6bafa5f3ef33fa6?tpId=196&&tqId=37081&rp=1&ru=/activity/oj&qru=/ta/job-code-total/question-ranking)
 - [非递归实现binary search](https://www.nowcoder.com/practice/c953813dd1aa4eacbc3d403dff60a23a?sourceQid=724&sourceTpId=196)
+
+ ```
+ ps. 偶然在GitHub上看到的，喜欢自己造轮子什么时候成了缺点了？
+ 合着我机器学习白上了？就非得套Tensorflow，pytorch，sklearn？
+ 没加法哪来的乘法？
+ 就是要自己先造轮子才能造出更好的轮子！
+ ```
