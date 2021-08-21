@@ -21,7 +21,7 @@ Here's an example:
 ```
 Given
 l1: 1 -> 2 -> 5
-l2: 8 -> 0 -> 3
+l2: 0 -> 8 -> 3
 l3: 3 -> 4
 
 return
