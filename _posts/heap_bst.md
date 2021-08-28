@@ -44,6 +44,6 @@ Heap
 Left: Min-Heap (Smallest on the top)  
 Right: Max-Heap (Largest on the top)
 
-## Reference
+## Reference<img src="/images/link.jpeg" width="20" height="25">
 - https://www.baeldung.com/cs/heap-vs-binary-search-tree
 - https://www.baeldung.com/cs/binary-search-trees
