@@ -15,7 +15,7 @@ main:
     url: /portfolio/
 
   - title: "Blog Posts"
-    url: /_posts/
+    url: /posts/
 
   - title: "CV"
     url: /cv/
