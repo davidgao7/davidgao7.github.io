@@ -29,6 +29,10 @@ e.g.
 
 从图上我们可以知道距离5，1上方最近的是3，也就是说Node 5 与 Node 3 的common ancestor是3
 
+>*怎样能首先检查 child， 然后再检查 parent 呢？*
+
+> <font color=red>`L(child) R(child) N(parent)： Post order`</font>
+
 ```python
     # bottom up lookup
     # post order : L R N
