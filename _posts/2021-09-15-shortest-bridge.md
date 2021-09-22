@@ -52,7 +52,7 @@ A[i][j] == 0 或 A[i][j] == 1
 class Solution:
     def shortestBridge(self, grid: List[List[int]]) -> int:
         def dfs(grid: List[List[int]], x: int, y: int, queue: List):
-            # 如果没有visit，标记为visit，接着想四周阔
+            # 如果没有visit，标记为visit，接着想四周扩
             if 0 <= x <= len(grid) - 1 and 0 <= y <= len(grid[x]) - 1 and grid[x][y] != 2:
                 grid[x][y] = 2  # 2: visited
                 queue.append([x, y]) # add visited island to queue
