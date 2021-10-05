@@ -3,11 +3,9 @@ title: 'Binary Tree Path Sum'
 date: 2021-09-24
 permalink: /posts/2021/09/path-sum/
 tags:
-  - arrays
-  - divide and conquer
-  - quick select
-  - sorting
-  - heap (priority heap)
+  - binary tree
+  - depth first search
+  - breath first search
 ---
 ## 题目描述
 给定一个节点数为 n 的二叉树和一个值 sum ，请找出所有的根节点到叶子节点的节点值之和等于的路径，如果没有则返回空。
