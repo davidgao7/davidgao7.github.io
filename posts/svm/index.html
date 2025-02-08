@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>SVM // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.143.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SVM">
+  <meta name="twitter:description" content="Support Vector Machine (Classifier) suggest readings:
+Alpaydin: 10.3, 13.1, 13.2 Murphy: 14.5.2.2 Geron: chapter 5, appendix C Alpaydin 阅读笔记 Geometry of the Linear Discriminant （线性可区分的图像） 从一个简单的 two classes 情况开始解析，在这种情况下，单个的区分方程已经足够： Discriminant between two classes: $$ \begin{equation}\label{Discriminant_between_two_classes} \begin{split} g(\chi) &amp;= g_1(\chi) - g_2(\chi)\ &amp;= ((w_1)^T\chi &#43; w_{10}) - ((w_2)^T\chi &#43; w_{20})\ &amp;= (w_1 - w_2)^T\chi &#43; (w_{10} - w_{20})\ &amp;= w^T\chi &#43; w_0 \end{split} \end{equation} $$ we choose $$ \left. \begin{matrix} C_1,\text{ }g(\chi) &gt; 0\ C_2,\text{ }otherwise \end{matrix} \right} $$ weight vector threshold">
+
+    <meta property="og:url" content="http://localhost:1313/posts/svm/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="SVM">
+  <meta property="og:description" content="Support Vector Machine (Classifier) suggest readings:
+Alpaydin: 10.3, 13.1, 13.2 Murphy: 14.5.2.2 Geron: chapter 5, appendix C Alpaydin 阅读笔记 Geometry of the Linear Discriminant （线性可区分的图像） 从一个简单的 two classes 情况开始解析，在这种情况下，单个的区分方程已经足够： Discriminant between two classes: $$ \begin{equation}\label{Discriminant_between_two_classes} \begin{split} g(\chi) &amp;= g_1(\chi) - g_2(\chi)\ &amp;= ((w_1)^T\chi &#43; w_{10}) - ((w_2)^T\chi &#43; w_{20})\ &amp;= (w_1 - w_2)^T\chi &#43; (w_{10} - w_{20})\ &amp;= w^T\chi &#43; w_0 \end{split} \end{equation} $$ we choose $$ \left. \begin{matrix} C_1,\text{ }g(\chi) &gt; 0\ C_2,\text{ }otherwise \end{matrix} \right} $$ weight vector threshold">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-07T20:44:54-05:00">
+    <meta property="article:modified_time" content="2025-02-07T20:44:54-05:00">
+    <meta property="article:tag" content="Machine Learning">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">SVM</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Feb 7, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          2 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/machine-learning/">Machine Learning</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="support-vector-machine-classifier">Support Vector Machine (Classifier)</h1>
+<p>suggest readings:</p>
+<ul>
+<li>Alpaydin: 10.3, 13.1, 13.2</li>
+<li>Murphy: 14.5.2.2</li>
+<li>Geron: chapter 5, appendix C</li>
+</ul>
+<h2 id="alpaydin-阅读笔记">Alpaydin 阅读笔记</h2>
+<h3 id="geometry-of-the-linear-discriminant-线性可区分的图像">Geometry of the Linear Discriminant （线性可区分的图像）</h3>
+<ul>
+<li>从一个简单的 two classes 情况开始解析，在这种情况下，单个的区分方程已经足够：</li>
+<li>Discriminant between two classes:
+$$
+\begin{equation}\label{Discriminant_between_two_classes}
+\begin{split}
+g(\chi) &amp;= g_1(\chi) - g_2(\chi)\
+&amp;= ((w_1)^T\chi + w_{10}) - ((w_2)^T\chi + w_{20})\
+&amp;= (w_1 - w_2)^T\chi + (w_{10} - w_{20})\
+&amp;= w^T\chi + w_0
+\end{split}
+\end{equation}
+$$</li>
+<li>we choose
+$$
+\left.
+\begin{matrix}
+C_1,\text{ }g(\chi) &gt; 0\
+C_2,\text{ }otherwise
+\end{matrix}
+\right}
+$$</li>
+</ul>
+<p><code>weight vector threshold</code></p>
+<ul>
+<li>defines a hyperplane where $w$ is the weight vector and $w_0$ is the threshold.</li>
+</ul>
+<h3 id="decision-rule">Decision rule</h3>
+<ul>
+<li>choose $C_1$ if $w^T\chi &gt; -w_0$, and choose $C_2$ otherwise. The hyperplane divides the input space into two half-spaces: decision region $R_1$ for $C_1$ and $R_2$ for $C_2$. Any $\chi$ in $R_1$ is on the <code>positive</code> side of the hyperplane and any $\chi$ in $R_2$ is on the <code>negative</code> side.</li>
+</ul>
+<h3 id="decision-bounduary-equation">Decision bounduary equation</h3>
+<ul>
+<li>Let&rsquo;s take 2 points on the decision surface; that is, $g(\chi_1) = g(\chi_2) = 0$, then
+$$
+\begin{equation}
+\begin{split}
+w^T\chi_1 + w_0 &amp;= w^T\chi_2 + w_0\
+w^T(\chi_1 - \chi_2) &amp;= 0
+\end{split}
+\end{equation}
+$$
+and we see that $w$ is <em>normal</em> to any vector lying on the hyperplane. Let&rsquo;s rewrite $\chi$ as
+$$
+\begin{equation}
+\chi = \chi_p + r\frac{w}{|w|}
+\end{equation}
+$$</li>
+<li>$\chi_p$: normal projection of $\chi$ onto the hyperplane</li>
+<li>$r$: the distance from $\chi$ to the hyperplane
+<ul>
+<li>$&lt;0$ if $\chi$ is on the negative side</li>
+<li>$&gt;0$ if $\chi$ is on the positive side</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

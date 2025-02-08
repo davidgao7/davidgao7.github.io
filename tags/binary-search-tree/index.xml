@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Binary Search Tree on davidgao7 blog</title>
+    <link>http://localhost:1313/tags/binary-search-tree/</link>
+    <description>Recent content in Binary Search Tree on davidgao7 blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 07 Feb 2025 20:50:52 -0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/binary-search-tree/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Heap Bst</title>
+      <link>http://localhost:1313/posts/heap-bst/</link>
+      <pubDate>Fri, 07 Feb 2025 20:50:52 -0500</pubDate>
+      <guid>http://localhost:1313/posts/heap-bst/</guid>
+      <description>&lt;h1 id=&#34;binary-search-tree-vs-heap&#34;&gt;Binary Search Tree vs. Heap&lt;/h1&gt;&#xA;&lt;p&gt;Can&amp;rsquo;t remember what&amp;rsquo;s the difference between heap &amp;amp; BST all the sudden&amp;hellip;&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-we-should-know&#34;&gt;What we should know&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Definition&lt;/li&gt;&#xA;&lt;li&gt;Big-O complexity&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;definition&#34;&gt;Definition&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Binary Search Tree&lt;!-- raw HTML omitted --&gt; is a data structure that allows for fast &lt;strong&gt;insertion&lt;/strong&gt;, &lt;strong&gt;removal&lt;/strong&gt;, and &lt;strong&gt;lookup&lt;/strong&gt; of items while offering an &lt;em&gt;efficient&lt;/em&gt; way to iterate them in &lt;em&gt;sorted&lt;/em&gt; order&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Heap&lt;!-- raw HTML omitted --&gt; is a &lt;strong&gt;complete&lt;/strong&gt; binary tree&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>BinaryTree Output Levely // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.143.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BinaryTree Output Levely">
+  <meta name="twitter:description" content="题目描述 给你一个二叉树，要求一层一层get这个二叉树的层序遍历的结果
+e.g. Given binary tree: {3,9,20,#,#,15,7}， 在code里是OOP的Tree来写的
+T = TreeNode(3) T.left = TreeNode(9) T.right = TreeNode(20) T.right.left = TreeNode(15) T.right.right = TreeNode(7) in order traversal result:
+[ [3], [9, 20], [15, 7] ] 需要注意TreeNode的定义，没有child的情况child为None.
+题目思路 无论何时都得照顾好base case 如果给的tree结构里一个node也没有，我们不用担心什么，直接return 空[] class Solution: def levelOrder(self, root): if not root: return [] 之后， 我们用python list.pop(index=)来拿到我们想要的current node。 注意一下 pop() 和 pop(0) 的区别 pop() 是取list中最后一个元素 pop(0) 是取list中1st元素 &gt;&gt;&gt; a = [1,2,3] &gt;&gt;&gt; print(a.pop()) 3 &gt;&gt;&gt; print(a.pop(0)) 1 &gt;&gt;&gt; Note: 平时用不太熟悉的语言时遇到不确定的语法可以到terminal上玩一下当作测试，也节省了上网查找浪费的时间">
+
+    <meta property="og:url" content="http://localhost:1313/posts/binarytree-output-levely/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="BinaryTree Output Levely">
+  <meta property="og:description" content="题目描述 给你一个二叉树，要求一层一层get这个二叉树的层序遍历的结果
+e.g. Given binary tree: {3,9,20,#,#,15,7}， 在code里是OOP的Tree来写的
+T = TreeNode(3) T.left = TreeNode(9) T.right = TreeNode(20) T.right.left = TreeNode(15) T.right.right = TreeNode(7) in order traversal result:
+[ [3], [9, 20], [15, 7] ] 需要注意TreeNode的定义，没有child的情况child为None.
+题目思路 无论何时都得照顾好base case 如果给的tree结构里一个node也没有，我们不用担心什么，直接return 空[] class Solution: def levelOrder(self, root): if not root: return [] 之后， 我们用python list.pop(index=)来拿到我们想要的current node。 注意一下 pop() 和 pop(0) 的区别 pop() 是取list中最后一个元素 pop(0) 是取list中1st元素 &gt;&gt;&gt; a = [1,2,3] &gt;&gt;&gt; print(a.pop()) 3 &gt;&gt;&gt; print(a.pop(0)) 1 &gt;&gt;&gt; Note: 平时用不太熟悉的语言时遇到不确定的语法可以到terminal上玩一下当作测试，也节省了上网查找浪费的时间">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-07T20:47:06-05:00">
+    <meta property="article:modified_time" content="2025-02-07T20:47:06-05:00">
+    <meta property="article:tag" content="Binary Tree">
+    <meta property="article:tag" content="Inorder Traversal">
+    <meta property="article:tag" content="LeetCode">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">BinaryTree Output Levely</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Feb 7, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          2 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/binary-tree/">Binary Tree</a>
+              <a class="tag" href="/tags/inorder-traversal/">Inorder Traversal</a>
+              <a class="tag" href="/tags/leetcode/">LeetCode</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="题目描述">题目描述</h2>
+<p>给你一个二叉树，要求一层一层get这个二叉树的层序遍历的结果</p>
+<p>e.g. Given binary tree: {3,9,20,#,#,15,7}， 在code里是OOP的Tree来写的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>T <span style="color:#f92672">=</span> TreeNode(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>T<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> TreeNode(<span style="color:#ae81ff">9</span>)
+</span></span><span style="display:flex;"><span>T<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> TreeNode(<span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>T<span style="color:#f92672">.</span>right<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> TreeNode(<span style="color:#ae81ff">15</span>)
+</span></span><span style="display:flex;"><span>T<span style="color:#f92672">.</span>right<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> TreeNode(<span style="color:#ae81ff">7</span>)
+</span></span></code></pre></div><p>in order traversal result:</p>
+<pre tabindex="0"><code>[
+  [3],
+  [9, 20],
+  [15, 7]
+]
+</code></pre><p>需要注意TreeNode的定义，没有child的情况child为<code>None</code>.</p>
+<h2 id="题目思路">题目思路</h2>
+<ul>
+<li>无论何时都得照顾好base case
+<ul>
+<li>如果给的tree结构里一个node也没有，我们不用担心什么，直接return 空[]</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">levelOrder</span>(self, root):
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> root:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> []
+</span></span></code></pre></div></li>
+<li>之后， 我们用python list.pop(index=)来拿到我们想要的current node。 注意一下 <strong>pop()</strong> 和 <strong>pop(0)</strong> 的区别
+<ul>
+<li><strong>pop()</strong> 是取list中最后一个元素</li>
+<li><strong>pop(0)</strong> 是取list中1st元素</li>
+</ul>
+<pre tabindex="0"><code>&gt;&gt;&gt; a = [1,2,3]
+&gt;&gt;&gt; print(a.pop())
+3
+&gt;&gt;&gt; print(a.pop(0))
+1
+&gt;&gt;&gt;
+</code></pre></li>
+</ul>
+<p><!-- raw HTML omitted -->Note: <!-- raw HTML omitted -->
+平时用不太熟悉的语言时遇到不确定的语法可以到terminal上玩一下当作测试，也节省了上网查找浪费的时间</p>
+<ul>
+<li>注意append node的顺序，我们首先append left child 然后 right child， 因为我们是被要求一层一层从左到右存放的</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>left: queue<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>left)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>right: queue<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>right)
+</span></span></code></pre></div><p>这个过程是在遍历时先去左边的树再去右边的。按照题目规定<strong>每层</strong>print时要从左往右储存。</p>
+<p>问：怎样解决每层打印/储存的？<!-- raw HTML omitted -->
+答：while loop的发动条件是quene里还有东西(听起来像打开反击陷阱&hellip;)，如果有，就遍历quene长度的次数<!-- raw HTML omitted -->
+quene就pop第0个， 把这个node的值保存。 <!-- raw HTML omitted --></p>
+<p>在这一block我们专注解决一层, 连起来看看我们在干嘛</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>length <span style="color:#f92672">=</span> len(quene)
+</span></span><span style="display:flex;"><span>in_list <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(length):
+</span></span><span style="display:flex;"><span>  curnode <span style="color:#f92672">=</span> quene<span style="color:#f92672">.</span>pop(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 移除第一个，因为是从上往下遍历</span>
+</span></span><span style="display:flex;"><span>  in_list<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>val) <span style="color:#75715e"># 拿值</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>left: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>left) <span style="color:#75715e"># store left</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>right: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>right) <span style="color:#75715e"># store right</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>outlist<span style="color:#f92672">.</span>append(in_list)
+</span></span></code></pre></div><p>首先看 <code>for</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(length):
+</span></span><span style="display:flex;"><span>  curnode <span style="color:#f92672">=</span> quene<span style="color:#f92672">.</span>pop(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 移除第一个，因为是从上往下遍历</span>
+</span></span><span style="display:flex;"><span>  in_list<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>val) <span style="color:#75715e"># 拿值</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>left: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>left) <span style="color:#75715e"># store left</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>right: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>right) <span style="color:#75715e"># store right</span>
+</span></span></code></pre></div><p>我们在干嘛？</p>
+<p>首先loop每一层node的个数的次数（假设次数为N，方便引用），然后pop掉<strong>第一个</strong>quene里的node。还记得我们第一次第一个存的什么吗？是root，所以我们第一次就顺利把第一个正确拿下来了。
+接着我们往quene里存放他的left child 和 right child。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>left: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>left) <span style="color:#75715e"># store left</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>right: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>right) <span style="color:#75715e"># store right</span>
+</span></span></code></pre></div><p>这里我们先存left再存right， 因为我们pop的时候先pop第0个(left)，这样确保了我们永远都从左到右拿value</p>
+<p>最后，我们把这一层放到总list里</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>out_list<span style="color:#f92672">.</span>append(in_list)
+</span></span></code></pre></div><p>组合起来：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>length <span style="color:#f92672">=</span> len(quene)
+</span></span><span style="display:flex;"><span>in_list <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(length):
+</span></span><span style="display:flex;"><span>    curnode <span style="color:#f92672">=</span> quene<span style="color:#f92672">.</span>pop(<span style="color:#ae81ff">0</span>)  <span style="color:#75715e"># （默认移除列表最后一个元素）这里需要移除队列最头上的那个</span>
+</span></span><span style="display:flex;"><span>    in_list<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>val) <span style="color:#75715e"># 1st get left val, then got right val: [level0:l, level1:l,r, level2:l,r...]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>left: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>left) <span style="color:#75715e"># first store left then right, same with in order</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>right: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>out_list<span style="color:#f92672">.</span>append(in_list)
+</span></span></code></pre></div><p>层序遍历逻辑结束了，那么如何确定程序结束条件呢？<!-- raw HTML omitted -->
+答： 在python里，当[]是空的可以直接退出loop（真方便。。）</p>
+<p>接着就得到遍历结果了</p>
+<h2 id="类似题目">类似题目</h2>
+<ul>
+<li>[102] 二叉树的层序遍历</li>
+<li>[107] 二叉树的层次遍历II</li>
+<li>[199] 二叉树的右视图</li>
+<li>[637] 二叉树的层平均值</li>
+<li>[429] N叉树的前序遍历</li>
+<li>[515] 在每个树行中找最大值</li>
+<li>[116] 填充每个节点的下一个右侧节点指针</li>
+<li>[117] 填充每个节点的下一个右侧节点指针II</li>
+<li>[104] 二叉树的最大深度</li>
+<li>[111] 二叉树的最小深度</li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

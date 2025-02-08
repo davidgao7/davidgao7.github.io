@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Shortest Bridge // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.143.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Shortest Bridge">
+  <meta name="twitter:description" content="题目描述 在给定的二维二进制数组 A 中，存在两座岛。（岛是由四面相连的 1 形成的一个最大组。）
+现在，我们可以将0 变为 1，以使两座岛连接起来，变成一座岛。
+返回必须翻转的 0 的最小数目。（可以保证答案至少是 1 。）
+示例 1： 输入：A = [[0,1],[1,0]] 输出：1 示例 2： 输入：A = [[0,1,0],[0,0,0],[0,0,1]] 输出：2 示例 3： 输入：A = [[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]] 输出：1 提示： 2 &lt;= A.length == A[0].length &lt;= 100 A[i][j] == 0 或 A[i][j] == 1 思路 class Solution: def shortestBridge(self, grid: List[List[int]]) -&gt; int: def dfs(grid: List[List[int]], x: int, y: int, queue: List): # 如果没有visit，标记为visit，接着想四周扩 if 0 &lt;= x &lt;= len(grid) - 1 and 0 &lt;= y &lt;= len(grid[x]) - 1 and grid[x][y] != 2: grid[x][y] = 2 # 2: visited queue.append([x, y]) # add visited island to queue # 向四个方向延伸找终点 dfs(grid, x - 1, y, queue) # up dfs(grid, x, y - 1, queue) # left dfs(grid, x &#43; 1, y, queue) # down dfs(grid, x, y &#43; 1, queue) # right # 1. 找到这两座岛(dfs) # 2. 选择一座，将它不断向外扩展一圈(bfs)已知领域，直到发现了另一座岛 # 深度优先搜索grid 中的 1，再从source中的所有位置开始进行深度优先搜索 # 在向外延伸时，用广度优先搜索 queue = [] # 找到其中一个小岛 found = False for x, row in len(grid), grid: for y, space in len(row), row: if space: # 找到一个小岛就退出 dfs(grid, x, y, queue) found = True steps = 0 directions = [0,1,0,-1,0]">
+
+    <meta property="og:url" content="http://localhost:1313/posts/shortest-bridge/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="Shortest Bridge">
+  <meta property="og:description" content="题目描述 在给定的二维二进制数组 A 中，存在两座岛。（岛是由四面相连的 1 形成的一个最大组。）
+现在，我们可以将0 变为 1，以使两座岛连接起来，变成一座岛。
+返回必须翻转的 0 的最小数目。（可以保证答案至少是 1 。）
+示例 1： 输入：A = [[0,1],[1,0]] 输出：1 示例 2： 输入：A = [[0,1,0],[0,0,0],[0,0,1]] 输出：2 示例 3： 输入：A = [[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]] 输出：1 提示： 2 &lt;= A.length == A[0].length &lt;= 100 A[i][j] == 0 或 A[i][j] == 1 思路 class Solution: def shortestBridge(self, grid: List[List[int]]) -&gt; int: def dfs(grid: List[List[int]], x: int, y: int, queue: List): # 如果没有visit，标记为visit，接着想四周扩 if 0 &lt;= x &lt;= len(grid) - 1 and 0 &lt;= y &lt;= len(grid[x]) - 1 and grid[x][y] != 2: grid[x][y] = 2 # 2: visited queue.append([x, y]) # add visited island to queue # 向四个方向延伸找终点 dfs(grid, x - 1, y, queue) # up dfs(grid, x, y - 1, queue) # left dfs(grid, x &#43; 1, y, queue) # down dfs(grid, x, y &#43; 1, queue) # right # 1. 找到这两座岛(dfs) # 2. 选择一座，将它不断向外扩展一圈(bfs)已知领域，直到发现了另一座岛 # 深度优先搜索grid 中的 1，再从source中的所有位置开始进行深度优先搜索 # 在向外延伸时，用广度优先搜索 queue = [] # 找到其中一个小岛 found = False for x, row in len(grid), grid: for y, space in len(row), row: if space: # 找到一个小岛就退出 dfs(grid, x, y, queue) found = True steps = 0 directions = [0,1,0,-1,0]">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-07T20:43:22-05:00">
+    <meta property="article:modified_time" content="2025-02-07T20:43:22-05:00">
+    <meta property="article:tag" content="BFS">
+    <meta property="article:tag" content="DFS">
+    <meta property="article:tag" content="Array">
+    <meta property="article:tag" content="Matrix">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Shortest Bridge</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Feb 7, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          1 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/bfs/">BFS</a>
+              <a class="tag" href="/tags/dfs/">DFS</a>
+              <a class="tag" href="/tags/array/">Array</a>
+              <a class="tag" href="/tags/matrix/">Matrix</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="题目描述">题目描述</h2>
+<p>在给定的二维二进制数组 A 中，存在两座岛。（岛是由四面相连的 1 形成的一个最大组。）</p>
+<p>现在，我们可以将0 变为 1，以使两座岛连接起来，变成一座岛。</p>
+<p>返回必须翻转的 0 的最小数目。（可以保证答案至少是 1 。）</p>
+<pre tabindex="0"><code>示例 1：
+
+
+输入：A = [[0,1],[1,0]]
+输出：1
+
+
+示例 2：
+
+
+输入：A = [[0,1,0],[0,0,0],[0,0,1]]
+输出：2
+
+
+示例 3：
+
+
+输入：A = [[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]]
+输出：1
+
+
+
+提示：
+
+
+2 &lt;= A.length == A[0].length &lt;= 100
+A[i][j] == 0 或 A[i][j] == 1
+</code></pre><h2 id="思路">思路</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">shortestBridge</span>(self, grid: List[List[int]]) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dfs</span>(grid: List[List[int]], x: int, y: int, queue: List):
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 如果没有visit，标记为visit，接着想四周扩</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> x <span style="color:#f92672">&lt;=</span> len(grid) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> y <span style="color:#f92672">&lt;=</span> len(grid[x]) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> grid[x][y] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>:
+</span></span><span style="display:flex;"><span>                grid[x][y] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># 2: visited</span>
+</span></span><span style="display:flex;"><span>                queue<span style="color:#f92672">.</span>append([x, y]) <span style="color:#75715e"># add visited island to queue</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># 向四个方向延伸找终点</span>
+</span></span><span style="display:flex;"><span>                dfs(grid, x <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, y, queue)  <span style="color:#75715e"># up</span>
+</span></span><span style="display:flex;"><span>                dfs(grid, x, y <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, queue)  <span style="color:#75715e"># left</span>
+</span></span><span style="display:flex;"><span>                dfs(grid, x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, y, queue)  <span style="color:#75715e"># down</span>
+</span></span><span style="display:flex;"><span>                dfs(grid, x, y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, queue)  <span style="color:#75715e"># right</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 1. 找到这两座岛(dfs)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 2. 选择一座，将它不断向外扩展一圈(bfs)已知领域，直到发现了另一座岛</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 深度优先搜索grid 中的 1，再从source中的所有位置开始进行深度优先搜索</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 在向外延伸时，用广度优先搜索</span>
+</span></span><span style="display:flex;"><span>        queue <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 找到其中一个小岛</span>
+</span></span><span style="display:flex;"><span>        found <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> x, row <span style="color:#f92672">in</span> len(grid), grid:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> y, space <span style="color:#f92672">in</span> len(row), row:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> space:  <span style="color:#75715e"># 找到一个小岛就退出</span>
+</span></span><span style="display:flex;"><span>                    dfs(grid, x, y, queue)
+</span></span><span style="display:flex;"><span>                    found <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        directions <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>]
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

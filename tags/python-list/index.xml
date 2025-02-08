@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python List on davidgao7 blog</title>
+    <link>http://localhost:1313/tags/python-list/</link>
+    <description>Recent content in Python List on davidgao7 blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 07 Feb 2025 20:52:49 -0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/python-list/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MaxLength</title>
+      <link>http://localhost:1313/posts/maxlength/</link>
+      <pubDate>Fri, 07 Feb 2025 20:52:49 -0500</pubDate>
+      <guid>http://localhost:1313/posts/maxlength/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;一步一个脚印，现在就是最艰难的时刻，不要懒，不要脸往前冲就行了&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;题目描述&#34;&gt;题目描述&lt;/h2&gt;&#xA;&lt;p&gt;给定一个数组arr， 返回arr的&lt;em&gt;最长&lt;/em&gt; &lt;em&gt;无重复&lt;/em&gt; 子数组的长度，&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;e.g. 1&lt;/p&gt;&#xA;&lt;p&gt;a = [1, 3, 5, 7, 9]&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; sublist: [1, 3]&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; sublist: [3, 5, 7]&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; not a sublist: [1, 3, 7]&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;最长无重复子数组(maxLength)：[1, 3, 5, 7, 9]&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;e.g. 2&lt;/p&gt;&#xA;&lt;p&gt;a = [2, 2, 3, 4, 3]&lt;/p&gt;&#xA;&lt;p&gt;a_max = [2, 3, 4]&lt;/p&gt;&#xA;&lt;p&gt;maxLength = 3&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;题目思路&#34;&gt;题目思路&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;一开始，我看到了&lt;code&gt;无重复&lt;/code&gt;，set不会有重复，但是set不能保证你拿的是连续的，不是连续的也就不能称之为sublist&lt;/li&gt;&#xA;&lt;li&gt;接着，我试了暴力解法，会超时，思路是双指针，右指针没有重复就右移， 有重复左指针向右移动一个防止漏掉前面的可能性&#xA;&lt;ul&gt;&#xA;&lt;li&gt;这个解法缺点是每一次指针移动都要检查答案是否可行，每一次检查又要loop从左指针到右指针，总共需要O(mn), polynomial time.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;首先要无重复， 那么我们一旦找到了重复的数字，由于需要return&lt;strong&gt;连续&lt;/strong&gt;的subarray，我们就只能去掉所有在第一个重复的数的后方的所有元素&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;找到无重复sublist：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; arr:&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; l:&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    l&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pop(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  l&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(i)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;之后我们在考虑怎样得到最长sublist：&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
