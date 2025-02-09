@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Grafana Prometheus // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.143.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Grafana Prometheus">
+  <meta name="twitter:description" content="Preparing install helm, the package manager for Kubernetes web install guide curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 chmod 700 get_helm.sh ./get_helm.sh ➜ homelab git:(master) ✗ ./get_helm.sh Downloading https://get.helm.sh/helm-v3.17.0-linux-amd64.tar.gz Verifying checksum... Done. Preparing to install helm into /usr/local/bin helm installed into /usr/local/bin/helm Prometheus repo get Helm Repo info helm repo add prometheus-community https://prometheus-community.github.io/helm-charts # &#34;prometheus-community&#34; has been added to your repositories helm repo update # Hang tight while we grab the latest from your chart repositories... # ...Successfully got an update from the &#34;prometheus-community&#34; chart repository # Update Complete. ⎈Happy Helming!⎈ see helm repo for command documentation.">
+
+    <meta property="og:url" content="http://localhost:1313/posts/grafana-prometheus/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="Grafana Prometheus">
+  <meta property="og:description" content="Preparing install helm, the package manager for Kubernetes web install guide curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 chmod 700 get_helm.sh ./get_helm.sh ➜ homelab git:(master) ✗ ./get_helm.sh Downloading https://get.helm.sh/helm-v3.17.0-linux-amd64.tar.gz Verifying checksum... Done. Preparing to install helm into /usr/local/bin helm installed into /usr/local/bin/helm Prometheus repo get Helm Repo info helm repo add prometheus-community https://prometheus-community.github.io/helm-charts # &#34;prometheus-community&#34; has been added to your repositories helm repo update # Hang tight while we grab the latest from your chart repositories... # ...Successfully got an update from the &#34;prometheus-community&#34; chart repository # Update Complete. ⎈Happy Helming!⎈ see helm repo for command documentation.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-09T14:10:48-05:00">
+    <meta property="article:modified_time" content="2025-02-09T14:10:48-05:00">
+    <meta property="article:tag" content="Monitor and Logging">
+    <meta property="article:tag" content="K8s">
+    <meta property="article:tag" content="Homelab">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Grafana Prometheus</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Feb 9, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          6 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/monitor-and-logging/">Monitor and Logging</a>
+              <a class="tag" href="/tags/k8s/">K8s</a>
+              <a class="tag" href="/tags/homelab/">Homelab</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="preparing">Preparing</h1>
+<ol start="0">
+<li>install helm, the package manager for Kubernetes</li>
+</ol>
+<ul>
+<li><a href="https://helm.sh/">web</a></li>
+<li><a href="https://helm.sh/docs/intro/install/">install guide</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+</span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">700</span> get_helm.sh
+</span></span><span style="display:flex;"><span>./get_helm.sh
+</span></span></code></pre></div><pre tabindex="0"><code>➜  homelab git:(master) ✗ ./get_helm.sh
+Downloading https://get.helm.sh/helm-v3.17.0-linux-amd64.tar.gz
+Verifying checksum... Done.
+Preparing to install helm into /usr/local/bin
+helm installed into /usr/local/bin/helm
+</code></pre><h1 id="prometheus">Prometheus</h1>
+<ul>
+<li><a href="https://github.com/prometheus-community/helm-charts">repo</a></li>
+</ul>
+<ol>
+<li>get Helm Repo info</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  &#34;prometheus-community&#34; has been added to your repositories</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>helm repo update
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Hang tight while we grab the latest from your chart repositories...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ...Successfully got an update from the &#34;prometheus-community&#34; chart repository</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update Complete. ⎈Happy Helming!⎈</span>
+</span></span></code></pre></div><p>see <a href="https://helm.sh/docs/helm/helm_repo/">helm repo</a> for command documentation.</p>
+<ol start="2">
+<li>install Helm Chart</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>helm install prometheus-stack prometheus-community/kube-prometheus-stack --namespace<span style="color:#f92672">=</span>prometheus-stack --create-namespace
+</span></span></code></pre></div><p>[!NOTE] it will take a little while for pulling all the images and deploy the stack.</p>
+<p>we get this logs</p>
+<pre tabindex="0"><code>NAME: prometheus-stack
+LAST DEPLOYED: Sun Feb  9 15:21:28 2025
+NAMESPACE: prometheus-stack
+STATUS: deployed
+REVISION: 1
+NOTES:
+kube-prometheus-stack has been installed. Check its status by running:
+  kubectl --namespace prometheus-stack get pods -l &#34;release=prometheus-stack&#34;
+
+Get Grafana &#39;admin&#39; user password by running:
+
+  kubectl --namespace prometheus-stack get secrets prometheus-stack-grafana -o jsonpath=&#34;{.data.admin-password}&#34; | base64 -d ; echo
+
+Access Grafana local instance:
+
+  export POD_NAME=$(kubectl --namespace prometheus-stack get pod -l &#34;app.kubernetes.io/name=grafana,app.kubernetes.io/instance=prometheus-stack&#34; -oname)
+  kubectl --namespace prometheus-stack port-forward $POD_NAME 3000
+
+Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create &amp; configure Alertmanager and Prometheus instances using the Operator.
+</code></pre><p>check the pods</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  homelab git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k get pods -A
+</span></span><span style="display:flex;"><span>NAMESPACE          NAME                                                     READY   STATUS      RESTARTS   AGE
+</span></span><span style="display:flex;"><span>kube-system        coredns-ccb96694c-nfrc2                                  1/1     Running     <span style="color:#ae81ff">0</span>          3d16h
+</span></span><span style="display:flex;"><span>kube-system        helm-install-traefik-crd-crhbv                           0/1     Completed   <span style="color:#ae81ff">0</span>          3d16h
+</span></span><span style="display:flex;"><span>kube-system        helm-install-traefik-xgfhp                               0/1     Completed   <span style="color:#ae81ff">1</span>          3d16h
+</span></span><span style="display:flex;"><span>kube-system        local-path-provisioner-5cf85fd84d-qhh75                  1/1     Running     <span style="color:#ae81ff">0</span>          3d16h
+</span></span><span style="display:flex;"><span>kube-system        metrics-server-5985cbc9d7-bkj84                          1/1     Running     <span style="color:#ae81ff">0</span>          3d16h
+</span></span><span style="display:flex;"><span>kube-system        svclb-traefik-96f1ad5e-6qm9c                             2/2     Running     <span style="color:#ae81ff">0</span>          3d16h
+</span></span><span style="display:flex;"><span>kube-system        traefik-5d45fc8cc9-q92qs                                 1/1     Running     <span style="color:#ae81ff">0</span>          3d16h
+</span></span><span style="display:flex;"><span>prometheus-stack   alertmanager-prometheus-stack-kube-prom-alertmanager-0   2/2     Running     <span style="color:#ae81ff">0</span>          2m26s
+</span></span><span style="display:flex;"><span>prometheus-stack   prometheus-prometheus-stack-kube-prom-prometheus-0       2/2     Running     <span style="color:#ae81ff">0</span>          2m24s
+</span></span><span style="display:flex;"><span>prometheus-stack   prometheus-stack-grafana-7844ccdbcc-x8v5x                3/3     Running     <span style="color:#ae81ff">0</span>          2m39s
+</span></span><span style="display:flex;"><span>prometheus-stack   prometheus-stack-kube-prom-operator-56b7b87469-wq72b     1/1     Running     <span style="color:#ae81ff">0</span>          2m39s
+</span></span><span style="display:flex;"><span>prometheus-stack   prometheus-stack-kube-state-metrics-68c4998c7c-plnvw     1/1     Running     <span style="color:#ae81ff">0</span>          2m39s
+</span></span><span style="display:flex;"><span>prometheus-stack   prometheus-stack-prometheus-node-exporter-nq62g          1/1     Running     <span style="color:#ae81ff">0</span>          2m40s
+</span></span></code></pre></div><p>all pods running , good, also shows in <code>k9s</code></p>
+<p>check services, but couldn&rsquo;t find corresponding port-forward for webs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  homelab git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k get svc
+</span></span><span style="display:flex;"><span>NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>   AGE
+</span></span><span style="display:flex;"><span>kubernetes   ClusterIP   10.43.0.1    &lt;none&gt;        443/TCP   3d16h
+</span></span></code></pre></div><ol>
+<li>Verify Services in the <code>prometheus-stack</code> namespace:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  homelab git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k get svc -n prometheus-stack
+</span></span><span style="display:flex;"><span>NAME                                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>                      AGE
+</span></span><span style="display:flex;"><span>alertmanager-operated                       ClusterIP   None            &lt;none&gt;        9093/TCP,9094/TCP,9094/UDP   20m
+</span></span><span style="display:flex;"><span>prometheus-operated                         ClusterIP   None            &lt;none&gt;        9090/TCP                     20m
+</span></span><span style="display:flex;"><span>prometheus-stack-grafana                    ClusterIP   10.43.125.73    &lt;none&gt;        80/TCP                       21m
+</span></span><span style="display:flex;"><span>prometheus-stack-kube-prom-alertmanager     ClusterIP   10.43.187.60    &lt;none&gt;        9093/TCP,8080/TCP            21m
+</span></span><span style="display:flex;"><span>prometheus-stack-kube-prom-operator         ClusterIP   10.43.206.139   &lt;none&gt;        443/TCP                      21m
+</span></span><span style="display:flex;"><span>prometheus-stack-kube-prom-prometheus       ClusterIP   10.43.147.195   &lt;none&gt;        9090/TCP,8080/TCP            21m
+</span></span><span style="display:flex;"><span>prometheus-stack-kube-state-metrics         ClusterIP   10.43.127.173   &lt;none&gt;        8080/TCP                     21m
+</span></span><span style="display:flex;"><span>prometheus-stack-prometheus-node-exporter   ClusterIP   10.43.61.250    &lt;none&gt;        9100/TCP                     21m
+</span></span></code></pre></div><ol start="2">
+<li>In order to access grafana and prometheus, need to configure port forwading to expose services externally</li>
+</ol>
+<p>Since you are running <strong>K3s on a single Azure VM (<code>74.235.202.213</code>)</strong>, and you want to <strong>expose Prometheus and Grafana</strong> externally, follow these steps:</p>
+<hr>
+<h2 id="-step-1-check-the-current-service-types"><strong>🔹 Step 1: Check the Current Service Types</strong></h2>
+<p>Since you&rsquo;re running K3s <strong>on a single VM</strong>, the default <strong>service type is <code>ClusterIP</code></strong>, which means <strong>services are only accessible inside the cluster</strong>.</p>
+<p>Since both services are <strong>ClusterIP</strong>, they are <strong>not accessible externally</strong>. We need to change this.</p>
+<h2 id="-step-2-change-the-service-type-to-nodeport"><strong>🔹 Step 2: Change the Service Type to NodePort</strong></h2>
+<p>We need to expose the services on the VM’s public IP.</p>
+<p>Run these commands to modify the service types:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl patch svc prometheus-stack-grafana -n prometheus-stack -p <span style="color:#e6db74">&#39;{&#34;spec&#34;: {&#34;type&#34;: &#34;NodePort&#34;}}&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># service/prometheus-stack-grafana patched</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kubectl patch svc prometheus-stack-kube-prom-prometheus -n prometheus-stack -p <span style="color:#e6db74">&#39;{&#34;spec&#34;: {&#34;type&#34;: &#34;NodePort&#34;}}&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># service/prometheus-stack-kube-prom-prometheus patched</span>
+</span></span></code></pre></div><p>Now, check the new ports assigned:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  homelab git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k get svc -n prometheus-stack | grep -E <span style="color:#e6db74">&#34;(grafana|kube-prom)&#34;</span>
+</span></span><span style="display:flex;"><span>prometheus-stack-grafana                    NodePort    10.43.125.73    &lt;none&gt;        80:32749/TCP                    86m
+</span></span><span style="display:flex;"><span>prometheus-stack-kube-prom-alertmanager     ClusterIP   10.43.187.60    &lt;none&gt;        9093/TCP,8080/TCP               86m
+</span></span><span style="display:flex;"><span>prometheus-stack-kube-prom-operator         ClusterIP   10.43.206.139   &lt;none&gt;        443/TCP                         86m
+</span></span><span style="display:flex;"><span>prometheus-stack-kube-prom-prometheus       NodePort    10.43.147.195   &lt;none&gt;        9090:32373/TCP,8080:31385/TCP   86m
+</span></span></code></pre></div><ul>
+<li><code>Grafana</code>: accessible on <a href="http://74.235.202.213:32749">74.235.202.213:32749</a></li>
+<li><code>Prometheus</code>: accessible on <a href="http://74.235.202.213:32373">74.235.202.213:32373</a></li>
+</ul>
+<p>but we couldn&rsquo;t access them yet, we need to <strong>open the ports in Azure Firewall</strong></p>
+<h2 id="-step-3-open-the-ports-in-azure-firewall"><strong>🔹 Step 3: Open the Ports in Azure Firewall</strong></h2>
+<p>Your <strong>Azure VM</strong> has an <strong>NSG (Network Security Group)</strong> that blocks external traffic <strong>by default</strong>.<br>
+You need to <strong>allow</strong> incoming connections on these ports.</p>
+<h4 id="-open-nodeports-in-azure-portal"><strong>✅ Open NodePorts in Azure Portal</strong></h4>
+<ol>
+<li><strong>Go to</strong> <a href="https://portal.azure.com/">Azure Portal</a></li>
+<li><strong>Navigate to</strong>: <strong>Virtual Machines</strong> → <strong>Your VM (<code>74.235.202.213</code>)</strong></li>
+<li><strong>Go to</strong>: <strong>Networking</strong></li>
+<li><strong>Click</strong>: <strong>&ldquo;Add inbound port rule&rdquo;</strong>
+<ul>
+<li><strong>Source:</strong> Any</li>
+<li><strong>Protocol:</strong> TCP</li>
+<li><strong>Destination Port range:</strong> <strong>32749, 32373</strong> (Grafana &amp; Prometheus ports)</li>
+<li><strong>Action:</strong> Allow</li>
+<li><strong>Priority:</strong> Keep default</li>
+<li><strong>Name:</strong> <code>Allow-Grafana-Prometheus</code></li>
+</ul>
+</li>
+<li><strong>Click &ldquo;Save&rdquo;</strong></li>
+</ol>
+<p>💡 <strong>Key Takeaway</strong>:</p>
+<ul>
+<li><strong>Source Port Range</strong> refers to the port <strong>on the client machine</strong> (browser or CLI).
+<ul>
+<li>You <strong>do NOT</strong> need to specify this (leave it <code>Any</code> or <code>*</code>).</li>
+</ul>
+</li>
+<li><strong>Destination Port Range</strong> refers to the port <strong>on your Azure VM</strong> (the NodePorts).
+<ul>
+<li>You <strong>MUST</strong> specify this to allow external access.</li>
+</ul>
+</li>
+</ul>
+<p>Now, you should be able to access:</p>
+<ul>
+<li><strong>Grafana:</strong> <a href="http://74.235.202.213:32749"><code>http://74.235.202.213:32749</code></a></li>
+</ul>
+<p><img src="/images/Grafana-deployed.png" alt="grafana"></p>
+<ul>
+<li><strong>Prometheus:</strong> <a href="http://74.235.202.213:32373"><code>http://74.235.202.213:32373</code></a></li>
+</ul>
+<p><img src="/images/Prometheus-deployed.png" alt="Prometheus"></p>
+<hr>
+<h3 id="-step-3-access-grafana--prometheus"><strong>🔹 Step 3: Access Grafana &amp; Prometheus</strong></h3>
+<p>Once the firewall rules are applied, you should be able to access the services using your browser:</p>
+<ul>
+<li><strong>Grafana:</strong> 👉 <a href="http://74.235.202.213:32749"><code>http://74.235.202.213:32749</code></a></li>
+<li><strong>Prometheus:</strong> 👉 <a href="http://74.235.202.213:32373"><code>http://74.235.202.213:32373</code></a></li>
+</ul>
+<p>If you get <strong>connection timeouts</strong>, wait a few minutes and double-check:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get svc -n prometheus-stack | grep -E <span style="color:#e6db74">&#34;(grafana|kube-prom)&#34;</span>
+</span></span></code></pre></div><p>Also, make sure the ports are actually open using:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -zv 74.235.202.213 <span style="color:#ae81ff">32749</span>  <span style="color:#75715e"># Check Grafana</span>
+</span></span><span style="display:flex;"><span>nc -zv 74.235.202.213 <span style="color:#ae81ff">32373</span>  <span style="color:#75715e"># Check Prometheus</span>
+</span></span></code></pre></div><p>Congragulations, now you&rsquo;ve install the Grafana, Prometheus on your cluster and ready to go! 💃</p>
+<h1 id="change-the-password-for-grafana-and-prometheus">Change the password for Grafana and Prometheus</h1>
+<ol>
+<li>retrieve current admin password for Grafana</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl --namespace prometheus-stack get secrets prometheus-stack-grafana -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.data.admin-password}&#34;</span> | base64 -d ; echo
+</span></span></code></pre></div><p>we get the default password for Grafana: <code>prom-operator</code></p>
+<ol start="2">
+<li>By default, Prometheus does not enforce authentication, meaning it doesn&rsquo;t require a username or password to access its web interface.</li>
+</ol>
+<p>To manually change Grafana&rsquo;s password, you need to log in to the Grafana pod and use the grafana-cli tool.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl exec -it -n prometheus-stack <span style="color:#66d9ef">$(</span>kubectl get pod -n prometheus-stack -l <span style="color:#e6db74">&#34;app.kubernetes.io/name=grafana&#34;</span> -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.items[0].metadata.name}&#34;</span><span style="color:#66d9ef">)</span> -- grafana-cli admin reset-admin-password NEW_PASSWORD
+</span></span></code></pre></div><p>Replace <code>NEW_PASSWORD</code> with your desired password.</p>
+<p>You will get something like this:</p>
+<pre tabindex="0"><code>Deprecation warning: The standalone &#39;grafana-cli&#39; program is deprecated and will be removed in the future. Please update all uses of &#39;grafana-cli&#39; to &#39;grafana cli&#39;
+INFO [02-09|18:24:36] Starting Grafana                         logger=settings version=11.5.1 commit=cf5be984b088b9d51690b474ab63ca86ff branch=HEAD compiled=2025-02-09T18:24:36Z
+INFO [02-09|18:24:36] Config loaded from                       logger=settings file=/usr/share/grafana/conf/defaults.ini
+INFO [02-09|18:24:36] Config overridden from Environment variable logger=settings var=&#34;GF_PATHS_DATA=/var/lib/grafana/&#34;
+INFO [02-09|18:24:36] Config overridden from Environment variable logger=settings var=&#34;GF_PATHS_LOGS=/var/log/grafana&#34;
+INFO [02-09|18:24:36] Config overridden from Environment variable logger=settings var=&#34;GF_PATHS_PLUGINS=/var/lib/grafana/plugins&#34;
+INFO [02-09|18:24:36] Config overridden from Environment variable logger=settings var=&#34;GF_PATHS_PROVISIONING=/etc/grafana/provisioning&#34;
+INFO [02-09|18:24:36] Config overridden from Environment variable logger=settings var=&#34;GF_SECURITY_ADMIN_USER=admin&#34;
+INFO [02-09|18:24:36] Config overridden from Environment variable logger=settings var=&#34;GF_SECURITY_ADMIN_PASSWORD=*********&#34;
+INFO [02-09|18:24:36] Target                                   logger=settings target=[all]
+INFO [02-09|18:24:36] Path Home                                logger=settings path=/usr/share/grafana
+INFO [02-09|18:24:36] Path Data                                logger=settings path=/var/lib/grafana/
+INFO [02-09|18:24:36] Path Logs                                logger=settings path=/var/log/grafana
+INFO [02-09|18:24:36] Path Plugins                             logger=settings path=/var/lib/grafana/plugins
+INFO [02-09|18:24:36] Path Provisioning                        logger=settings path=/etc/grafana/provisioning
+INFO [02-09|18:24:36] App mode production                      logger=settings
+INFO [02-09|18:24:36] FeatureToggles                           logger=featuremgmt reportingUseRawTimeRange=true alertingNoDataErrorExecution=true pinNavItems=true userStorageAPI=true lokiQueryHints=true dataplaneFrontendFallback=true accessControlOnCall=true publicDashboardsScene=true lokiStructuredMetadata=true angularDeprecationUI=true dashgpt=true openSearchBackendFlowEnabled=true annotationPermissionUpdate=true managedPluginsInstall=true formatString=true panelMonitoring=true newFiltersUI=true lokiQuerySplitting=true lokiLabelNamesQueryApi=true transformationsVariableSupport=true groupToNestedTableTransformation=true transformationsRedesign=true azureMonitorEnableUserAuth=true recordedQueriesMulti=true newDashboardSharingComponent=true addFieldFromCalculationStatFunctions=true alertingApiServer=true logsContextDatasourceUi=true cloudWatchCrossAccountQuerying=true alertingUIOptimizeReducer=true onPremToCloudMigrations=true prometheusAzureOverrideAudience=true correlations=true logsExploreTableVisualisation=true dashboardSceneForViewers=true ssoSettingsApi=true useSessionStorageForRedirection=true recoveryThreshold=true cloudWatchRoundUpEndTime=true dashboardSceneSolo=true dashboardScene=true tlsMemcached=true logsInfiniteScrolling=true influxdbBackendMigration=true promQLScope=true kubernetesPlaylists=true accessActionSets=true newPDFRendering=true zipkinBackendMigration=true awsAsyncQueryCaching=true preinstallAutoUpdate=true nestedFolders=true unifiedRequestLog=true alertingSimplifiedRouting=true logRowsPopoverMenu=true cloudWatchNewLabelParsing=true alertingInsights=true exploreMetrics=true
+INFO [02-09|18:24:36] Connecting to DB                         logger=sqlstore dbtype=sqlite3
+INFO [02-09|18:24:36] Locking database                         logger=migrator
+INFO [02-09|18:24:36] Starting DB migrations                   logger=migrator
+INFO [02-09|18:24:36] migrations completed                     logger=migrator performed=0 skipped=629 duration=1.843411ms
+INFO [02-09|18:24:36] Unlocking database                       logger=migrator
+INFO [02-09|18:24:36] Envelope encryption state                logger=secrets enabled=true current provider=secretKey.v1
+
+Admin password changed successfully ✔
+</code></pre><p>They have some default dashboard and trace options, here are the examples:</p>
+<p><img src="/images/example-Grafana-k8s-networking-dashboard.png" alt="Grafana Live Dashboard"></p>
+<p><img src="/images/example-Prometheus-times-series.png" alt="Prometheus Time Series Live Dashboard"></p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
