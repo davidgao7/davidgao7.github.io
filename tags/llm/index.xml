@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Llm on davidgao7 blog</title>
+    <link>http://localhost:1313/tags/llm/</link>
+    <description>Recent content in Llm on davidgao7 blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 14 Feb 2025 15:19:01 -0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Local Rag Ollama</title>
+      <link>http://localhost:1313/posts/local-rag-ollama/</link>
+      <pubDate>Fri, 14 Feb 2025 15:19:01 -0500</pubDate>
+      <guid>http://localhost:1313/posts/local-rag-ollama/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
