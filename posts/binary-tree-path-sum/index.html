@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
     <title>Binary Tree Path Sum // davidgao7 blog</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
@@ -107,7 +108,7 @@ Given a graph G = (V,E) and a distinguished source vertex s, breadth-first searc
 <blockquote>
 <p>Given a graph G = (V,E) and a distinguished <strong>source</strong> vertex s, breadth-first search systematically explores the edges of G to &lsquo;discover&rsquo; every vertex that is <strong>reachable</strong> from s.</p></blockquote>
 <p>“找到能通向罗马的所有路”</p>
-<p><!-- raw HTML omitted -->BFS作用：<!-- raw HTML omitted --> For any vertex v reachable from s, the simple path in the breadth-first tree from s to v corresponds to a <strong>shortest path</strong> from s to v in G.</p>
+<p><font color=red>BFS作用：</font> For any vertex v reachable from s, the simple path in the breadth-first tree from s to v corresponds to a <strong>shortest path</strong> from s to v in G.</p>
 <p>Here is how bfs process</p>
 <p><img src="/images/BFS-Process.png" alt="bfs mov"></p>
 <p>BFS逻辑思路：</p>
@@ -125,7 +126,7 @@ BFS: O(V+E)
 <p>如果有一些没有找到的vertices， dfs 继续选择另一个vertex当作source， 继续重复dfs</p></blockquote>
 <blockquote>
 <p>DFS 一直重复到它发现了所有的 vertex</p></blockquote>
-<p><!-- raw HTML omitted -->DFS作用：<!-- raw HTML omitted --></p>
+<p><font color=red>DFS作用：</font></p>
 <p>Here is how dfs process</p>
 <p><img src="/images/DFS-Process.png" alt="dfs mov"></p>
 <p>DFS逻辑：</p>

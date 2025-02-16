@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
     <title>BinaryTree Output Levely // davidgao7 blog</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
@@ -19,7 +20,8 @@
 e.g. Given binary tree: {3,9,20,#,#,15,7}， 在code里是OOP的Tree来写的
 T = TreeNode(3) T.left = TreeNode(9) T.right = TreeNode(20) T.right.left = TreeNode(15) T.right.right = TreeNode(7) in order traversal result:
 [ [3], [9, 20], [15, 7] ] 需要注意TreeNode的定义，没有child的情况child为None.
-题目思路 无论何时都得照顾好base case 如果给的tree结构里一个node也没有，我们不用担心什么，直接return 空[] class Solution: def levelOrder(self, root): if not root: return [] 之后， 我们用python list.pop(index=)来拿到我们想要的current node。 注意一下 pop() 和 pop(0) 的区别 pop() 是取list中最后一个元素 pop(0) 是取list中1st元素 &gt;&gt;&gt; a = [1,2,3] &gt;&gt;&gt; print(a.pop()) 3 &gt;&gt;&gt; print(a.pop(0)) 1 &gt;&gt;&gt; Note: 平时用不太熟悉的语言时遇到不确定的语法可以到terminal上玩一下当作测试，也节省了上网查找浪费的时间">
+题目思路 无论何时都得照顾好base case 如果给的tree结构里一个node也没有，我们不用担心什么，直接return 空[] class Solution: def levelOrder(self, root): if not root: return [] 之后， 我们用python list.pop(index=)来拿到我们想要的current node。 注意一下 pop() 和 pop(0) 的区别 pop() 是取list中最后一个元素 pop(0) 是取list中1st元素 &gt;&gt;&gt; a = [1,2,3] &gt;&gt;&gt; print(a.pop()) 3 &gt;&gt;&gt; print(a.pop(0)) 1 &gt;&gt;&gt; Note: 平时用不太熟悉的语言时遇到不确定的语法可以到terminal上玩一下当作测试，也节省了上网查找浪费的时间
+注意append node的顺序，我们首先append left child 然后 right child， 因为我们是被要求一层一层从左到右存放的 if curnode.left: queue.append(curnode.left) if curnode.right: queue.append(curnode.right) 这个过程是在遍历时先去左边的树再去右边的。按照题目规定每层print时要从左往右储存。">
 
     <meta property="og:url" content="http://localhost:1313/posts/binarytree-output-levely/">
   <meta property="og:site_name" content="davidgao7 blog">
@@ -28,7 +30,8 @@ T = TreeNode(3) T.left = TreeNode(9) T.right = TreeNode(20) T.right.left = TreeN
 e.g. Given binary tree: {3,9,20,#,#,15,7}， 在code里是OOP的Tree来写的
 T = TreeNode(3) T.left = TreeNode(9) T.right = TreeNode(20) T.right.left = TreeNode(15) T.right.right = TreeNode(7) in order traversal result:
 [ [3], [9, 20], [15, 7] ] 需要注意TreeNode的定义，没有child的情况child为None.
-题目思路 无论何时都得照顾好base case 如果给的tree结构里一个node也没有，我们不用担心什么，直接return 空[] class Solution: def levelOrder(self, root): if not root: return [] 之后， 我们用python list.pop(index=)来拿到我们想要的current node。 注意一下 pop() 和 pop(0) 的区别 pop() 是取list中最后一个元素 pop(0) 是取list中1st元素 &gt;&gt;&gt; a = [1,2,3] &gt;&gt;&gt; print(a.pop()) 3 &gt;&gt;&gt; print(a.pop(0)) 1 &gt;&gt;&gt; Note: 平时用不太熟悉的语言时遇到不确定的语法可以到terminal上玩一下当作测试，也节省了上网查找浪费的时间">
+题目思路 无论何时都得照顾好base case 如果给的tree结构里一个node也没有，我们不用担心什么，直接return 空[] class Solution: def levelOrder(self, root): if not root: return [] 之后， 我们用python list.pop(index=)来拿到我们想要的current node。 注意一下 pop() 和 pop(0) 的区别 pop() 是取list中最后一个元素 pop(0) 是取list中1st元素 &gt;&gt;&gt; a = [1,2,3] &gt;&gt;&gt; print(a.pop()) 3 &gt;&gt;&gt; print(a.pop(0)) 1 &gt;&gt;&gt; Note: 平时用不太熟悉的语言时遇到不确定的语法可以到terminal上玩一下当作测试，也节省了上网查找浪费的时间
+注意append node的顺序，我们首先append left child 然后 right child， 因为我们是被要求一层一层从左到右存放的 if curnode.left: queue.append(curnode.left) if curnode.right: queue.append(curnode.right) 这个过程是在遍历时先去左边的树再去右边的。按照题目规定每层print时要从左往右储存。">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -121,7 +124,7 @@ T = TreeNode(3) T.left = TreeNode(9) T.right = TreeNode(20) T.right.left = TreeN
 &gt;&gt;&gt;
 </code></pre></li>
 </ul>
-<p><!-- raw HTML omitted -->Note: <!-- raw HTML omitted -->
+<p><font color=green>Note: </font>
 平时用不太熟悉的语言时遇到不确定的语法可以到terminal上玩一下当作测试，也节省了上网查找浪费的时间</p>
 <ul>
 <li>注意append node的顺序，我们首先append left child 然后 right child， 因为我们是被要求一层一层从左到右存放的</li>
@@ -129,9 +132,9 @@ T = TreeNode(3) T.left = TreeNode(9) T.right = TreeNode(20) T.right.left = TreeN
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>left: queue<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>left)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>right: queue<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>right)
 </span></span></code></pre></div><p>这个过程是在遍历时先去左边的树再去右边的。按照题目规定<strong>每层</strong>print时要从左往右储存。</p>
-<p>问：怎样解决每层打印/储存的？<!-- raw HTML omitted -->
-答：while loop的发动条件是quene里还有东西(听起来像打开反击陷阱&hellip;)，如果有，就遍历quene长度的次数<!-- raw HTML omitted -->
-quene就pop第0个， 把这个node的值保存。 <!-- raw HTML omitted --></p>
+<p>问：怎样解决每层打印/储存的？<br/>
+答：while loop的发动条件是quene里还有东西(听起来像打开反击陷阱&hellip;)，如果有，就遍历quene长度的次数<br/>
+quene就pop第0个， 把这个node的值保存。 <br/></p>
 <p>在这一block我们专注解决一层, 连起来看看我们在干嘛</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>length <span style="color:#f92672">=</span> len(quene)
 </span></span><span style="display:flex;"><span>in_list <span style="color:#f92672">=</span> []
@@ -168,7 +171,7 @@ quene就pop第0个， 把这个node的值保存。 <!-- raw HTML omitted --></p>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>left: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>left) <span style="color:#75715e"># first store left then right, same with in order</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> curnode<span style="color:#f92672">.</span>right: quene<span style="color:#f92672">.</span>append(curnode<span style="color:#f92672">.</span>right)
 </span></span><span style="display:flex;"><span>out_list<span style="color:#f92672">.</span>append(in_list)
-</span></span></code></pre></div><p>层序遍历逻辑结束了，那么如何确定程序结束条件呢？<!-- raw HTML omitted -->
+</span></span></code></pre></div><p>层序遍历逻辑结束了，那么如何确定程序结束条件呢？</br>
 答： 在python里，当[]是空的可以直接退出loop（真方便。。）</p>
 <p>接着就得到遍历结果了</p>
 <h2 id="类似题目">类似题目</h2>

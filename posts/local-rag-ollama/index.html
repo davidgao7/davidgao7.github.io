@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
     <title>Local Rag Ollama // davidgao7 blog</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
@@ -882,7 +883,7 @@ It is a known issue of the release version: <a href="https://github.com/apache/a
       <tr>
           <td><strong>embedding_cache_config</strong></td>
           <td><code>dict</code></td>
-          <td>Configuration for question-answer caching. Contains three parameters:<!-- raw HTML omitted -->- <code>enabled</code>: Boolean value to enable/disable cache lookup functionality. When enabled, the system will check cached responses before generating new answers.<!-- raw HTML omitted -->- <code>similarity_threshold</code>: Float value (0-1), similarity threshold. When a new question&rsquo;s similarity with a cached question exceeds this threshold, the cached answer will be returned directly without calling the LLM.<!-- raw HTML omitted -->- <code>use_llm_check</code>: Boolean value to enable/disable LLM similarity verification. When enabled, LLM will be used as a secondary check to verify the similarity between questions before returning cached answers.</td>
+          <td>Configuration for question-answer caching. Contains three parameters:<br>- <code>enabled</code>: Boolean value to enable/disable cache lookup functionality. When enabled, the system will check cached responses before generating new answers.<br>- <code>similarity_threshold</code>: Float value (0-1), similarity threshold. When a new question&rsquo;s similarity with a cached question exceeds this threshold, the cached answer will be returned directly without calling the LLM.<br>- <code>use_llm_check</code>: Boolean value to enable/disable LLM similarity verification. When enabled, LLM will be used as a secondary check to verify the similarity between questions before returning cached answers.</td>
           <td>Default: <code>{&quot;enabled&quot;: False, &quot;similarity_threshold&quot;: 0.95, &quot;use_llm_check&quot;: False}</code></td>
       </tr>
       <tr>

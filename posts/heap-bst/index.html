@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
     <title>Heap Bst // davidgao7 blog</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
@@ -17,14 +18,18 @@
   <meta name="twitter:title" content="Heap Bst">
   <meta name="twitter:description" content="Binary Search Tree vs. Heap Can’t remember what’s the difference between heap &amp; BST all the sudden…
 What we should know Definition Big-O complexity Definition Binary Search Tree is a data structure that allows for fast insertion, removal, and lookup of items while offering an efficient way to iterate them in sorted order
-Heap is a complete binary tree">
+Heap is a complete binary tree
+What is a complete binary tree?
+A complete binary tree is a balanced binary tree">
 
     <meta property="og:url" content="http://localhost:1313/posts/heap-bst/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="Heap Bst">
   <meta property="og:description" content="Binary Search Tree vs. Heap Can’t remember what’s the difference between heap &amp; BST all the sudden…
 What we should know Definition Big-O complexity Definition Binary Search Tree is a data structure that allows for fast insertion, removal, and lookup of items while offering an efficient way to iterate them in sorted order
-Heap is a complete binary tree">
+Heap is a complete binary tree
+What is a complete binary tree?
+A complete binary tree is a balanced binary tree">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -85,30 +90,30 @@ Heap is a complete binary tree">
 </ul>
 <h2 id="definition">Definition</h2>
 <blockquote>
-<p><!-- raw HTML omitted -->Binary Search Tree<!-- raw HTML omitted --> is a data structure that allows for fast <strong>insertion</strong>, <strong>removal</strong>, and <strong>lookup</strong> of items while offering an <em>efficient</em> way to iterate them in <em>sorted</em> order</p></blockquote>
+<p><font color=red>Binary Search Tree</font> is a data structure that allows for fast <strong>insertion</strong>, <strong>removal</strong>, and <strong>lookup</strong> of items while offering an <em>efficient</em> way to iterate them in <em>sorted</em> order</p></blockquote>
 <blockquote>
-<p><!-- raw HTML omitted -->Heap<!-- raw HTML omitted --> is a <strong>complete</strong> binary tree</p></blockquote>
+<p><font color=red>Heap</font> is a <strong>complete</strong> binary tree</p></blockquote>
 <p>What is a <code>complete binary tree</code>?</p>
 <blockquote>
-<p>A <!-- raw HTML omitted -->complete<!-- raw HTML omitted --> binary tree is a <strong>balanced</strong> binary tree</p></blockquote>
+<p>A <font color=red>complete</font> binary tree is a <strong>balanced</strong> binary tree</p></blockquote>
 <p>What is a <code>balanced binary tree</code>?</p>
 <blockquote>
-<p>A <!-- raw HTML omitted -->balanced<!-- raw HTML omitted --> <a href="https://leetcode.com/problems/balanced-binary-tree">binary tree has its left and right subtrees of every node differ in height by no more than 1</a></p></blockquote>
+<p>A <font color=red>balanced</font> <a href="https://leetcode.com/problems/balanced-binary-tree">binary tree has its left and right subtrees of every node differ in height by no more than 1</a></p></blockquote>
 <p>What is tree&rsquo;s <code>height</code> / <code>depth</code>?</p>
 <blockquote>
 <p>The <strong>depth</strong> of a node is the number of edges from the node to tree&rsquo;s root node</p></blockquote>
 <ul>
-<li>The <!-- raw HTML omitted -->root<!-- raw HTML omitted --> node will have a depth of <!-- raw HTML omitted -->0<!-- raw HTML omitted --></li>
+<li>The <font color=blue>root</font> node will have a depth of <font color=red>0</font></li>
 </ul>
 <blockquote>
-<p>The <strong>height</strong> of a node is the number of edges on hte <em>longest</em> path from the <!-- raw HTML omitted -->node<!-- raw HTML omitted --> to <!-- raw HTML omitted -->a leaf<!-- raw HTML omitted --></p></blockquote>
+<p>The <strong>height</strong> of a node is the number of edges on hte <em>longest</em> path from the <font color=red>node</font> to <font color=red>a leaf</font></p></blockquote>
 <ul>
-<li>A <!-- raw HTML omitted -->leaf<!-- raw HTML omitted --> node will have a height of <!-- raw HTML omitted -->0<!-- raw HTML omitted --></li>
+<li>A <font color=blue>leaf</font> node will have a height of <font color=red>0</font></li>
 </ul>
 <h2 id="complexity">Complexity</h2>
 <h3 id="binary-search-tree">binary search tree</h3>
 <ul>
-<li><code>Lookup</code>, <code>insertion</code>, <code>removal</code> : <!-- raw HTML omitted -->O(logn)<!-- raw HTML omitted --> since we can discard half of the tree at each step, according to the input value being greater or less than the one in the current node
+<li><code>Lookup</code>, <code>insertion</code>, <code>removal</code> : <font color=red>O(logn)</font> since we can discard half of the tree at each step, according to the input value being greater or less than the one in the current node
 <ul>
 <li>
 <p>Lookup
@@ -120,7 +125,7 @@ Heap is a complete binary tree">
 </li>
 <li>
 <p>Traversal</p>
-<p><!-- raw HTML omitted -->O(n)<!-- raw HTML omitted --> &ndash;&gt; n nodes in the tree, each one of them only visited once</p>
+<p><font color=red>O(n)</font> &ndash;&gt; n nodes in the tree, each one of them only visited once</p>
 </li>
 </ul>
 </li>

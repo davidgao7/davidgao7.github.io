@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
     <title>SVM // davidgao7 blog</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
@@ -16,13 +17,13 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="SVM">
   <meta name="twitter:description" content="Support Vector Machine (Classifier) suggest readings:
-Alpaydin: 10.3, 13.1, 13.2 Murphy: 14.5.2.2 Geron: chapter 5, appendix C Alpaydin 阅读笔记 Geometry of the Linear Discriminant （线性可区分的图像） 从一个简单的 two classes 情况开始解析，在这种情况下，单个的区分方程已经足够： Discriminant between two classes: $$ \begin{equation}\label{Discriminant_between_two_classes} \begin{split} g(\chi) &amp;= g_1(\chi) - g_2(\chi)\ &amp;= ((w_1)^T\chi &#43; w_{10}) - ((w_2)^T\chi &#43; w_{20})\ &amp;= (w_1 - w_2)^T\chi &#43; (w_{10} - w_{20})\ &amp;= w^T\chi &#43; w_0 \end{split} \end{equation} $$ we choose $$ \left. \begin{matrix} C_1,\text{ }g(\chi) &gt; 0\ C_2,\text{ }otherwise \end{matrix} \right} $$ weight vector threshold">
+Alpaydin: 10.3, 13.1, 13.2 Murphy: 14.5.2.2 Geron: chapter 5, appendix C Alpaydin 阅读笔记 Geometry of the Linear Discriminant （线性可区分的图像） 从一个简单的 two classes 情况开始解析，在这种情况下，单个的区分方程已经足够： Discriminant between two classes: $$ \begin{equation}\label{Discriminant_between_two_classes} \begin{split} g(\chi) &amp;= g_1(\chi) - g_2(\chi)\\ &amp;= ((w_1)^T\chi &#43; w_{10}) - ((w_2)^T\chi &#43; w_{20})\\ &amp;= (w_1 - w_2)^T\chi &#43; (w_{10} - w_{20})\\ &amp;= w^T\chi &#43; w_0 \end{split} \end{equation} $$ we choose $$ \left. \begin{matrix} C_1,\text{ }g(\chi) &gt; 0\\ C_2,\text{ }otherwise \end{matrix} \right\} $$ weight vector threshold">
 
     <meta property="og:url" content="http://localhost:1313/posts/svm/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="SVM">
   <meta property="og:description" content="Support Vector Machine (Classifier) suggest readings:
-Alpaydin: 10.3, 13.1, 13.2 Murphy: 14.5.2.2 Geron: chapter 5, appendix C Alpaydin 阅读笔记 Geometry of the Linear Discriminant （线性可区分的图像） 从一个简单的 two classes 情况开始解析，在这种情况下，单个的区分方程已经足够： Discriminant between two classes: $$ \begin{equation}\label{Discriminant_between_two_classes} \begin{split} g(\chi) &amp;= g_1(\chi) - g_2(\chi)\ &amp;= ((w_1)^T\chi &#43; w_{10}) - ((w_2)^T\chi &#43; w_{20})\ &amp;= (w_1 - w_2)^T\chi &#43; (w_{10} - w_{20})\ &amp;= w^T\chi &#43; w_0 \end{split} \end{equation} $$ we choose $$ \left. \begin{matrix} C_1,\text{ }g(\chi) &gt; 0\ C_2,\text{ }otherwise \end{matrix} \right} $$ weight vector threshold">
+Alpaydin: 10.3, 13.1, 13.2 Murphy: 14.5.2.2 Geron: chapter 5, appendix C Alpaydin 阅读笔记 Geometry of the Linear Discriminant （线性可区分的图像） 从一个简单的 two classes 情况开始解析，在这种情况下，单个的区分方程已经足够： Discriminant between two classes: $$ \begin{equation}\label{Discriminant_between_two_classes} \begin{split} g(\chi) &amp;= g_1(\chi) - g_2(\chi)\\ &amp;= ((w_1)^T\chi &#43; w_{10}) - ((w_2)^T\chi &#43; w_{20})\\ &amp;= (w_1 - w_2)^T\chi &#43; (w_{10} - w_{20})\\ &amp;= w^T\chi &#43; w_0 \end{split} \end{equation} $$ we choose $$ \left. \begin{matrix} C_1,\text{ }g(\chi) &gt; 0\\ C_2,\text{ }otherwise \end{matrix} \right\} $$ weight vector threshold">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -87,21 +88,21 @@ Alpaydin: 10.3, 13.1, 13.2 Murphy: 14.5.2.2 Geron: chapter 5, appendix C Alpaydi
 $$
 \begin{equation}\label{Discriminant_between_two_classes}
 \begin{split}
-g(\chi) &amp;= g_1(\chi) - g_2(\chi)\
-&amp;= ((w_1)^T\chi + w_{10}) - ((w_2)^T\chi + w_{20})\
-&amp;= (w_1 - w_2)^T\chi + (w_{10} - w_{20})\
-&amp;= w^T\chi + w_0
+g(\chi) &= g_1(\chi) - g_2(\chi)\\
+        &= ((w_1)^T\chi + w_{10}) - ((w_2)^T\chi + w_{20})\\
+        &= (w_1 - w_2)^T\chi + (w_{10} - w_{20})\\
+        &= w^T\chi + w_0
 \end{split}
 \end{equation}
 $$</li>
 <li>we choose
 $$
 \left.
-\begin{matrix}
-C_1,\text{ }g(\chi) &gt; 0\
-C_2,\text{ }otherwise
-\end{matrix}
-\right}
+        \begin{matrix}
+            C_1,\text{ }g(\chi) > 0\\
+            C_2,\text{ }otherwise
+        \end{matrix}
+\right\}
 $$</li>
 </ul>
 <p><code>weight vector threshold</code></p>
@@ -110,7 +111,7 @@ $$</li>
 </ul>
 <h3 id="decision-rule">Decision rule</h3>
 <ul>
-<li>choose $C_1$ if $w^T\chi &gt; -w_0$, and choose $C_2$ otherwise. The hyperplane divides the input space into two half-spaces: decision region $R_1$ for $C_1$ and $R_2$ for $C_2$. Any $\chi$ in $R_1$ is on the <code>positive</code> side of the hyperplane and any $\chi$ in $R_2$ is on the <code>negative</code> side.</li>
+<li>choose $C_1$ if $w^T\chi > -w_0$, and choose $C_2$ otherwise. The hyperplane divides the input space into two half-spaces: decision region $R_1$ for $C_1$ and $R_2$ for $C_2$. Any $\chi$ in $R_1$ is on the <code>positive</code> side of the hyperplane and any $\chi$ in $R_2$ is on the <code>negative</code> side.</li>
 </ul>
 <h3 id="decision-bounduary-equation">Decision bounduary equation</h3>
 <ul>
@@ -118,22 +119,22 @@ $$</li>
 $$
 \begin{equation}
 \begin{split}
-w^T\chi_1 + w_0 &amp;= w^T\chi_2 + w_0\
-w^T(\chi_1 - \chi_2) &amp;= 0
+    w^T\chi_1 + w_0 &= w^T\chi_2 + w_0\\
+    w^T(\chi_1 - \chi_2) &= 0
 \end{split}
 \end{equation}
 $$
 and we see that $w$ is <em>normal</em> to any vector lying on the hyperplane. Let&rsquo;s rewrite $\chi$ as
 $$
 \begin{equation}
-\chi = \chi_p + r\frac{w}{|w|}
+    \chi = \chi_p + r\frac{w}{|w|}
 \end{equation}
 $$</li>
 <li>$\chi_p$: normal projection of $\chi$ onto the hyperplane</li>
 <li>$r$: the distance from $\chi$ to the hyperplane
 <ul>
-<li>$&lt;0$ if $\chi$ is on the negative side</li>
-<li>$&gt;0$ if $\chi$ is on the positive side</li>
+<li>$<0$ if $\chi$ is on the negative side</li>
+<li>$>0$ if $\chi$ is on the positive side</li>
 </ul>
 </li>
 </ul>
