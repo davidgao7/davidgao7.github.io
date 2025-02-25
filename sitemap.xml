@@ -2,25 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/tags/array/</loc>
+    <lastmod>2025-02-25T17:28:44-05:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-02-25T17:28:44-05:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/divide-arr-into-arr-with-max-diff/</loc>
+    <lastmod>2025-02-25T17:28:44-05:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/greedy/</loc>
+    <lastmod>2025-02-25T17:28:44-05:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2025-02-25T17:28:44-05:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/sorting/</loc>
+    <lastmod>2025-02-25T17:28:44-05:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-02-25T17:28:44-05:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/binary-tree/</loc>
     <lastmod>2025-02-16T17:02:01-05:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/breadth-first-search/</loc>
     <lastmod>2025-02-16T17:02:01-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2025-02-16T17:02:01-05:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/leetcode/</loc>
     <lastmod>2025-02-16T17:02:01-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-02-16T17:02:01-05:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/symmetric-tree/</loc>
-    <lastmod>2025-02-16T17:02:01-05:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-02-16T17:02:01-05:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/llm/</loc>
@@ -59,9 +71,6 @@
     <loc>http://localhost:1313/posts/tcp-rust/</loc>
     <lastmod>2025-02-07T22:35:50-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/array/</loc>
-    <lastmod>2025-02-07T22:32:04-05:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/array-summary/</loc>
     <lastmod>2025-02-07T22:32:04-05:00</lastmod>
   </url><url>
@@ -98,13 +107,7 @@
     <loc>http://localhost:1313/tags/quick-select/</loc>
     <lastmod>2025-02-07T22:27:31-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/sorting/</loc>
-    <lastmod>2025-02-07T22:27:31-05:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/dynamic-programming/</loc>
-    <lastmod>2025-02-07T22:24:33-05:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/greedy/</loc>
     <lastmod>2025-02-07T22:24:33-05:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/rob/</loc>

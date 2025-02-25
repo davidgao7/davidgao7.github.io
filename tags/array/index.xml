@@ -6,8 +6,15 @@
     <description>Recent content in Array on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Feb 2025 22:32:04 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 25 Feb 2025 17:28:44 -0500</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/array/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Divide Arr Into Arrs With Max Diff</title>
+      <link>http://localhost:1313/posts/divide-arr-into-arr-with-max-diff/</link>
+      <pubDate>Tue, 25 Feb 2025 17:28:44 -0500</pubDate>
+      <guid>http://localhost:1313/posts/divide-arr-into-arr-with-max-diff/</guid>
+      <description>&lt;h1 id=&#34;divide-array-into-arrays-with-max-difference&#34;&gt;divide-array-into-arrays-with-max-difference&lt;/h1&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Date created: 2025-02-25-Tue 11:11&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;question-description&#34;&gt;Question Description&lt;/h2&gt;&#xA;&lt;p&gt;You are given an integer array nums of size n where n is a multiple of 3 and a positive integer k.&lt;/p&gt;&#xA;&lt;p&gt;Divide the array nums into n / 3 arrays of size 3 satisfying the following condition:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;The difference between any two elements in one array is less than or equal to k.&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;Return a 2D array containing the arrays. If it is impossible to satisfy the conditions, return an empty array. And if there are multiple answers, return any of them.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Array Summary</title>
       <link>http://localhost:1313/posts/array-summary/</link>
