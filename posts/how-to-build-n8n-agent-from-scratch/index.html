@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+    <title>How to Build N8n Agent From Scratch // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.145.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Build N8n Agent From Scratch">
+  <meta name="twitter:description" content="This is the tutorial on how to build an n8n agent from scratch.
+In this tutorial, I will show how to build an simple n8n agent locally.
+References self-host ollama allow different web origins to access ollama how to configure ollama server self-hosted AI Starter Kit | n8n Docs self-hosted AI video walkthrough Steps 1. Install n8n on docker start n8n
+docker volume create n8n_data docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n Once running, you can access n8n by opening: http://localhost:5678">
+
+    <meta property="og:url" content="http://localhost:1313/posts/how-to-build-n8n-agent-from-scratch/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="How to Build N8n Agent From Scratch">
+  <meta property="og:description" content="This is the tutorial on how to build an n8n agent from scratch.
+In this tutorial, I will show how to build an simple n8n agent locally.
+References self-host ollama allow different web origins to access ollama how to configure ollama server self-hosted AI Starter Kit | n8n Docs self-hosted AI video walkthrough Steps 1. Install n8n on docker start n8n
+docker volume create n8n_data docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n Once running, you can access n8n by opening: http://localhost:5678">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-22T15:09:57-04:00">
+    <meta property="article:modified_time" content="2025-03-22T15:09:57-04:00">
+    <meta property="article:tag" content="Agent">
+    <meta property="article:tag" content="N8n">
+    <meta property="article:tag" content="Workflow">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">How to Build N8n Agent From Scratch</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Mar 22, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          3 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/agent/">Agent</a>
+              <a class="tag" href="/tags/n8n/">N8n</a>
+              <a class="tag" href="/tags/workflow/">Workflow</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <blockquote>
+<p>This is the tutorial on how to build an n8n agent from scratch.</p></blockquote>
+<p>In this tutorial, I will show how to build an simple n8n agent locally.</p>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://docs.n8n.io/integrations/builtin/credentials/ollama/?utm_source=n8n_app&amp;utm_medium=credential_settings&amp;utm_campaign=create_new_credentials_modal#using-instance-url">self-host ollama</a></li>
+<li><a href="https://github.com/ollama/ollama/blob/main/docs/faq.md#how-can-i-allow-additional-web-origins-to-access-ollama">allow different web origins to access ollama</a></li>
+<li><a href="https://github.com/ollama/ollama/blob/main/docs/faq.md#how-do-i-configure-ollama-server">how to configure ollama server</a></li>
+<li><a href="https://docs.n8n.io/hosting/starter-kits/ai-starter-kit/#what-you-can-build">self-hosted AI Starter Kit | n8n Docs</a></li>
+<li><a href="https://github.com/n8n-io/self-hosted-ai-starter-kit?tab=readme-ov-file#-video-walkthrough">self-hosted AI video walkthrough</a></li>
+</ul>
+<h1 id="steps">Steps</h1>
+<h2 id="1-install-n8n-on-docker">1. Install n8n on docker</h2>
+<p>start n8n</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker volume create n8n_data
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n
+</span></span></code></pre></div><p>Once running, you can access n8n by opening: <a href="http://localhost:5678">http://localhost:5678</a></p>
+<p>You will first need to create an account and then you can start creating workflows.</p>
+<p><img src="/images/n8n-account-and-workflow.png" alt="account"></p>
+<h2 id="2-self-host-ollama-model">2. Self-host ollama model</h2>
+<blockquote>
+<p>Ollama is a application to help you get up and runnin gwith large language models. It can also be used to host a language model locally.</p></blockquote>
+<p>You can download the ollama <a href="https://ollama.com/">here</a></p>
+<p>When finished, launch the ollama app.</p>
+<p>You can customize ollama host by this command</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># OLLAMA_HOST=ip address ollama serve</span>
+</span></span><span style="display:flex;"><span>OLLAMA_HOST<span style="color:#f92672">=</span>127.0.0.1:11435 ollama serve
+</span></span></code></pre></div><p>For example, <code>127.0.0.1:11435</code> will be the server address for ollama.</p>
+<p>For different browser acess, Set OLLAMA_ORIGINS to include <code>chrome-extension://*</code>, <code>moz-extension://*</code>, and <code>safari-web-extension://*</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Allow all Chrome, Firefox, and Safari extensions</span>
+</span></span><span style="display:flex;"><span>OLLAMA_ORIGINS<span style="color:#f92672">=</span>chrome-extension://*,moz-extension://*,safari-web-extension://* ollama serve
+</span></span></code></pre></div><p>Then you will see log like this, means your llm server is up and running</p>
+<pre tabindex="0"><code>&gt; OLLAMA_HOST=127.0.0.1:11435 OLLAMA_ORIGINS=chrome-extension://*,moz-extension://*,safari-web-extension://* ollama serve
+
+2025/03/22 10:08:24 routes.go:1230: INFO server config env=&#34;map[HTTPS_PROXY: HTTP_PROXY: NO_PROXY: OLLAMA_CONTEXT_LENGTH:2048 OLLAMA_DEBUG:false OLLAMA_FLASH_ATTENTION:false OLLAMA_GPU_OVERHEAD:0 OLLAMA_HOST:http://127.0.0.1:11435 OLLAMA_KEEP_ALIVE:5m0s OLLAMA_KV_CACHE_TYPE: OLLAMA_LLM_LIBRARY: OLLAMA_LOAD_TIMEOUT:5m0s OLLAMA_MAX_LOADED_MODELS:0 OLLAMA_MAX_QUEUE:512 OLLAMA_MODELS:/Users/tengjungao/.ollama/models OLLAMA_MULTIUSER_CACHE:false OLLAMA_NEW_ENGINE:false OLLAMA_NOHISTORY:false OLLAMA_NOPRUNE:false OLLAMA_NUM_PARALLEL:0 OLLAMA_ORIGINS:[chrome-extension://* moz-extension://* safari-web-extension://* http://localhost https://localhost http://localhost:* https://localhost:* http://127.0.0.1 https://127.0.0.1 http://127.0.0.1:* https://127.0.0.1:* http://0.0.0.0 https://0.0.0.0 http://0.0.0.0:* https://0.0.0.0:* app://* file://* tauri://* vscode-webview://* vscode-file://*] OLLAMA_SCHED_SPREAD:false http_proxy: https_proxy: no_proxy:]&#34;
+time=2025-03-22T10:08:24.569-04:00 level=INFO source=images.go:432 msg=&#34;total blobs: 15&#34;
+time=2025-03-22T10:08:24.569-04:00 level=INFO source=images.go:439 msg=&#34;total unused blobs removed: 0&#34;
+time=2025-03-22T10:08:24.570-04:00 level=INFO source=routes.go:1297 msg=&#34;Listening on 127.0.0.1:11435 (version 0.6.2)&#34;
+</code></pre><p>Now, go to n8n and create a new workflow. There&rsquo;s a <code>+</code> on the top right.</p>
+<p><img src="/images/create-node.png" alt="create-node"></p>
+<p>You can choose different nodes to create the pipeline.</p>
+<hr>
+<p>For example, as shown I&rsquo;m building a simple chatbot:</p>
+<h3 id="1-you-first-need-a-trigger-to-start-the-workflow">1. You first need a trigger to start the workflow.</h3>
+<ul>
+<li>I should recieve a chat message from user, therefore the trigger will be chat message</li>
+</ul>
+<p><img src="/images/chat-trigger.png" alt="chat-trigger"></p>
+<hr>
+<h3 id="2-add-ai-agent">2. Add ai agent</h3>
+<p>Then you can add another component following this action, say an <code>AI Agent</code>.</p>
+<p><img src="/images/ai-agent-component.png" alt="ai-agent"></p>
+<hr>
+<p>You will be shown this pane to set up:</p>
+<p><img src="/images/ai-agent-settings.png" alt="ai-agent-setup"></p>
+<p>You can setup the chat model, memory and tool</p>
+<p>click <strong>chat model</strong>, choose the <code>Ollama Chat Model</code></p>
+<p><img src="/images/ollama-chat-model.png" alt="model-choose"></p>
+<p>Since we are setting the local host llm through Ollama, we can connect it</p>
+<hr>
+<p>Create the Ollama Credential in n8n</p>
+<p>open the sidebar, click <code>credential</code></p>
+<p><img src="/images/credential.png" alt="credential"></p>
+<p>choose ollama
+<img src="/images/find-ollama-credential.png" alt="choose-app"></p>
+<hr>
+<p><img src="/images/ollama-setting-1.png" alt="model-setting-1"></p>
+<p>Recall the ollama server local:</p>
+<pre tabindex="0"><code>127.0.0.1:11435
+</code></pre><p>[!NOTE] However, this may not work because you&rsquo;re using <code>http:127.0.0.1:11435</code> <strong>from inside the n8n Docker container</strong>, which <strong>cannot access your host&rsquo;s localhost</strong></p>
+<p>You should change the base url to <code>http://host.docker.internal:11435</code></p>
+<p>Then click <code>Retry</code>, it will connect host successfully.</p>
+<p><img src="/images/ollama-local-connection-setting.png" alt="ollama-connection-setting"></p>
+<p>Save the Ollama account setting. Go back to workflow. Double click <code>Ollama Chat Model</code> node, you can choose your own local models.</p>
+<p><img src="/images/choose-local-models.png" alt="choose-local-models"></p>
+<h3 id="3-chat-with-local-llm">3. Chat with local LLM</h3>
+<ul>
+<li>click <strong>open chat</strong>, try type something</li>
+</ul>
+<p><img src="/images/open-chat.png" alt="chat"></p>
+<p>You will see your input, model output in logs(right pane) and chat window on the left!</p>
+<p><img src="/images/workflow-running.png" alt="workflow-running">
+<img src="/images/workflow-logs.png" alt="workflow-logs"></p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
