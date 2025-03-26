@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Route Planning on davidgao7 blog</title>
+    <link>http://localhost:1313/tags/route-planning/</link>
+    <description>Recent content in Route Planning on davidgao7 blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Mar 2025 16:41:21 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/route-planning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Evolution of Route Planning in Urban Env</title>
+      <link>http://localhost:1313/posts/evolution-of-route-planning-in-urban-env/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/posts/evolution-of-route-planning-in-urban-env/</guid>
+      <description>&lt;p&gt;Great! I&amp;rsquo;ll do a deep dive into route planning methods with a chronological perspective—starting from classical algorithms like BFS/DFS and greedy search, moving through reinforcement learning methods, and finally the integration of large language models (LLMs). I’ll cover both theoretical math and real-world applications (especially in large cities like Shanghai), and compare Baidu’s industry contributions with global competitors, noting any gaps and causes.&lt;/p&gt;&#xA;&lt;p&gt;I’ll also include citations for academic and industrial work, codebases (Python), and explain formulas with examples. This will all be presented at a level suited to your CS background and experience in ML, cloud, and systems.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
