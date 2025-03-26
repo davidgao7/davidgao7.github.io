@@ -5,6 +5,9 @@
     <loc>http://localhost:1313/tags/a-algorithm/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/adaptive-cost-function-learning/</loc>
+    <lastmod>2025-03-26T16:41:21-04:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/amazon-condor/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
@@ -39,6 +42,9 @@
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/chain-of-thought/</loc>
+    <lastmod>2025-03-26T16:41:21-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/chain-of-thought-prompting/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/combinatorial-optimization/</loc>
@@ -86,6 +92,9 @@
     <loc>http://localhost:1313/tags/graph-neural-networks/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/graph-neural-networks-for-traffic-forecasting/</loc>
+    <lastmod>2025-03-26T16:41:21-04:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/graphhopper/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
@@ -114,6 +123,12 @@
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/last-mile-delivery/</loc>
+    <lastmod>2025-03-26T16:41:21-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/learning-local-heuristics/</loc>
+    <lastmod>2025-03-26T16:41:21-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/llm-integration-in-navigation/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/llm-route-planning/</loc>
@@ -146,6 +161,9 @@
     <loc>http://localhost:1313/tags/networkx/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/neural-network-enhanced-a/</loc>
+    <lastmod>2025-03-26T16:41:21-04:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/neural-path-planning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
@@ -156,6 +174,9 @@
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/osrm/</loc>
+    <lastmod>2025-03-26T16:41:21-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/personalized-route-recommendation/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/policy-learning/</loc>

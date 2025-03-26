@@ -16,6 +16,13 @@
       <description></description>
     </item>
     <item>
+      <title>Adaptive Cost Function Learning</title>
+      <link>http://localhost:1313/tags/adaptive-cost-function-learning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/adaptive-cost-function-learning/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Amazon Condor</title>
       <link>http://localhost:1313/tags/amazon-condor/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
@@ -97,6 +104,13 @@
       <link>http://localhost:1313/tags/chain-of-thought/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
       <guid>http://localhost:1313/tags/chain-of-thought/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Chain-of-Thought Prompting</title>
+      <link>http://localhost:1313/tags/chain-of-thought-prompting/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/chain-of-thought-prompting/</guid>
       <description></description>
     </item>
     <item>
@@ -191,6 +205,13 @@
       <description></description>
     </item>
     <item>
+      <title>Graph Neural Networks for Traffic Forecasting</title>
+      <link>http://localhost:1313/tags/graph-neural-networks-for-traffic-forecasting/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/graph-neural-networks-for-traffic-forecasting/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>GraphHopper</title>
       <link>http://localhost:1313/tags/graphhopper/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
@@ -258,6 +279,20 @@
       <link>http://localhost:1313/tags/last-mile-delivery/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
       <guid>http://localhost:1313/tags/last-mile-delivery/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Learning Local Heuristics</title>
+      <link>http://localhost:1313/tags/learning-local-heuristics/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/learning-local-heuristics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM Integration in Navigation</title>
+      <link>http://localhost:1313/tags/llm-integration-in-navigation/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/llm-integration-in-navigation/</guid>
       <description></description>
     </item>
     <item>
@@ -331,6 +366,13 @@
       <description></description>
     </item>
     <item>
+      <title>Neural Network-Enhanced A*</title>
+      <link>http://localhost:1313/tags/neural-network-enhanced-a/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/neural-network-enhanced-a/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Neural Path Planning</title>
       <link>http://localhost:1313/tags/neural-path-planning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
@@ -356,6 +398,13 @@
       <link>http://localhost:1313/tags/osrm/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
       <guid>http://localhost:1313/tags/osrm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Personalized Route Recommendation</title>
+      <link>http://localhost:1313/tags/personalized-route-recommendation/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/personalized-route-recommendation/</guid>
       <description></description>
     </item>
     <item>
