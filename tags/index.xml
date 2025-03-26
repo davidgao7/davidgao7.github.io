@@ -6,8 +6,554 @@
     <description>Recent content in Tags on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Mar 2025 15:09:57 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 26 Mar 2025 16:41:21 -0400</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A* Algorithm</title>
+      <link>http://localhost:1313/tags/a-algorithm/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/a-algorithm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Amazon Condor</title>
+      <link>http://localhost:1313/tags/amazon-condor/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/amazon-condor/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Amazon Logistics</title>
+      <link>http://localhost:1313/tags/amazon-logistics/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/amazon-logistics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Apollo Autonomous Platform</title>
+      <link>http://localhost:1313/tags/apollo-autonomous-platform/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/apollo-autonomous-platform/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Apollo Go</title>
+      <link>http://localhost:1313/tags/apollo-go/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/apollo-go/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Apple Maps</title>
+      <link>http://localhost:1313/tags/apple-maps/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/apple-maps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Autonomous Driving RL</title>
+      <link>http://localhost:1313/tags/autonomous-driving-rl/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/autonomous-driving-rl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Baidu Maps</title>
+      <link>http://localhost:1313/tags/baidu-maps/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/baidu-maps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Baidu Polestar</title>
+      <link>http://localhost:1313/tags/baidu-polestar/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/baidu-polestar/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Bellman-Ford</title>
+      <link>http://localhost:1313/tags/bellman-ford/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/bellman-ford/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>BFS</title>
+      <link>http://localhost:1313/tags/bfs/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/bfs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Bidirectional Search</title>
+      <link>http://localhost:1313/tags/bidirectional-search/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/bidirectional-search/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Chain-of-Thought</title>
+      <link>http://localhost:1313/tags/chain-of-thought/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/chain-of-thought/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Combinatorial Optimization</title>
+      <link>http://localhost:1313/tags/combinatorial-optimization/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/combinatorial-optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Contraction Hierarchies</title>
+      <link>http://localhost:1313/tags/contraction-hierarchies/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/contraction-hierarchies/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Conversational AI</title>
+      <link>http://localhost:1313/tags/conversational-ai/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/conversational-ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Deep Learning</title>
+      <link>http://localhost:1313/tags/deep-learning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Deep Q Network</title>
+      <link>http://localhost:1313/tags/deep-q-network/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/deep-q-network/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DFS</title>
+      <link>http://localhost:1313/tags/dfs/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/dfs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DGL</title>
+      <link>http://localhost:1313/tags/dgl/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/dgl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dijkstra Algorithm</title>
+      <link>http://localhost:1313/tags/dijkstra-algorithm/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/dijkstra-algorithm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ETA Estimation</title>
+      <link>http://localhost:1313/tags/eta-estimation/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/eta-estimation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Floyd-Warshall</title>
+      <link>http://localhost:1313/tags/floyd-warshall/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/floyd-warshall/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Google Maps</title>
+      <link>http://localhost:1313/tags/google-maps/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/google-maps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Graph Algorithms</title>
+      <link>http://localhost:1313/tags/graph-algorithms/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/graph-algorithms/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Graph Neural Networks</title>
+      <link>http://localhost:1313/tags/graph-neural-networks/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/graph-neural-networks/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GraphHopper</title>
+      <link>http://localhost:1313/tags/graphhopper/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/graphhopper/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Greedy Search</title>
+      <link>http://localhost:1313/tags/greedy-search/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/greedy-search/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Heuristic Search</title>
+      <link>http://localhost:1313/tags/heuristic-search/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/heuristic-search/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hierarchical Routing</title>
+      <link>http://localhost:1313/tags/hierarchical-routing/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/hierarchical-routing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Imitation Learning</title>
+      <link>http://localhost:1313/tags/imitation-learning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/imitation-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ITS (Intelligent Transportation Systems)</title>
+      <link>http://localhost:1313/tags/its-intelligent-transportation-systems/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/its-intelligent-transportation-systems/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Landmark Heuristics</title>
+      <link>http://localhost:1313/tags/landmark-heuristics/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/landmark-heuristics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LangChain</title>
+      <link>http://localhost:1313/tags/langchain/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/langchain/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Large Language Models</title>
+      <link>http://localhost:1313/tags/large-language-models/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/large-language-models/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Last Mile Delivery</title>
+      <link>http://localhost:1313/tags/last-mile-delivery/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/last-mile-delivery/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM Route Planning</title>
+      <link>http://localhost:1313/tags/llm-route-planning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/llm-route-planning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM-Assist</title>
+      <link>http://localhost:1313/tags/llm-assist/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/llm-assist/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Machine Learning</title>
+      <link>http://localhost:1313/tags/machine-learning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Meta Learning</title>
+      <link>http://localhost:1313/tags/meta-learning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/meta-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Multi-Modal Transport</title>
+      <link>http://localhost:1313/tags/multi-modal-transport/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/multi-modal-transport/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Multi-Stop Optimization</title>
+      <link>http://localhost:1313/tags/multi-stop-optimization/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/multi-stop-optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Multimodal Navigation</title>
+      <link>http://localhost:1313/tags/multimodal-navigation/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/multimodal-navigation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Natural Language Navigation</title>
+      <link>http://localhost:1313/tags/natural-language-navigation/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/natural-language-navigation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>NavGPT</title>
+      <link>http://localhost:1313/tags/navgpt/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/navgpt/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>NetworkX</title>
+      <link>http://localhost:1313/tags/networkx/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/networkx/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Neural Path Planning</title>
+      <link>http://localhost:1313/tags/neural-path-planning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/neural-path-planning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OpenAI API</title>
+      <link>http://localhost:1313/tags/openai-api/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/openai-api/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OR-Tools</title>
+      <link>http://localhost:1313/tags/or-tools/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/or-tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OSRM</title>
+      <link>http://localhost:1313/tags/osrm/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/osrm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Policy Learning</title>
+      <link>http://localhost:1313/tags/policy-learning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/policy-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Public Transit Optimization</title>
+      <link>http://localhost:1313/tags/public-transit-optimization/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/public-transit-optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PyG</title>
+      <link>http://localhost:1313/tags/pyg/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/pyg/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>http://localhost:1313/tags/python/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PyTorch</title>
+      <link>http://localhost:1313/tags/pytorch/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/pytorch/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Q-Learning</title>
+      <link>http://localhost:1313/tags/q-learning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/q-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ReAct Prompting</title>
+      <link>http://localhost:1313/tags/react-prompting/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/react-prompting/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Real-Time Traffic</title>
+      <link>http://localhost:1313/tags/real-time-traffic/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/real-time-traffic/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>http://localhost:1313/tags/reinforcement-learning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Route Planning</title>
+      <link>http://localhost:1313/tags/route-planning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/route-planning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Self-Supervised Learning</title>
+      <link>http://localhost:1313/tags/self-supervised-learning/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/self-supervised-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sequence Modeling</title>
+      <link>http://localhost:1313/tags/sequence-modeling/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/sequence-modeling/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Shortest Path</title>
+      <link>http://localhost:1313/tags/shortest-path/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/shortest-path/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Smart City</title>
+      <link>http://localhost:1313/tags/smart-city/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/smart-city/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Stable Baselines</title>
+      <link>http://localhost:1313/tags/stable-baselines/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/stable-baselines/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SUMO Simulator</title>
+      <link>http://localhost:1313/tags/sumo-simulator/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/sumo-simulator/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tesla Autopilot</title>
+      <link>http://localhost:1313/tags/tesla-autopilot/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/tesla-autopilot/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Time-Dependent Routing</title>
+      <link>http://localhost:1313/tags/time-dependent-routing/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/time-dependent-routing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Traffic Congestion Management</title>
+      <link>http://localhost:1313/tags/traffic-congestion-management/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/traffic-congestion-management/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Traffic Signal Optimization</title>
+      <link>http://localhost:1313/tags/traffic-signal-optimization/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/traffic-signal-optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Transit Node Routing</title>
+      <link>http://localhost:1313/tags/transit-node-routing/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/transit-node-routing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Travel Time Prediction</title>
+      <link>http://localhost:1313/tags/travel-time-prediction/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/travel-time-prediction/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>TSP</title>
+      <link>http://localhost:1313/tags/tsp/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/tsp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Urban Mobility</title>
+      <link>http://localhost:1313/tags/urban-mobility/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/urban-mobility/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>V2X</title>
+      <link>http://localhost:1313/tags/v2x/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/v2x/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Value Iteration Network</title>
+      <link>http://localhost:1313/tags/value-iteration-network/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/value-iteration-network/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vehicle Routing Problem (VRP)</title>
+      <link>http://localhost:1313/tags/vehicle-routing-problem-vrp/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/vehicle-routing-problem-vrp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Waymo</title>
+      <link>http://localhost:1313/tags/waymo/</link>
+      <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
+      <guid>http://localhost:1313/tags/waymo/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Agent</title>
       <link>http://localhost:1313/tags/agent/</link>
@@ -265,27 +811,6 @@
       <link>http://localhost:1313/tags/inorder-traversal/</link>
       <pubDate>Fri, 07 Feb 2025 20:47:06 -0500</pubDate>
       <guid>http://localhost:1313/tags/inorder-traversal/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Machine Learning</title>
-      <link>http://localhost:1313/tags/machine-learning/</link>
-      <pubDate>Fri, 07 Feb 2025 20:44:54 -0500</pubDate>
-      <guid>http://localhost:1313/tags/machine-learning/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>BFS</title>
-      <link>http://localhost:1313/tags/bfs/</link>
-      <pubDate>Fri, 07 Feb 2025 20:43:22 -0500</pubDate>
-      <guid>http://localhost:1313/tags/bfs/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>DFS</title>
-      <link>http://localhost:1313/tags/dfs/</link>
-      <pubDate>Fri, 07 Feb 2025 20:43:22 -0500</pubDate>
-      <guid>http://localhost:1313/tags/dfs/</guid>
       <description></description>
     </item>
     <item>
