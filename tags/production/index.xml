@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Production on davidgao7 blog</title>
+    <link>http://localhost:1313/tags/production/</link>
+    <description>Recent content in Production on davidgao7 blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 22 Apr 2025 11:14:45 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/production/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VLLM Deep Dive</title>
+      <link>http://localhost:1313/posts/vllm-deep-dive/</link>
+      <pubDate>Tue, 22 Apr 2025 11:14:45 -0400</pubDate>
+      <guid>http://localhost:1313/posts/vllm-deep-dive/</guid>
+      <description>&lt;h1 id=&#34;how-to-apply-llm-in-production&#34;&gt;How to apply LLM in production&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Introducing project vLLM&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;what-is-vllm&#34;&gt;What is vLLM?&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;vLLM is a fast and easy-to-use library for &lt;font color=pink&gt;LLM inference&lt;/font&gt; and &lt;font color=pink&gt;serving&lt;/font&gt;.&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Longer version&amp;hellip;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;vLLM is a high-performance, memory-efficient, and easy-to-use library for serving large language models (LLMs) in production. It is designed to optimize the inference of LLMs, making it easier to deploy and scale them in real-world applications.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;“vLLM is to LLM serving what TensorRT was to DL inference: high performance, low frills, and production first.”&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

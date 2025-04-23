@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Finetune LLM Using Pytorch // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.146.6">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Finetune LLM Using Pytorch">
+  <meta name="twitter:description" content="# get datasets, incidently install dependencies to fine tune models from mit !pip install mitdeeplearning # &gt; /dev/null 2&gt;&amp;1 import mitdeeplearning as mdl [0mSuccessfully installed boto3-stubs-1.38.0 botocore-stubs-1.38.0 datasets-3.5.0 dill-0.3.8 fsspec-2024.12.0 levenshtein-0.27.1 lion-pytorch-0.2.3 litellm-1.67.1 mitdeeplearning-0.7.5 multiprocess-0.70.16 mypy-boto3-bedrock-runtime-1.38.0 nvidia-cublas-cu12-12.4.5.8 nvidia-cuda-cupti-cu12-12.4.127 nvidia-cuda-nvrtc-cu12-12.4.127 nvidia-cuda-runtime-cu12-12.4.127 nvidia-cudnn-cu12-9.1.0.70 nvidia-cufft-cu12-11.2.1.3 nvidia-curand-cu12-10.3.5.147 nvidia-cusolver-cu12-11.6.1.9 nvidia-cusparse-cu12-12.3.1.170 nvidia-nvjitlink-cu12-12.4.127 opik-1.7.9 pydantic-settings-2.9.1 python-dotenv-1.1.0 rapidfuzz-3.13.0 tiktoken-0.9.0 types-awscrt-0.26.1 types-s3transfer-0.11.5 uuid6-2024.7.10 xxhash-3.5.0 import os import json import numpy as np from tqdm import tqdm import matplotlib.pyplot as plt import torch from torch.nn import functional as F from torch.utils.data import DataLoader from transformers import AutoTokenizer, AutoModelForCausalLM from datasets import load_dataset from peft import LoraConfig, get_peft_model from lion_pytorch import Lion Fine tuning Gemma 2B as a chatbot Templating and tokenization Templating Language models that function as chatbots are able to generate responses to user questies – but how do they do this?">
+
+    <meta property="og:url" content="http://localhost:1313/posts/finetune-llm-using-pytorch/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="Finetune LLM Using Pytorch">
+  <meta property="og:description" content="# get datasets, incidently install dependencies to fine tune models from mit !pip install mitdeeplearning # &gt; /dev/null 2&gt;&amp;1 import mitdeeplearning as mdl [0mSuccessfully installed boto3-stubs-1.38.0 botocore-stubs-1.38.0 datasets-3.5.0 dill-0.3.8 fsspec-2024.12.0 levenshtein-0.27.1 lion-pytorch-0.2.3 litellm-1.67.1 mitdeeplearning-0.7.5 multiprocess-0.70.16 mypy-boto3-bedrock-runtime-1.38.0 nvidia-cublas-cu12-12.4.5.8 nvidia-cuda-cupti-cu12-12.4.127 nvidia-cuda-nvrtc-cu12-12.4.127 nvidia-cuda-runtime-cu12-12.4.127 nvidia-cudnn-cu12-9.1.0.70 nvidia-cufft-cu12-11.2.1.3 nvidia-curand-cu12-10.3.5.147 nvidia-cusolver-cu12-11.6.1.9 nvidia-cusparse-cu12-12.3.1.170 nvidia-nvjitlink-cu12-12.4.127 opik-1.7.9 pydantic-settings-2.9.1 python-dotenv-1.1.0 rapidfuzz-3.13.0 tiktoken-0.9.0 types-awscrt-0.26.1 types-s3transfer-0.11.5 uuid6-2024.7.10 xxhash-3.5.0 import os import json import numpy as np from tqdm import tqdm import matplotlib.pyplot as plt import torch from torch.nn import functional as F from torch.utils.data import DataLoader from transformers import AutoTokenizer, AutoModelForCausalLM from datasets import load_dataset from peft import LoraConfig, get_peft_model from lion_pytorch import Lion Fine tuning Gemma 2B as a chatbot Templating and tokenization Templating Language models that function as chatbots are able to generate responses to user questies – but how do they do this?">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-22T21:08:11-04:00">
+    <meta property="article:modified_time" content="2025-04-22T21:08:11-04:00">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Finetune LLM Using Pytorch</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Apr 22, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          22 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># get datasets, incidently install dependencies to fine tune models from mit</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">!</span>pip install mitdeeplearning <span style="color:#75715e"># &gt; /dev/null 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> mitdeeplearning <span style="color:#66d9ef">as</span> mdl
+</span></span></code></pre></div><pre><code>[0mSuccessfully installed boto3-stubs-1.38.0 botocore-stubs-1.38.0 datasets-3.5.0 dill-0.3.8 fsspec-2024.12.0 levenshtein-0.27.1 lion-pytorch-0.2.3 litellm-1.67.1 mitdeeplearning-0.7.5 multiprocess-0.70.16 mypy-boto3-bedrock-runtime-1.38.0 nvidia-cublas-cu12-12.4.5.8 nvidia-cuda-cupti-cu12-12.4.127 nvidia-cuda-nvrtc-cu12-12.4.127 nvidia-cuda-runtime-cu12-12.4.127 nvidia-cudnn-cu12-9.1.0.70 nvidia-cufft-cu12-11.2.1.3 nvidia-curand-cu12-10.3.5.147 nvidia-cusolver-cu12-11.6.1.9 nvidia-cusparse-cu12-12.3.1.170 nvidia-nvjitlink-cu12-12.4.127 opik-1.7.9 pydantic-settings-2.9.1 python-dotenv-1.1.0 rapidfuzz-3.13.0 tiktoken-0.9.0 types-awscrt-0.26.1 types-s3transfer-0.11.5 uuid6-2024.7.10 xxhash-3.5.0
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tqdm <span style="color:#f92672">import</span> tqdm
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torch.nn <span style="color:#f92672">import</span> functional <span style="color:#66d9ef">as</span> F
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torch.utils.data <span style="color:#f92672">import</span> DataLoader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> transformers <span style="color:#f92672">import</span> AutoTokenizer, AutoModelForCausalLM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datasets <span style="color:#f92672">import</span> load_dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> peft <span style="color:#f92672">import</span> LoraConfig, get_peft_model
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> lion_pytorch <span style="color:#f92672">import</span> Lion
+</span></span></code></pre></div><h1 id="fine-tuning-gemma-2b-as-a-chatbot">Fine tuning Gemma 2B as a chatbot</h1>
+<h2 id="templating-and-tokenization">Templating and tokenization</h2>
+<h3 id="templating">Templating</h3>
+<p>Language models that function as chatbots are able to generate responses to user questies &ndash; but how do they do this?</p>
+<p>We need to provide them with a way to understand the conversation and generate responses in a coherent maner &ndash; some structure of what are inputs and outputs.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Feature</th>
+          <th>Hugging Face Chat Templates</th>
+          <th>LangChain Prompt Templates</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Primary Goal</td>
+          <td>Model-specific input formatting</td>
+          <td>Flexible prompt construction</td>
+      </tr>
+      <tr>
+          <td>Integration</td>
+          <td>Tokenizer-level</td>
+          <td>LangChain chains and tools</td>
+      </tr>
+      <tr>
+          <td>Customization</td>
+          <td>Limited to model&rsquo;s expected format</td>
+          <td>Highly customizable with dynamic variables</td>
+      </tr>
+      <tr>
+          <td>Transparency</td>
+          <td>Templates are accessible and modifiable</td>
+          <td>Templates are defined in code and fully visible</td>
+      </tr>
+      <tr>
+          <td>Use Case</td>
+          <td>Ensuring compatibility with specific model formats</td>
+          <td>Building complex, multi-step workflows</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Basic question-answer template</span>
+</span></span><span style="display:flex;"><span>template_without_answer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;start_of_turn&gt;user</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{question}</span><span style="color:#e6db74">&lt;end_of_turn&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&lt;start_of_turn&gt;model</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>template_with_answer <span style="color:#f92672">=</span> template_without_answer <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{answer}</span><span style="color:#e6db74">&lt;end_of_turn&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s try to put something into the template to see how it looks</span>
+</span></span><span style="display:flex;"><span>print(template_with_answer<span style="color:#f92672">.</span>format(question<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;What is your name?&#34;</span>, answer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;My name is Gemma!&#34;</span>))
+</span></span></code></pre></div><pre><code>&lt;start_of_turn&gt;user
+What is your name?&lt;end_of_turn&gt;
+&lt;start_of_turn&gt;model
+My name is Gemma!&lt;end_of_turn&gt;
+</code></pre>
+<h3 id="tokenization">Tokenization</h3>
+<p>To operate on language, we need to prepare the text for the model. Fundamentally we can think of language as a sequence of &ldquo;chunks&rdquo; of text. We can split the text into individual chunks, and then map these chunks to numerical tokens &ndash; collectively this is the process of <a href="https://huggingface.co/docs/transformers/main/tokenizer_summary">tokenization</a>. Numerical tokens can then be fed into a language model.</p>
+<p>There are several common approaches to tokenizing natural lauguage text:</p>
+<ol>
+<li>
+<p><strong>word-based tokenization</strong>: splits text into individual words &ndash;&gt; simple but can lead to larg vocabularies and does not handle unknown words well</p>
+</li>
+<li>
+<p><strong>character-based tokenization</strong>: splits text into individual characters. &ndash;&gt; involves a very smal vocabulary, produces long sequences and <em>loeses word-level meaning</em></p>
+</li>
+<li>
+<p><strong>subword tokenization</strong>: breaks words into smaller units (subwords) based on their frequency. The most popular and commonly used approach : <a href="https://en.wikipedia.org/wiki/Byte_pair_encoding">byte-pair encoding(BPE)</a>, which <em>iteratively merges the most frequent character pairs</em>. Mordern language models typically use subword tokenization as it <em>balances vocabulary size</em> and <em>sequence length</em> while handling unknown words effectively by <em>breaking them into known subword units</em>.</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># we will use the tokenizer from the Gemma 2B model, which uses BPE. Let&#39;s load it and inspect it.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load the tokenizer for Gemma 2B</span>
+</span></span><span style="display:flex;"><span>model_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;unsloth/gemma-2-2b-it&#34;</span> <span style="color:#75715e">#&#34;google/gemma-2-2b-it&#34;</span>
+</span></span><span style="display:flex;"><span>tokenizer <span style="color:#f92672">=</span> AutoTokenizer<span style="color:#f92672">.</span>from_pretrained(model_id)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># How big is the tokenizer?</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Vocab size: </span><span style="color:#e6db74">{</span>len(tokenizer<span style="color:#f92672">.</span>get_vocab())<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Vocab size: 256000
+</code></pre>
+<p>We not only need to be able to tokenize the text into tokens (encode), but also de-tokenize the tokens back into text (decode). Our tokenizer will have:</p>
+<ol>
+<li>an encode function to tokenize the text into tokens, and</li>
+<li>a decode function to de-tokenize back to text so that we can read out the model&rsquo;s outputs.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Lets test out both steps:</span>
+</span></span><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Here is some sample text!&#34;</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Original text: </span><span style="color:#e6db74">{</span>text<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Tokenize the text</span>
+</span></span><span style="display:flex;"><span>tokens <span style="color:#f92672">=</span> tokenizer<span style="color:#f92672">.</span>encode(text, return_tensors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pt&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Encoded tokens: </span><span style="color:#e6db74">{</span>tokens<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Decode the tokens</span>
+</span></span><span style="display:flex;"><span>decoded_text <span style="color:#f92672">=</span> tokenizer<span style="color:#f92672">.</span>decode(tokens[<span style="color:#ae81ff">0</span>], skip_special_tokens<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Decoded text: </span><span style="color:#e6db74">{</span>decoded_text<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Original text: Here is some sample text!
+Encoded tokens: tensor([[     2,   4858,    603,   1009,   6453,   2793, 235341]])
+Decoded text: Here is some sample text!
+</code></pre>
+<p>To &ldquo;chat&rdquo; with our LLM chatbot, we need to use the tokenizer and the chat template together, in order for the model to respond to the user&rsquo;s question. We can use the templates defined earlier to construct a prompt for the model, without the answer.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>template_without_answer
+</span></span></code></pre></div><pre><code>'&lt;start_of_turn&gt;user\n{question}&lt;end_of_turn&gt;\n&lt;start_of_turn&gt;model\n'
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> template_without_answer<span style="color:#f92672">.</span>format(question<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;What is the capital of France? Use one word.&#34;</span>)
+</span></span><span style="display:flex;"><span>print(prompt)
+</span></span></code></pre></div><pre><code>&lt;start_of_turn&gt;user
+What is the capital of France? Use one word.&lt;end_of_turn&gt;
+&lt;start_of_turn&gt;model
+</code></pre>
+<p>If we were to feed this to the model, it would see that it is now the start of the model&rsquo;s turn, and it would generate the answer to this question.</p>
+<h2 id="getting-started-with-the-llm">Getting started with the LLM</h2>
+<p>Now we have a way to prepare our data, we&rsquo;re ready to work with our LLM.</p>
+<p>LLM like Gemma 2B are trained on a large corpus of text, on the task of <em>predicting the next token in a sequence</em>, given the previous tokens.</p>
+<p>We call this training task &ldquo;next token prediction&rdquo; or &ldquo;causal language modeling&rdquo; or &ldquo;autoregressive language modeling&rdquo;.</p>
+<p>We can leverage models trained in this way to generate new text by sampling from the predited probability distribution over the next token.</p>
+<p>In next few lines fo experiment, we&rsquo;ll</p>
+<ol>
+<li>load Gemma 2B</li>
+<li>construct a prompt in <strong>chat template</strong> form and <em>tokenize</em> it</li>
+<li>feed it to the model to predict next token probabilities</li>
+<li>get the next token(which is still numerical) and decode it to text</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 1. Load the model -- note that this may take a few minutes</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> AutoModelForCausalLM<span style="color:#f92672">.</span>from_pretrained(model_id, device_map<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;auto&#34;</span>)
+</span></span></code></pre></div><pre><code>config.json:   0%|          | 0.00/913 [00:00&lt;?, ?B/s]
+
+
+
+model.safetensors:   0%|          | 0.00/5.23G [00:00&lt;?, ?B/s]
+
+
+
+generation_config.json:   0%|          | 0.00/209 [00:00&lt;?, ?B/s]
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==== Putting it together to prompt the model and generate a response ===</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Construct the prompt in chat template form</span>
+</span></span><span style="display:flex;"><span>question <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;What is the capital of France? Use one word.&#34;</span>
+</span></span><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> template_without_answer<span style="color:#f92672">.</span>format(question<span style="color:#f92672">=</span>question)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Tokenize the prompt</span>
+</span></span><span style="display:flex;"><span>tokens <span style="color:#f92672">=</span> tokenizer<span style="color:#f92672">.</span>encode(prompt, return_tensors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pt&#34;</span>)<span style="color:#f92672">.</span>to(model<span style="color:#f92672">.</span>device) <span style="color:#75715e"># return pytorch(pt) torch.tensor/tensorflow(tf) tf.constant/numpy object numpy.ndarray</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Feed through the model to predict the next token probabilities</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+</span></span><span style="display:flex;"><span>    output <span style="color:#f92672">=</span> model(tokens)
+</span></span><span style="display:flex;"><span>    probs <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>softmax(output<span style="color:#f92672">.</span>logits, dim<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Get the next token, according to the maximum probability</span>
+</span></span><span style="display:flex;"><span>next_token <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>argmax(probs[<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, :])<span style="color:#f92672">.</span>item()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Decode the next token</span>
+</span></span><span style="display:flex;"><span>next_token_text <span style="color:#f92672">=</span> tokenizer<span style="color:#f92672">.</span>decode(next_token)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Prompt: </span><span style="color:#e6db74">{</span>prompt<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Predicted next token: </span><span style="color:#e6db74">{</span>next_token_text<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Prompt: &lt;start_of_turn&gt;user
+What is the capital of France? Use one word.&lt;end_of_turn&gt;
+&lt;start_of_turn&gt;model
+
+Predicted next token: Paris
+</code></pre>
+<p>Note that the model is not able to predict the answer to the question, in this case it could be answer in one word so model sneak through. it is only able to predict the next token in the sequence. for more complex questions, we cannot just generate one token, but rather we need to generate a sequence of tokens.</p>
+<p>This can be done by doing the process above iteratively, step by step &ndash; after each step we feed the generated token back into the model and predict the next token again.</p>
+<p>Instead of doing this manually ourselves, we can use the model&rsquo;s built-in <code>model.generate()</code> functionality (supported by HuggingFace&rsquo;s Transformers library) to generate <code>max_new_tokens</code> number of tokens, and decode the output back to text.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>template_without_answer
+</span></span></code></pre></div><pre><code>'&lt;start_of_turn&gt;user\n{question}&lt;end_of_turn&gt;\n&lt;start_of_turn&gt;model\n'
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> template_without_answer<span style="color:#f92672">.</span>format(question<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;What does Deez stand for?&#34;</span>)
+</span></span><span style="display:flex;"><span>tokens <span style="color:#f92672">=</span> tokenizer<span style="color:#f92672">.</span>encode(prompt, return_tensors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pt&#34;</span>)<span style="color:#f92672">.</span>to(model<span style="color:#f92672">.</span>device)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>generate(tokens, max_new_tokens<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>print(tokenizer<span style="color:#f92672">.</span>decode(output[<span style="color:#ae81ff">0</span>]))
+</span></span></code></pre></div><pre><code>&lt;bos&gt;&lt;start_of_turn&gt;user
+What does Deez stand for?&lt;end_of_turn&gt;
+&lt;start_of_turn&gt;model
+&quot;Deez&quot; is a slang term that doesn't have a single, official meaning. 
+</code></pre>
+<p>Now we have the basic pipeline for generating text with an LLM!</p>
+<h1 id="13-fine-tuning">1.3: Fine-tuning</h1>
+<p>Fine-tuning is a technique that allows us to adapt a pre-trained neural network to better suit a downstream task, domain, or style, or capabilities. Fine-tuning is used in a variety of applications, not just language modeling. But in language modeling, fine-tuning can be used to:</p>
+<ul>
+<li>Adapt the model&rsquo;s writing style</li>
+<li>Improve performance on specific tasks or domains</li>
+<li>Teach the model new capabilities or knowledge</li>
+<li>Reduce unwanted behaviors or biases</li>
+</ul>
+<p>In next task, you will fine-tune the Gemma LLM to adapt the model&rsquo;s writing style. Continuing with our Irish theme, we will first fine-tune the LLM to chat in the style of a leprechaun.</p>
+<p>We have prepared a question-answer dataset where the questions are in standard English style (i.e. &ldquo;base&rdquo; style) and the answers are in &ldquo;leprechaun&rdquo; style (written by another LLM). Let&rsquo;s load the dataset and inspect it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>train_loader, test_loader <span style="color:#f92672">=</span> mdl<span style="color:#f92672">.</span>lab3<span style="color:#f92672">.</span>create_dataloader(style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;leprechaun&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sample <span style="color:#f92672">=</span> train_loader<span style="color:#f92672">.</span>dataset[<span style="color:#ae81ff">44</span>]
+</span></span><span style="display:flex;"><span>question <span style="color:#f92672">=</span> sample[<span style="color:#e6db74">&#39;instruction&#39;</span>]
+</span></span><span style="display:flex;"><span>answer <span style="color:#f92672">=</span> sample[<span style="color:#e6db74">&#39;response&#39;</span>]
+</span></span><span style="display:flex;"><span>answer_style <span style="color:#f92672">=</span> sample[<span style="color:#e6db74">&#39;response_style&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Question: </span><span style="color:#e6db74">{</span>question<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Original Answer: </span><span style="color:#e6db74">{</span>answer<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Answer Style: </span><span style="color:#e6db74">{</span>answer_style<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>README.md:   0%|          | 0.00/8.20k [00:00&lt;?, ?B/s]
+databricks-dolly-15k.jsonl:   0%|          | 0.00/13.1M [00:00&lt;?, ?B/s]
+Generating train split:   0%|          | 0/15011 [00:00&lt;?, ? examples/s]
+Map:   0%|          | 0/2048 [00:00&lt;?, ? examples/s]
+
+Question: Are lilies safe for cats?
+
+Original Answer: No, lilies are toxic to cats if consumed and should not be kept in a household with cats
+
+Answer Style: Och, no indeed, me hearty! Them lilies there be as dangerous as a pot o' gold guarded by a banshee to a wee kitty cat! If a whiskered lad or lass takes a bite of one, it's as bad as swallowing a curse from the old Hag herself. So, ye best keep them far from yer feline friends, or else ye'll be needin' more than just a four-leaf clover to bring luck back into yer home!
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>train_loader<span style="color:#f92672">.</span>dataset
+</span></span></code></pre></div><pre><code>Dataset({
+    features: ['instruction', 'context', 'response', 'category', 'response_style'],
+    num_rows: 2048
+})
+</code></pre>
+<h2 id="131-chat-function">1.3.1: Chat function</h2>
+<p>Before we start finetuning, we will build a function to easily chat with the model, both so we can monitor its progress over the course of finetuning and also to generate responses to questions.</p>
+<p>Recall our core steps from before:</p>
+<ol>
+<li>Construct the question prompt using the template</li>
+<li>Tokenize the text</li>
+<li>Feed the tokensthrough the model to predict the next token probabilities</li>
+<li>Decode the predicted tokens back to text</li>
+</ol>
+<p>Use these steps to build out the chat function below.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">chat</span>(question, max_new_tokens<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>, temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.7</span>, only_answer<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. Construct the prompt using the template</span>
+</span></span><span style="display:flex;"><span>    prompt <span style="color:#f92672">=</span> template_without_answer<span style="color:#f92672">.</span>format(question<span style="color:#f92672">=</span>question)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. Tokenize the text</span>
+</span></span><span style="display:flex;"><span>    input_ids <span style="color:#f92672">=</span> tokenizer(prompt, return_tensors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pt&#34;</span>)<span style="color:#f92672">.</span>to(model<span style="color:#f92672">.</span>device)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 3. Feed through the model to predict the next token probabilities</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+</span></span><span style="display:flex;"><span>        outputs <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>generate(<span style="color:#f92672">**</span>input_ids, do_sample<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, max_new_tokens<span style="color:#f92672">=</span>max_new_tokens, temperature<span style="color:#f92672">=</span>temperature)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 4. Only return the answer if only_answer is True</span>
+</span></span><span style="display:flex;"><span>    output_tokens <span style="color:#f92672">=</span> outputs[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> only_answer:
+</span></span><span style="display:flex;"><span>        output_tokens <span style="color:#f92672">=</span> output_tokens[input_ids[<span style="color:#e6db74">&#39;input_ids&#39;</span>]<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]:]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 5. Decode the tokens</span>
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> tokenizer<span style="color:#f92672">.</span>decode(output_tokens, skip_special_tokens<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s try chatting with the model now to test if it works!</span>
+</span></span><span style="display:flex;"><span>answer <span style="color:#f92672">=</span> chat(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Write me a story&#34;</span>,
+</span></span><span style="display:flex;"><span>    only_answer<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    max_new_tokens<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>,
+</span></span><span style="display:flex;"><span>    temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.000001</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(answer)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">==============</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>answer <span style="color:#f92672">=</span> chat(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Write me a story&#34;</span>,
+</span></span><span style="display:flex;"><span>    only_answer<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    max_new_tokens<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>,
+</span></span><span style="display:flex;"><span>    temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.000001</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(answer)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">==============</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>answer <span style="color:#f92672">=</span> chat(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Write me a story&#34;</span>,
+</span></span><span style="display:flex;"><span>    only_answer<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    max_new_tokens<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>,
+</span></span><span style="display:flex;"><span>    temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.999999</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(answer)
+</span></span></code></pre></div><pre><code>The wind whipped Elara's cloak around her like a phantom, carrying the scent of salt and brine. She stood at the edge of the cliff, the
+
+==============
+
+The wind whipped Elara's cloak around her like a phantom, carrying the scent of salt and brine. She stood at the edge of the cliff, the
+
+==============
+
+The wind whipped Aella's braid across her face as she scaled the crumbling city wall. Below, the sun bled into the horizon, casting the cobbl
+</code></pre>
+<h1 id="parameter-efficient-fine-tuning">Parameter-efficient fine-tuning</h1>
+<p>In fine-tuning, the weights of the model are updated to better fit the fine-tuning dataset and/or task. Updating all the weights in a language model like Gemma 2B &ndash; which has ~2 billion parameters &ndash; is computationally expensive. There are many techniques to make fine-tuning more efficient.</p>
+<p>We will use a technique called LoRA &ndash; low-rank adaptation &ndash; to make the fine-tuning process more efficient. LoRA is a way to fine-tune LLMs very efficiently by only updating a small subset of the model&rsquo;s parameters, and it works by adding trainable low-rank matrices to the model. While we will not go into the details of LoRA here, you can read more about it in the LoRA paper. We will use the peft library to apply LoRA to the Gemma model.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LoRA is a way to finetune LLMs very efficiently by only updating a small subset of the model&#39;s parameters</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">apply_lora</span>(model):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Define LoRA config</span>
+</span></span><span style="display:flex;"><span>    lora_config <span style="color:#f92672">=</span> LoraConfig(
+</span></span><span style="display:flex;"><span>        r<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, <span style="color:#75715e"># rank of the LoRA matrices</span>
+</span></span><span style="display:flex;"><span>        task_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CAUSAL_LM&#34;</span>,
+</span></span><span style="display:flex;"><span>        target_modules<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;q_proj&#34;</span>, <span style="color:#e6db74">&#34;o_proj&#34;</span>, <span style="color:#e6db74">&#34;k_proj&#34;</span>, <span style="color:#e6db74">&#34;v_proj&#34;</span>, <span style="color:#e6db74">&#34;gate_proj&#34;</span>, <span style="color:#e6db74">&#34;up_proj&#34;</span>, <span style="color:#e6db74">&#34;down_proj&#34;</span>
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Apply LoRA to the model</span>
+</span></span><span style="display:flex;"><span>    lora_model <span style="color:#f92672">=</span> get_peft_model(model, lora_config)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> lora_model
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> apply_lora(model)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Print the number of trainable parameters after applying LoRA</span>
+</span></span><span style="display:flex;"><span>trainable_params <span style="color:#f92672">=</span> sum(p<span style="color:#f92672">.</span>numel() <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>parameters() <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>requires_grad)
+</span></span><span style="display:flex;"><span>total_params <span style="color:#f92672">=</span> sum(p<span style="color:#f92672">.</span>numel() <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>parameters())
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;number of trainable parameters: </span><span style="color:#e6db74">{</span>trainable_params<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;total parameters: </span><span style="color:#e6db74">{</span>total_params<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;percentage of trainable parameters: </span><span style="color:#e6db74">{</span>trainable_params <span style="color:#f92672">/</span> total_params <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span><span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">%&#34;</span>)
+</span></span></code></pre></div><pre><code>number of trainable parameters: 10383360
+total parameters: 2624725248
+percentage of trainable parameters: 0.40%
+</code></pre>
+<h2 id="133-forward-pass-and-loss-computation">1.3.3: Forward pass and loss computation</h2>
+<p>Now let&rsquo;s define a function to perform a forward pass through the LLM and compute the loss. The forward pass gives us the logits &ndash; which reflect the probability distribution over the next token &ndash; for the next token. We can compute the loss by comparing the predicted logits to the true next token &ndash; our target label. Note that this is effectively a classification problem! So, our loss can be captured by the cross entropy loss, and we can use PyTorch&rsquo;s <code>nn.functional.cross_entropy</code> function to compute it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward_and_compute_loss</span>(model, tokens, mask, context_length<span style="color:#f92672">=</span><span style="color:#ae81ff">512</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Truncate to context length</span>
+</span></span><span style="display:flex;"><span>    tokens <span style="color:#f92672">=</span> tokens[:, :context_length]
+</span></span><span style="display:flex;"><span>    mask <span style="color:#f92672">=</span> mask[:, :context_length]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Construct the input, output, and mask</span>
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> tokens[:, :<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#75715e"># All tokens except the last one in each sequence. This serves as the input to the model.</span>
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> tokens[:, <span style="color:#ae81ff">1</span>:] <span style="color:#75715e"># All tokens except the first one in each sequence. These are the expected outputs the model should predict.</span>
+</span></span><span style="display:flex;"><span>    mask <span style="color:#f92672">=</span> mask[:, <span style="color:#ae81ff">1</span>:] <span style="color:#75715e"># Aligns the mask with the target sequence by removing the first token&#39;s mask value.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    e.g.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    tokens: [CLS] The cat sat on the mat [SEP]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    x: [CLS] The cat sat on the
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    y: The cat sat on the mat [SEP]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    mask: [1, 1, 1, 1, 1, 1, 0]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Forward pass to compute logits</span>
+</span></span><span style="display:flex;"><span>    logits <span style="color:#f92672">=</span> model(x)<span style="color:#f92672">.</span>logits
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Output (logits): A tensor of shape (batch_size, sequence_length, vocab_size)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     containing the unnormalized scores for each token in the vocabulary at
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     each position in the sequence.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute loss</span>
+</span></span><span style="display:flex;"><span>    loss <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>cross_entropy(
+</span></span><span style="display:flex;"><span>        logits<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, logits<span style="color:#f92672">.</span>size(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)),  <span style="color:#75715e"># Flattens the logits to shape (batch_size * sequence_length, vocab_size)</span>
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>),  <span style="color:#75715e"># Flattens the target tokens to shape (batch_size * sequence_length).</span>
+</span></span><span style="display:flex;"><span>        reduction<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;none&#34;</span> <span style="color:#75715e"># Computes the loss for each individual token without aggregating.</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Mask out the loss for non-answer tokens</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    mask.view(-1): Flattens the mask to align with the flattened loss tensor.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    loss[mask.view(-1)]: Selects the loss values corresponding to positions where the mask is True.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Focuses the loss computation on relevant tokens (e.g., non-padding tokens)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    by applying the mask,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ensuring that the model is trained effectively on meaningful data
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    loss <span style="color:#f92672">=</span> loss[mask<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)]<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> loss
+</span></span></code></pre></div><h2 id="134-training-loop-for-fine-tuning">1.3.4: Training loop for fine-tuning</h2>
+<p>With this function to compute the loss, we can now define a training loop to fine-tune the model using LoRA. This training loop has the same core components as we&rsquo;ve seen before in other labs:</p>
+<ol>
+<li>Grab a batch of data from the dataset (using the DataLoader)</li>
+<li>Feed the data through the model to complete a forward pass and compute the loss</li>
+<li>Backward pass to update the model weights</li>
+</ol>
+<p>The data in our DataLoader is initially text, and is not structured in our question-answer template. So in step (1) we will need to format the data into our question-answer template previously defined, and then tokenize the text.</p>
+<p>We care about the model&rsquo;s answer to the question; the &ldquo;answer&rdquo; tokens are the part of the text we want to predict and compute the loss for. So, after tokenizing the text we need to denote to the model which tokens are part of the &ldquo;answer&rdquo; and which are part of the &ldquo;question&rdquo;. We can do this by computing a mask for the answer tokens, and then using this mask to compute the loss.</p>
+<p>Finally, we will complete the backward pass to update the model weights.</p>
+<p>Let&rsquo;s put this all together in the training loop below.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>train_loader<span style="color:#f92672">.</span>dataset
+</span></span></code></pre></div><pre><code>Dataset({
+    features: ['instruction', 'context', 'response', 'category', 'response_style'],
+    num_rows: 2048
+})
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model
+</span></span></code></pre></div><details>
+    <summary>model structures (click to expand)</summary>
+<pre><code>PeftModelForCausalLM(
+  (base_model): LoraModel(
+    (model): PeftModelForCausalLM(
+      (base_model): LoraModel(
+        (model): Gemma2ForCausalLM(
+          (model): Gemma2Model(
+            (embed_tokens): Embedding(256000, 2304, padding_idx=0)
+            (layers): ModuleList(
+              (0-25): 26 x Gemma2DecoderLayer(
+                (self_attn): Gemma2Attention(
+                  (q_proj): lora.Linear(
+                    (base_layer): Linear(in_features=2304, out_features=2048, bias=False)
+                    (lora_dropout): ModuleDict(
+                      (default): Identity()
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=2304, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=2048, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                    (lora_magnitude_vector): ModuleDict()
+                  )
+                  (k_proj): lora.Linear(
+                    (base_layer): Linear(in_features=2304, out_features=1024, bias=False)
+                    (lora_dropout): ModuleDict(
+                      (default): Identity()
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=2304, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                    (lora_magnitude_vector): ModuleDict()
+                  )
+                  (v_proj): lora.Linear(
+                    (base_layer): Linear(in_features=2304, out_features=1024, bias=False)
+                    (lora_dropout): ModuleDict(
+                      (default): Identity()
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=2304, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                    (lora_magnitude_vector): ModuleDict()
+                  )
+                  (o_proj): lora.Linear(
+                    (base_layer): Linear(in_features=2048, out_features=2304, bias=False)
+                    (lora_dropout): ModuleDict(
+                      (default): Identity()
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=2048, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=2304, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                    (lora_magnitude_vector): ModuleDict()
+                  )
+                )
+                (mlp): Gemma2MLP(
+                  (gate_proj): lora.Linear(
+                    (base_layer): Linear(in_features=2304, out_features=9216, bias=False)
+                    (lora_dropout): ModuleDict(
+                      (default): Identity()
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=2304, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=9216, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                    (lora_magnitude_vector): ModuleDict()
+                  )
+                  (up_proj): lora.Linear(
+                    (base_layer): Linear(in_features=2304, out_features=9216, bias=False)
+                    (lora_dropout): ModuleDict(
+                      (default): Identity()
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=2304, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=9216, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                    (lora_magnitude_vector): ModuleDict()
+                  )
+                  (down_proj): lora.Linear(
+                    (base_layer): Linear(in_features=9216, out_features=2304, bias=False)
+                    (lora_dropout): ModuleDict(
+                      (default): Identity()
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=9216, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=2304, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                    (lora_magnitude_vector): ModuleDict()
+                  )
+                  (act_fn): PytorchGELUTanh()
+                )
+                (input_layernorm): Gemma2RMSNorm((2304,), eps=1e-06)
+                (post_attention_layernorm): Gemma2RMSNorm((2304,), eps=1e-06)
+                (pre_feedforward_layernorm): Gemma2RMSNorm((2304,), eps=1e-06)
+                (post_feedforward_layernorm): Gemma2RMSNorm((2304,), eps=1e-06)
+              )
+            )
+            (norm): Gemma2RMSNorm((2304,), eps=1e-06)
+            (rotary_emb): Gemma2RotaryEmbedding()
+          )
+          (lm_head): Linear(in_features=2304, out_features=256000, bias=False)
+        )
+      )
+    )
+  )
+)
+</code></pre>
+</details>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">### Training loop ###</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train</span>(
+</span></span><span style="display:flex;"><span>        model,
+</span></span><span style="display:flex;"><span>        dataloader,
+</span></span><span style="display:flex;"><span>        tokenizer,
+</span></span><span style="display:flex;"><span>        max_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>        context_length<span style="color:#f92672">=</span><span style="color:#ae81ff">512</span>,
+</span></span><span style="display:flex;"><span>        learning_rate<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-4</span>
+</span></span><span style="display:flex;"><span>):
+</span></span><span style="display:flex;"><span>    losses<span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># apply LoRA to the model</span>
+</span></span><span style="display:flex;"><span>    model <span style="color:#f92672">=</span> apply_lora(model)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    optimizer <span style="color:#f92672">=</span> Lion(model<span style="color:#f92672">.</span>parameters(), lr<span style="color:#f92672">=</span>learning_rate)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Training loop</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> step, batch <span style="color:#f92672">in</span> enumerate(dataloader):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        question <span style="color:#f92672">=</span> batch[<span style="color:#e6db74">&#34;instruction&#34;</span>][<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>        answer <span style="color:#f92672">=</span> batch[<span style="color:#e6db74">&#34;response_style&#34;</span>][<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># format the question and answer into the template</span>
+</span></span><span style="display:flex;"><span>        text <span style="color:#f92672">=</span> template_with_answer<span style="color:#f92672">.</span>format(question<span style="color:#f92672">=</span>question, answer<span style="color:#f92672">=</span>answer)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># tokenize the text and compute the mast for the answer</span>
+</span></span><span style="display:flex;"><span>        ids <span style="color:#f92672">=</span> tokenizer(text, return_tensors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pt&#34;</span>, return_offsets_mapping<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)<span style="color:#f92672">.</span>to(model<span style="color:#f92672">.</span>device)
+</span></span><span style="display:flex;"><span>        mask <span style="color:#f92672">=</span> ids[<span style="color:#e6db74">&#34;offset_mapping&#34;</span>][:,:,<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&gt;=</span> text<span style="color:#f92672">.</span>index(answer)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Feed the tokens through the model and compute the loss</span>
+</span></span><span style="display:flex;"><span>        loss <span style="color:#f92672">=</span> forward_and_compute_loss(
+</span></span><span style="display:flex;"><span>            model<span style="color:#f92672">=</span>model,
+</span></span><span style="display:flex;"><span>            tokens<span style="color:#f92672">=</span>ids[<span style="color:#e6db74">&#34;input_ids&#34;</span>],
+</span></span><span style="display:flex;"><span>            mask<span style="color:#f92672">=</span>mask,
+</span></span><span style="display:flex;"><span>            context_length<span style="color:#f92672">=</span>context_length,
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Backward pass</span>
+</span></span><span style="display:flex;"><span>        optimizer<span style="color:#f92672">.</span>zero_grad()
+</span></span><span style="display:flex;"><span>        loss<span style="color:#f92672">.</span>backward()
+</span></span><span style="display:flex;"><span>        optimizer<span style="color:#f92672">.</span>step()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        losses<span style="color:#f92672">.</span>append(loss<span style="color:#f92672">.</span>item())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># monitor progress</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> step <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            print(chat(<span style="color:#e6db74">&#34;What is the capital of France?&#34;</span>, only_answer<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>))
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;step </span><span style="color:#e6db74">{</span>step<span style="color:#e6db74">}</span><span style="color:#e6db74"> loss: </span><span style="color:#e6db74">{</span>torch<span style="color:#f92672">.</span>mean(torch<span style="color:#f92672">.</span>tensor(losses))<span style="color:#f92672">.</span>item()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            losses <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> step <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> step <span style="color:#f92672">%</span> max_steps <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> model
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Call the train function to fine-tune the model! Hint: you&#39;ll start to see results after a few dozen steps.</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> train(model, train_loader, tokenizer, max_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>)
+</span></span></code></pre></div><pre><code>The capital of France is **Paris**. 🇫🇷 
+
+step 0 loss: 1.938644528388977
+The capital of France is **Paris**. 🇫🇷 
+
+step 10 loss: 2.0876097679138184
+The capital of France is **Paris**. 🇫🇷
+
+step 20 loss: 1.8085353374481201
+Top o' the mornin' now! Why, the capital o' grand ol' France is none other than Paris, ye hear? Top o' the
+step 30 loss: 1.4446303844451904
+Top o' the mornin' to ye! Now, the capital o' the land o' the French, which is as grand as it gets, is
+step 40 loss: 1.469994068145752
+Och, the capital o' France, Ye see, is Paris, the grandest city in the land!
+step 50 loss: 1.5635912418365479
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s try chatting with the model again to see how it has changed!</span>
+</span></span><span style="display:flex;"><span>print(chat(<span style="color:#e6db74">&#34;What is a good story about tennis&#34;</span>, only_answer<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, max_new_tokens<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>))
+</span></span></code></pre></div><pre><code>Top o' the mornin' to ye, me hearty! Now, listen here ye, for I'm tellin' ye a tale about a wee lad called Patrick, as he's spittin' out his top o' the mornin' in the wee hours o' the morning, ye see, and he's tellin' ye about this grand match he witnessed between two lads, Jimmy and Tommy.
+
+Now, Jimmy's a lad with a right fiery temper, ye see, and he's been havin' a bit o' a struggle in the match, ye know, and he's tryin' to keep his head above the water. But then, Tommy, he's a big lad with a heart o' gold, and he's been out there showin' Jimmy how to win, ye see, and he's been teachin' him the art o' the comeback, ye know, and he's been help
+</code></pre>
+<h2 id="part-2-evaluating-a-style-tuned-llm">Part 2: Evaluating a style-tuned LLM</h2>
+<ul>
+<li>
+<p>While benchmarks have been developed to evaluate the performance of language models on a variety of tasks, these benchmarks are not always representative of the real-world performance of the model.</p>
+</li>
+<li>
+<p>For example, a model may perform well on a benchmark but poorly on a more realistic task. Benchmarks are also limited in the scope of tasks they can cover and capabilities they can reflect, and there can be concerns about whether the data in the benchmark was used to train the model.</p>
+</li>
+<li>
+<p><strong>Synthetic data generation</strong> and <strong>synthetic tasks</strong> are a way to address these limitations, and this is an active area of research.</p>
+</li>
+<li>
+<p>We can also turn a qualitative evaluation of a generated response quantitative by deploying someone or something to &ldquo;judge&rdquo; the outputs. In this lab, we will use a technique called <a href="https://arxiv.org/abs/2306.05685">LLM as a judge</a> to do exactly this. This involves using a larger LLM to score the outputs of a smaller LLM. The larger LLM is used as a judge, and it is given a system prompt that describes the task we want the smaller LLM to perform and the judging criteria. A &ldquo;system prompt&rdquo; is a way to set the general context and guide an LLM&rsquo;s behavior. Contextualized with this system prompt, the judge LLM can score the outputs of the smaller LLM, and we can use this score to evaluate how well the smaller LLM is doing.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### LLM as a judge ###</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;TODO: Experiment with different system prompts to see how they affect the judge LLM&#39;s evaluation!
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Come back to this cell after you&#39;ve generated some text from your model.&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>system_prompt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">You are an impartial judge that evaluates if text was written by </span><span style="color:#e6db74">{style}</span><span style="color:#e6db74">.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">An example piece of text from </span><span style="color:#e6db74">{style}</span><span style="color:#e6db74"> is:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span><span style="color:#e6db74">{example}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Now, analyze some new text carefully and respond on if it follows the
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">same style of </span><span style="color:#e6db74">{style}</span><span style="color:#e6db74">. Be critical to identify any issues in the text.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Then convert your feedback into a number between 0 and 10: 10 if the text
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">is written exactly in the style of </span><span style="color:#e6db74">{style}</span><span style="color:#e6db74">, 5 if mixed faithfulness to the
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">style, or 0 if the text is not at all written in the style of </span><span style="color:#e6db74">{style}</span><span style="color:#e6db74">.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The format of the your response should be a JSON dictionary and nothing else:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">{{&#34;score&#34;: &lt;score between 0 and 10&gt;}}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>style <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Yoda&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># example = &#34;&#34;&#34;The very Republic is threatened, if involved the Sith are. Hard to see, the dark side is. &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>example <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The very Republic is threatened, if involved the Sith are. Hard to see, the dark side is. Discover who this assassin is, we must. With this Naboo queen you must stay, Qui-Gon. Protect her. May the Force be with you. A vergence, you say? But you do! Revealed your opinion is. Trained as a Jedi, you request for him? Good, good, young one.&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>system_prompt <span style="color:#f92672">=</span> system_prompt<span style="color:#f92672">.</span>format(style<span style="color:#f92672">=</span>style, example<span style="color:#f92672">=</span>example)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;=== System prompt ===&#34;</span>)
+</span></span><span style="display:flex;"><span>print(system_prompt)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># basically same shit as langsmith</span>
+</span></span></code></pre></div><p>=== System prompt ===</p>
+<p>You are an impartial judge that evaluates if text was written by Yoda.</p>
+<p>An example piece of text from Yoda is:
+The very Republic is threatened, if involved the Sith are. Hard to see, the dark side is. Discover who this assassin is, we must. With this Naboo queen you must stay, Qui-Gon. Protect her. May the Force be with you. A vergence, you say? But you do! Revealed your opinion is. Trained as a Jedi, you request for him? Good, good, young one.</p>
+<p>Now, analyze some new text carefully and respond on if it follows the
+same style of Yoda. Be critical to identify any issues in the text.
+Then convert your feedback into a number between 0 and 10: 10 if the text
+is written exactly in the style of Yoda, 5 if mixed faithfulness to the
+style, or 0 if the text is not at all written in the style of Yoda.</p>
+<p>The format of the your response should be a JSON dictionary and nothing else:
+{&ldquo;score&rdquo;: &lt;score between 0 and 10&gt;}</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>OPENROUTER_API_KEY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#75715e"># add your OpenRouter API key here</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> OPENROUTER_API_KEY <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;You must set your OpenRouter API key before running this cell!&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;liquid/lfm-40b&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># model_name = &#34;google/gemma-2-9b-it&#34;</span>
+</span></span><span style="display:flex;"><span>llm <span style="color:#f92672">=</span> mdl<span style="color:#f92672">.</span>lab3<span style="color:#f92672">.</span>LLMClient(model<span style="color:#f92672">=</span>model_name, api_key<span style="color:#f92672">=</span>OPENROUTER_API_KEY)
+</span></span></code></pre></div><p>well open router cost money too&hellip; nah I&rsquo;m good, already have too many llm services, just use deepseek this time.</p>
+<p>[!NOTE] Alternative</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> getpass
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prompt the user for their API key without echoing the input</span>
+</span></span><span style="display:flex;"><span>api_key <span style="color:#f92672">=</span> getpass<span style="color:#f92672">.</span>getpass(<span style="color:#e6db74">&#34;Enter your DeepSeek API key: &#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># use deepseek-chat(DeepSeek-V3) for example</span>
+</span></span><span style="display:flex;"><span>llm <span style="color:#f92672">=</span> mdl<span style="color:#f92672">.</span>lab3<span style="color:#f92672">.</span>LLMClient(model<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;deepseek-chat&#34;</span>,api_key<span style="color:#f92672">=</span>api_key, api_base<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://api.deepseek.com&#34;</span>)
+</span></span></code></pre></div><p>Enter your DeepSeek API key:  ········</p>
+<ul>
+<li>We have set up our judge LLM, but we still need to make this quantitative. We can do this by defining a metric that uses the judge LLM to score the outputs of the model. Doing this is streamlined with Comet ML&rsquo;s <a href="https://www.comet.com/docs/opik/python-sdk-reference/"> Opik </a> library, a platform for LLM evaluation and benchmarking.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> opik.evaluation.metrics <span style="color:#f92672">import</span> base_metric, score_result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LLMJudgeEvaluator</span>(base_metric<span style="color:#f92672">.</span>BaseMetric):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, judge: mdl<span style="color:#f92672">.</span>lab3<span style="color:#f92672">.</span>LLMClient <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>, system_prompt: str <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>judge <span style="color:#f92672">=</span> judge
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>system_prompt <span style="color:#f92672">=</span> system_prompt
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>prompt_template <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Evaluate this text: </span><span style="color:#e6db74">{text}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">score</span>(self, text: str, n_tries<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, <span style="color:#f92672">**</span>kwargs):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34; Evaluate by asking an LLM to score it. &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> attempt <span style="color:#f92672">in</span> range(n_tries):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Convert the text to template form before passing it to the judge LLM</span>
+</span></span><span style="display:flex;"><span>                prompt <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>prompt_template<span style="color:#f92672">.</span>format(text<span style="color:#f92672">=</span>text)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># The system prompt asks the judge to output a JSON dictionary of the form: </span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># {&#34;score&#34;: &lt;score between 0 and 10&gt;}</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># To do this, we need to specify the judge to stop generating after it </span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># closes the JSON dictionary (i.e., when it outputs &#34;}&#34;)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Hint: Use the stop=[&#34;}&#34;] argument within the judge.ask() method to specify this.</span>
+</span></span><span style="display:flex;"><span>                stop <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Call the judge LLM with the system prompt and the prompt template. </span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Remember to stop the generation when the judge LLM outputs &#34;}&#34;.</span>
+</span></span><span style="display:flex;"><span>                res <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>judge<span style="color:#f92672">.</span>ask(
+</span></span><span style="display:flex;"><span>                    system<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>system_prompt,
+</span></span><span style="display:flex;"><span>                    user<span style="color:#f92672">=</span>prompt,
+</span></span><span style="display:flex;"><span>                    max_tokens<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>                    stop<span style="color:#f92672">=</span>[stop]
+</span></span><span style="display:flex;"><span>                )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Extract the assistant&#39;s content from the API response</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Remember to add the stop character back to the end of the response to be a </span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># valid JSON dictionary (its not there  the judge LLM stoped once it saw it)</span>
+</span></span><span style="display:flex;"><span>                res <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span>choices[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>message<span style="color:#f92672">.</span>content <span style="color:#f92672">+</span> stop
+</span></span><span style="display:flex;"><span>                res_dict <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(res)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                max_score <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#75715e"># The maximum score that the LLM should output</span>
+</span></span><span style="display:flex;"><span>                score <span style="color:#f92672">=</span> res_dict[<span style="color:#e6db74">&#34;score&#34;</span>] <span style="color:#f92672">/</span> max_score <span style="color:#75715e"># Normalize</span>
+</span></span><span style="display:flex;"><span>                score <span style="color:#f92672">=</span> max(<span style="color:#ae81ff">0.0</span>, min(score, <span style="color:#ae81ff">1.0</span>)) <span style="color:#75715e"># Clip between 0 and 1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Return the score object</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> score_result<span style="color:#f92672">.</span>ScoreResult(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;StyleScore&#34;</span>, value<span style="color:#f92672">=</span>score)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> attempt <span style="color:#f92672">==</span> n_tries <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>:  <span style="color:#75715e"># Last attempt</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">raise</span> e  <span style="color:#75715e"># Re-raise the exception if all attempts failed</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>  <span style="color:#75715e"># Try again if not the last attempt</span>
+</span></span></code></pre></div><ul>
+<li>Instaniate your Comet Opik judge using the LLMJudgeEvaluator class and system prompt.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>judge <span style="color:#f92672">=</span> LLMJudgeEvaluator(llm, system_prompt<span style="color:#f92672">=</span>system_prompt)
+</span></span></code></pre></div><h3 id="evaluating-the-model-by-scoring-with-your-judge-llm">Evaluating the model by scoring with your judge LLM</h3>
+<p>Now we can use the judge LLM to score the outputs of the model. We will use the <code>scoring_fuction</code>
+to score text using the judge LLM.</p>
+<p>Feed in a few probe sentences to get a vibe check on the judge LLM.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scoring_function</span>(text):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> judge<span style="color:#f92672">.</span>score(text)<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test_texts <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Tennis is a fun sport. But you must concentrate.&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Fun sport, tennis is. But work hard, you must.&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Hard to see, the dark side is.&#34;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> text <span style="color:#f92672">in</span> test_texts:
+</span></span><span style="display:flex;"><span>    score <span style="color:#f92672">=</span> scoring_function(text)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>text<span style="color:#e6db74">}</span><span style="color:#e6db74"> ==&gt; Score: </span><span style="color:#e6db74">{</span>score<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><h1 id="llm-serving-vllm">LLM Serving: vLLM</h1>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

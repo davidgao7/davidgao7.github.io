@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Llm on davidgao7 blog</title>
+    <title>LLM on davidgao7 blog</title>
     <link>http://localhost:1313/tags/llm/</link>
-    <description>Recent content in Llm on davidgao7 blog</description>
+    <description>Recent content in LLM on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Feb 2025 15:19:01 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 22 Apr 2025 11:14:45 -0400</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VLLM Deep Dive</title>
+      <link>http://localhost:1313/posts/vllm-deep-dive/</link>
+      <pubDate>Tue, 22 Apr 2025 11:14:45 -0400</pubDate>
+      <guid>http://localhost:1313/posts/vllm-deep-dive/</guid>
+      <description>&lt;h1 id=&#34;how-to-apply-llm-in-production&#34;&gt;How to apply LLM in production&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Introducing project vLLM&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;what-is-vllm&#34;&gt;What is vLLM?&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;vLLM is a fast and easy-to-use library for &lt;font color=pink&gt;LLM inference&lt;/font&gt; and &lt;font color=pink&gt;serving&lt;/font&gt;.&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Longer version&amp;hellip;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;vLLM is a high-performance, memory-efficient, and easy-to-use library for serving large language models (LLMs) in production. It is designed to optimize the inference of LLMs, making it easier to deploy and scale them in real-world applications.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;“vLLM is to LLM serving what TensorRT was to DL inference: high performance, low frills, and production first.”&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Finetune LLM Locally Using MLX</title>
+      <link>http://localhost:1313/posts/finetune-llm-locally-using-mlx/</link>
+      <pubDate>Sat, 19 Apr 2025 16:59:26 -0400</pubDate>
+      <guid>http://localhost:1313/posts/finetune-llm-locally-using-mlx/</guid>
+      <description>&lt;h1 id=&#34;why-this-matter&#34;&gt;Why this matter?&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;I want to make full use of apple silicon&amp;rsquo;s chip, it&amp;rsquo;s a powerhouse&lt;/li&gt;&#xA;&lt;li&gt;can&amp;rsquo;t let the cuda have all the fun&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;prerequisite&#34;&gt;Prerequisite&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;a laptop with apple silicon chip&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;install-python&#34;&gt;Install python&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;You can install python with any tools you like, for me I use &lt;code&gt;uv&lt;/code&gt;, a fast and lightweight python version manager built with Rust.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;uv venv --python 3.11.11&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;source .venv/bin/activate&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;&#xA;&lt;li&gt;Here are the necessary python packages in your &lt;code&gt;requirements.txt&lt;/code&gt;:&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mlx&#xA;mlx_lm&#xA;huggingface_hub&#xA;requests&#xA;urllib3&#xA;idna&#xA;certifi&#xA;tqdm&#xA;pyyaml&#xA;filelock&#xA;transformers&#xA;packaging&#xA;torch&#xA;pytz&#xA;datetime&#xA;numpy&#xA;pandas&#xA;jupyter&#xA;ipykernel&#xA;jupyterlab&#xA;typing_extensions&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;uv pip sync requirements.txt&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;&#xA;&lt;li&gt;You can go to jupyter lab by running this command&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;uv run --with jupyter jupyter lab&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;how-to-fine-tune-your-llm&#34;&gt;How to fine tune your LLM&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;There are two major part of finetuning your llm&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Local Rag Ollama</title>
       <link>http://localhost:1313/posts/local-rag-ollama/</link>

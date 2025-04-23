@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>VLLM Deep Dive // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.146.6">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="VLLM Deep Dive">
+  <meta name="twitter:description" content="How to apply LLM in production Introducing project vLLM What is vLLM? vLLM is a fast and easy-to-use library for LLM inference and serving. Longer version…
+vLLM is a high-performance, memory-efficient, and easy-to-use library for serving large language models (LLMs) in production. It is designed to optimize the inference of LLMs, making it easier to deploy and scale them in real-world applications.
+“vLLM is to LLM serving what TensorRT was to DL inference: high performance, low frills, and production first.”">
+
+    <meta property="og:url" content="http://localhost:1313/posts/vllm-deep-dive/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="VLLM Deep Dive">
+  <meta property="og:description" content="How to apply LLM in production Introducing project vLLM What is vLLM? vLLM is a fast and easy-to-use library for LLM inference and serving. Longer version…
+vLLM is a high-performance, memory-efficient, and easy-to-use library for serving large language models (LLMs) in production. It is designed to optimize the inference of LLMs, making it easier to deploy and scale them in real-world applications.
+“vLLM is to LLM serving what TensorRT was to DL inference: high performance, low frills, and production first.”">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-22T11:14:45-04:00">
+    <meta property="article:modified_time" content="2025-04-22T11:14:45-04:00">
+    <meta property="article:tag" content="VLLM">
+    <meta property="article:tag" content="K8s">
+    <meta property="article:tag" content="LLM">
+    <meta property="article:tag" content="Production">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">VLLM Deep Dive</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Apr 22, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          2 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/vllm/">VLLM</a>
+              <a class="tag" href="/tags/k8s/">K8s</a>
+              <a class="tag" href="/tags/llm/">LLM</a>
+              <a class="tag" href="/tags/production/">Production</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="how-to-apply-llm-in-production">How to apply LLM in production</h1>
+<ul>
+<li>Introducing project vLLM</li>
+</ul>
+<h2 id="what-is-vllm">What is vLLM?</h2>
+<ul>
+<li><strong>vLLM is a fast and easy-to-use library for <font color=pink>LLM inference</font> and <font color=pink>serving</font>.</strong></li>
+</ul>
+<p>Longer version&hellip;</p>
+<blockquote>
+<p>vLLM is a high-performance, memory-efficient, and easy-to-use library for serving large language models (LLMs) in production. It is designed to optimize the inference of LLMs, making it easier to deploy and scale them in real-world applications.</p></blockquote>
+<blockquote>
+<p>“vLLM is to LLM serving what TensorRT was to DL inference: high performance, low frills, and production first.”</p></blockquote>
+<ul>
+<li><a href="https://github.com/vllm-project/vllm">project url</a></li>
+<li><a href="https://docs.vllm.ai/en/latest/getting_started/installation/cpu.html?device=apple">build from source</a></li>
+<li>currently migrating v0 code to v1</li>
+</ul>
+<h2 id="what-does-vllm-good-at-why-i-care-about-vllm">What does vLLM good at/ Why I care about vLLM?</h2>
+<blockquote>
+<p>vLLM matters because it makes LLM serving fast, memory-efficient, and production-ready—without sacrificing flexibility.</p></blockquote>
+<h3 id="high-troughput-low-latency">High Troughput, Low Latency</h3>
+<p>Thanks to feature like <code>PagedAttention</code> and <code>continuous batching</code>, vLLM achieves up to 23x throughput with reduced latency compared to naive serving methods.</p>
+<h3 id="plug-and-play-huggingface-integration">Plug-and-Play HuggingFace Integration</h3>
+<p>Supports most popular HuggingFace models <em>without code changes</em>.</p>
+<h3 id="smart-memory-efficiency">Smart Memory Efficiency</h3>
+<p><code>PagedAttention</code> manages <code>KV cache memory</code> more efficiently, allowing <em>larger batch sizes</em> and <em>longer contexts</em> without running out of GPU RAM.</p>
+<h3 id="production-ready-features">Production-Ready Features</h3>
+<ul>
+<li>Speculative decoding</li>
+<li>Prefix caching</li>
+<li>Streaming output</li>
+<li>Multi-LoRA support</li>
+<li>OpenAI-compatible API server (as OpenAI API is industry standard right now)</li>
+</ul>
+<h3 id="cost-effective-inference-multi-hardware-support">Cost-Effective Inference, Multi-Hardware Support</h3>
+<ul>
+<li>Quantization support: (GPTQ, AWQ, INT4, FP8, etc.)</li>
+<li>Hardware: support across <em>NVIDIA</em>, <em>AMD</em>, <em>Intel</em>, <em>TPU</em>, <em>AWS Trainium</em>, it helps you save money on inference.</li>
+</ul>
+<h3 id="production-ready-deployment">Production-ready Deployment</h3>
+<p>Comes with <em>Kubernetes</em>, <em>Docker</em>, <em>Nginx</em> guides and <em>monitoring hooks</em>, ideal for serving LLMs at scale.</p>
+<h2 id="vllm-vs-other-inference-engines">vLLM vs Other Inference Engines</h2>
+<h3 id="lmcache">LMCache</h3>
+<ul>
+<li>Focus: Token reuse for inference-time acceleration</li>
+<li>Strength: Retrieval-based KV cache hit optimization</li>
+<li>Weakness: Higher complexity to tune for low-redundancy tasks</li>
+<li><a href="https://github.com/LMCache/LMCache">Link</a></li>
+</ul>
+<h3 id="mooncake-kvcache-ai">MoonCake (KVCache-AI)</h3>
+<ul>
+<li>Focus: Efficient pooling and KV memory reuse</li>
+<li>Strength: Flexible cache design via pooling abstraction</li>
+<li>Weakness: Smaller community, less mature</li>
+<li><a href="https://github.com/kvcache-ai/Mooncake">Link</a></li>
+</ul>
+<h3 id="nixl-by-nvidia-dynamo">Nixl (by NVIDIA Dynamo)</h3>
+<ul>
+<li>Focus: Unified backend with high-performance data transfer APIs</li>
+<li>Strength: Custom hardware acceleration, optimized memory/messaging</li>
+<li>Weakness: Requires deep NVIDIA ecosystem involvement</li>
+<li><a href="https://github.com/ai-dynamo/nixl">Link</a></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
