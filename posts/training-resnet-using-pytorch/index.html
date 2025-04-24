@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Training Resnet Using Pytorch // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.146.7">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Training Resnet Using Pytorch">
+  <meta name="twitter:description" content="Re-visit Convolutional Neural Network (CNN) Architectures: PlainNet &amp; ResNet using Pytorch In this blog I will use pytorch to rebuild a classic vision model: ResNet-50, to get more hands on exercise for real-world computer vision application
+Preparation Please make sure you have the following packages installed:
+torch torchvision plotly IPython Import the libraries, and check the GPU availability. If you are using a Mac with MPS, it will automatically use the MPS device. Otherwise, it will use the CUDA device if available.">
+
+    <meta property="og:url" content="http://localhost:1313/posts/training-resnet-using-pytorch/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="Training Resnet Using Pytorch">
+  <meta property="og:description" content="Re-visit Convolutional Neural Network (CNN) Architectures: PlainNet &amp; ResNet using Pytorch In this blog I will use pytorch to rebuild a classic vision model: ResNet-50, to get more hands on exercise for real-world computer vision application
+Preparation Please make sure you have the following packages installed:
+torch torchvision plotly IPython Import the libraries, and check the GPU availability. If you are using a Mac with MPS, it will automatically use the MPS device. Otherwise, it will use the CUDA device if available.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-23T22:34:35-04:00">
+    <meta property="article:modified_time" content="2025-04-23T22:34:35-04:00">
+    <meta property="article:tag" content="Pytorch">
+    <meta property="article:tag" content="Resnet">
+    <meta property="article:tag" content="Deep Learning">
+    <meta property="article:tag" content="Image Classification">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Training Resnet Using Pytorch</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Apr 23, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          9 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/pytorch/">Pytorch</a>
+              <a class="tag" href="/tags/resnet/">Resnet</a>
+              <a class="tag" href="/tags/deep-learning/">Deep Learning</a>
+              <a class="tag" href="/tags/image-classification/">Image Classification</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="re-visit-convolutional-neural-network-cnn-architectures-plainnet--resnet-using-pytorch">Re-visit Convolutional Neural Network (CNN) Architectures: PlainNet &amp; ResNet using Pytorch</h1>
+<p>In this blog I will use pytorch to rebuild a classic vision model: <code>ResNet-50</code>, to get more hands on exercise for real-world computer vision application</p>
+<h2 id="preparation">Preparation</h2>
+<p>Please make sure you have the following packages installed:</p>
+<pre tabindex="0"><code>torch
+torchvision
+plotly
+IPython
+</code></pre><p>Import the libraries, and check the GPU availability. If you are using a Mac with MPS, it will automatically use the MPS device. Otherwise, it will use the CUDA device if available.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Section 1: General Utilities</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.optim <span style="color:#66d9ef">as</span> optim
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn.functional <span style="color:#66d9ef">as</span> F
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torchvision <span style="color:#f92672">import</span> datasets, transforms, models
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torch.utils.data <span style="color:#f92672">import</span> DataLoader
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> plotly.graph_objects <span style="color:#66d9ef">as</span> go
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> clear_output, display
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>device <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>device(<span style="color:#e6db74">&#34;cuda&#34;</span> <span style="color:#66d9ef">if</span> torch<span style="color:#f92672">.</span>cuda<span style="color:#f92672">.</span>is_available() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;mps&#34;</span> <span style="color:#66d9ef">if</span> torch<span style="color:#f92672">.</span>backends<span style="color:#f92672">.</span>mps<span style="color:#f92672">.</span>is_available() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;cpu&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Using device: </span><span style="color:#e6db74">{</span>device<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gpu_info <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">!</span>nvidia<span style="color:#f92672">-</span>smi
+</span></span><span style="display:flex;"><span>gpu_info <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>join(gpu_info)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> gpu_info<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#39;failed&#39;</span>) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>  print(<span style="color:#e6db74">&#39;Not connected to a GPU&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>  print(gpu_info)
+</span></span></code></pre></div><p>It&rsquo;s probably overkill to use resnet-50 for cifar10, but the purpose for this exercise for me is to get more familiar with pytorch, and eventually try some new things, don&rsquo;t want to train a resnet32 again.</p>
+<pre tabindex="0"><code>+-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.15              Driver Version: 550.54.15      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |
+| N/A   69C    P8             14W /   70W |       2MiB /  15360MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+</code></pre><h2 id="helper-functions-to-store-the-metadata">Helper functions to store the metadata</h2>
+<ul>
+<li>
+<p>Create a function to store the metadata of the training process, including the loss and accuracy for each epoch. This will help us visualize the training process later.</p>
+</li>
+<li>
+<p>Also a function to overview the model structure.</p>
+</li>
+</ul>
+<p>Here is a mini TensorBoard replacement with <strong>Plotly</strong>, live in Colab, with:</p>
+<ul>
+<li>
+<p>📈 Dual-axis live plotting (losses + learning rate)</p>
+</li>
+<li>
+<p>📁 Auto-export to HTML (for website embedding)</p>
+</li>
+<li>
+<p>✅ Minimal dependencies</p>
+</li>
+<li>
+<p>😎 Full control, no black-boxing</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> plotly.io <span style="color:#66d9ef">as</span> pio
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> plotly.graph_objects <span style="color:#66d9ef">as</span> go
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># mont the google drive to save figs</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> google.colab <span style="color:#f92672">import</span> drive
+</span></span><span style="display:flex;"><span>drive<span style="color:#f92672">.</span>mount(<span style="color:#e6db74">&#39;/content/drive&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExperimentLogger</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>train_losses <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>train_accuracies <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>test_losses <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>test_accuracies <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>lrs <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">log_learning_rate</span>(self, lr):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>lrs<span style="color:#f92672">.</span>append(lr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">log_train_loss</span>(self, loss):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>train_losses<span style="color:#f92672">.</span>append(loss)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">log_train_accuracy</span>(self, accuracy):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>train_accuracies<span style="color:#f92672">.</span>append(accuracy)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">log_test_loss</span>(self, loss):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>test_losses<span style="color:#f92672">.</span>append(loss)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">log_test_accuracy</span>(self, accuracy):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>test_accuracies<span style="color:#f92672">.</span>append(accuracy)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">log_train</span>(self, loss, accuracy):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>log_train_loss(loss)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>log_train_accuracy(accuracy)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">log_test</span>(self, loss, accuracy):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>log_test_loss(loss)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>log_test_accuracy(accuracy)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">live_plot</span>(self, epochs, label):
+</span></span><span style="display:flex;"><span>        clear_output(wait<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>        fig <span style="color:#f92672">=</span> go<span style="color:#f92672">.</span>Figure()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Primary y-axis (losses/accuracy)</span>
+</span></span><span style="display:flex;"><span>        fig<span style="color:#f92672">.</span>add_trace(go<span style="color:#f92672">.</span>Scatter(y<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>train_losses, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lines+markers&#39;</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Training Loss&#39;</span>))
+</span></span><span style="display:flex;"><span>        fig<span style="color:#f92672">.</span>add_trace(go<span style="color:#f92672">.</span>Scatter(y<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>train_accuracies, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lines+markers&#39;</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Training Accuracy&#39;</span>))
+</span></span><span style="display:flex;"><span>        fig<span style="color:#f92672">.</span>add_trace(go<span style="color:#f92672">.</span>Scatter(y<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>test_losses, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lines+markers&#39;</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Test Loss&#39;</span>))
+</span></span><span style="display:flex;"><span>        fig<span style="color:#f92672">.</span>add_trace(go<span style="color:#f92672">.</span>Scatter(y<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>test_accuracies, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lines+markers&#39;</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Test Accuracy&#39;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Secondary y-axis (learning rate)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>lrs:
+</span></span><span style="display:flex;"><span>            fig<span style="color:#f92672">.</span>add_trace(go<span style="color:#f92672">.</span>Scatter(y<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>lrs, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lines+markers&#39;</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Learning Rate&#39;</span>, yaxis<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;y2&#39;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        fig<span style="color:#f92672">.</span>update_layout(
+</span></span><span style="display:flex;"><span>            title<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>label<span style="color:#e6db74">}</span><span style="color:#e6db74"> - Learning Curves&#39;</span>,
+</span></span><span style="display:flex;"><span>            xaxis_title<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Epoch&#39;</span>,
+</span></span><span style="display:flex;"><span>            yaxis<span style="color:#f92672">=</span>dict(title<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Loss / Accuracy&#39;</span>),
+</span></span><span style="display:flex;"><span>            yaxis2<span style="color:#f92672">=</span>dict(
+</span></span><span style="display:flex;"><span>                title<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Learning Rate&#39;</span>,
+</span></span><span style="display:flex;"><span>                overlaying<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;y&#39;</span>,
+</span></span><span style="display:flex;"><span>                side<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;right&#39;</span>,
+</span></span><span style="display:flex;"><span>                showgrid<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>            ),
+</span></span><span style="display:flex;"><span>            width<span style="color:#f92672">=</span><span style="color:#ae81ff">900</span>,
+</span></span><span style="display:flex;"><span>            height<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>            legend_title<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Metric&#39;</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        display(fig)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        pio<span style="color:#f92672">.</span>write_html(fig, file<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/content/drive/MyDrive/Colab Notebooks/ResNetPytorch.html&#39;</span>, auto_open<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">early_stopping_triggered</span>(self, patience<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, delta<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-4</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(self<span style="color:#f92672">.</span>test_accuracies) <span style="color:#f92672">&lt;</span> patience:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        recent <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>test_accuracies[<span style="color:#f92672">-</span>patience:]
+</span></span><span style="display:flex;"><span>        improvement <span style="color:#f92672">=</span> max(recent) <span style="color:#f92672">-</span> min(recent)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> improvement <span style="color:#f92672">&lt;</span> delta
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">show_model_structure</span>(model, name):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74"> Model Structure:&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(model)
+</span></span></code></pre></div><h2 id="data-preparation">Data Preparation</h2>
+<p>Let&rsquo;s use the famous <code>cifar10</code> dataset for this exercise. We will use the <code>torchvision</code> library to download and prepare the dataset. The dataset will be split into training and testing sets.</p>
+<ul>
+<li>
+<p>Random horizontal flip</p>
+<ul>
+<li><code>Why</code>: Many real-world objects (like animals, vehicles, etc.) are symmetric or can appear flipped in images.</li>
+<li><code>Effect</code>: It will increases <strong>invariance</strong> to <strong>orientation</strong>, helping the model avoid overfitting to the left/right arrangement of features.</li>
+<li>Cheap and effective boost to performance.</li>
+</ul>
+</li>
+<li>
+<p>Random cropping (with Padding)</p>
+<ul>
+<li><code>Why</code>: Simulates the effect of a subject appearing at slightly different locations in the frame.</li>
+<li><code>Effect</code>: Helps the model learn <strong>positional robustness</strong> — i.e., not overly focusing on centered or fixed-position features.</li>
+</ul>
+</li>
+<li>
+<p>(For ImageNet) Scale jittering (resizing + random crop)</p>
+<ul>
+<li><code>Why</code>: Real-world images vary in zoom and size</li>
+<li><code>Effect</code>: Teaches the model to recognize objects at multiple scales.</li>
+<li>Often implemented as: <code>RandomResizedCrop()</code> &ndash;&gt; resizes to random scales/aspect ratios before cropping.</li>
+<li>Especially important for <strong>large-scale</strong> and <strong>varied</strong> datasets like ImageNet.</li>
+</ul>
+</li>
+</ul>
+<p>In our case, for most practical cases:</p>
+<p>Basic augmentations like these are <strong>not overkill</strong>, in fact, they are <em>standard practice</em> when training models like ResNet on CIFAR-10.</p>
+<p>In the original ResNet paper, even for CIFAR-10, they used:</p>
+<ul>
+<li><strong>Random crop</strong> with 4-pixel padding</li>
+<li><strong>Random horizontal flip</strong></li>
+<li><strong>(Oprional) Cutout or Mixup</strong> in later works</li>
+</ul>
+<p>These are <strong>lightweight</strong> and significantly <strong>boost generalization</strong>, especially when you&rsquo;re training a <strong>deep model like Resnet-50</strong> on a relatively <strong>small dataset</strong> (CIFAR-10 has only 50k training images).</p>
+<p>But overkill happens when:</p>
+<ul>
+<li>You stack too many complex augmentations (e.g., autoaugment, RandAugment, color jitter, etc.) on a simple baseline.</li>
+<li>Your model is already very small or underfitting — augmentations won&rsquo;t help and may hurt.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Section 2: Dataset Loading</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torchvision.transforms <span style="color:#f92672">import</span> AutoAugment, AutoAugmentPolicy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>transform_train <span style="color:#f92672">=</span> transforms<span style="color:#f92672">.</span>Compose([
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#f92672">.</span>RandomCrop(<span style="color:#ae81ff">32</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>),
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#f92672">.</span>RandomHorizontalFlip(),
+</span></span><span style="display:flex;"><span>    AutoAugment(policy<span style="color:#f92672">=</span>AutoAugmentPolicy<span style="color:#f92672">.</span>CIFAR10),
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#f92672">.</span>ToTensor(),
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#f92672">.</span>Normalize((<span style="color:#ae81ff">0.4914</span>, <span style="color:#ae81ff">0.4822</span>, <span style="color:#ae81ff">0.4465</span>),
+</span></span><span style="display:flex;"><span>                         (<span style="color:#ae81ff">0.2023</span>, <span style="color:#ae81ff">0.1994</span>, <span style="color:#ae81ff">0.2010</span>)),
+</span></span><span style="display:flex;"><span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>transform_test <span style="color:#f92672">=</span> transforms<span style="color:#f92672">.</span>Compose([
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#f92672">.</span>ToTensor(),
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#f92672">.</span>Normalize((<span style="color:#ae81ff">0.4914</span>, <span style="color:#ae81ff">0.4822</span>, <span style="color:#ae81ff">0.4465</span>),
+</span></span><span style="display:flex;"><span>                         (<span style="color:#ae81ff">0.2023</span>, <span style="color:#ae81ff">0.1994</span>, <span style="color:#ae81ff">0.2010</span>)),
+</span></span><span style="display:flex;"><span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>train_dataset <span style="color:#f92672">=</span> datasets<span style="color:#f92672">.</span>CIFAR10(root<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;./data&#39;</span>, train<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, download<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, transform<span style="color:#f92672">=</span>transform_train)
+</span></span><span style="display:flex;"><span>test_dataset <span style="color:#f92672">=</span> datasets<span style="color:#f92672">.</span>CIFAR10(root<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;./data&#39;</span>, train<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, download<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, transform<span style="color:#f92672">=</span>transform_test)
+</span></span></code></pre></div><h2 id="model-definition">Model Definition</h2>
+<p>Create the CNN Architectures, you can get the pretrained resnet-50 from pytorch:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Section 3: CNN Architectures</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_resnet50_for_cifar10</span>():
+</span></span><span style="display:flex;"><span>    model <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>resnet50(pretrained<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(model<span style="color:#f92672">.</span>fc<span style="color:#f92672">.</span>in_features, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> model
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define optimizer and learning rate scheduler</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> get_resnet50_for_cifar10()
+</span></span></code></pre></div><details>
+    <summary><em>But you can also implement yourself, <font color=green>click here</font> to see the detailed implementation!</em></summary>
+<p><code>Bottleneck block</code>: The ResNet-50 architecture utilizes a bottleneck design to reduce computation while maintaining performance.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Step 1: Define Bottleneck Block</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bottleneck</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    expansion <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, in_channels, out_channels, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, downsample<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        super(Bottleneck, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(in_channels, out_channels, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bn1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>BatchNorm2d(out_channels)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(out_channels, out_channels, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>                               stride<span style="color:#f92672">=</span>stride, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bn2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>BatchNorm2d(out_channels)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(out_channels, out_channels <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>expansion,
+</span></span><span style="display:flex;"><span>                               kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bn3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>BatchNorm2d(out_channels <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>expansion)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>relu <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>ReLU(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>downsample <span style="color:#f92672">=</span> downsample
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        identity <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>downsample <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            identity <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>downsample(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>relu(self<span style="color:#f92672">.</span>bn1(self<span style="color:#f92672">.</span>conv1(x)))
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>relu(self<span style="color:#f92672">.</span>bn2(self<span style="color:#f92672">.</span>conv2(out)))
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>bn3(self<span style="color:#f92672">.</span>conv3(out))
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">+=</span> identity
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>relu(out)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> out
+</span></span></code></pre></div><p><code>ResNet-50 Architecture</code>:
+The ResNet-50 model consists of an initial convolutional layer, followed by four layers of bottleneck blocks, and concludes with a fully connected layer for classification.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Step 2: Define ResNet Framework</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResNet</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, block, layers, num_classes<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>        super(ResNet, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">64</span>, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)  <span style="color:#75715e"># CIFAR-10: no downsample</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bn1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>BatchNorm2d(<span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>relu <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>ReLU(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>layer1 <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_make_layer(block, <span style="color:#ae81ff">64</span>, layers[<span style="color:#ae81ff">0</span>], stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>layer2 <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_make_layer(block, <span style="color:#ae81ff">128</span>, layers[<span style="color:#ae81ff">1</span>], stride<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>layer3 <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_make_layer(block, <span style="color:#ae81ff">256</span>, layers[<span style="color:#ae81ff">2</span>], stride<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>layer4 <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_make_layer(block, <span style="color:#ae81ff">512</span>, layers[<span style="color:#ae81ff">3</span>], stride<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>avgpool <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>AdaptiveAvgPool2d((<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">512</span> <span style="color:#f92672">*</span> block<span style="color:#f92672">.</span>expansion, num_classes)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_initialize_weights()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_make_layer</span>(self, block, out_channels, blocks, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        downsample <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> stride <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">!=</span> out_channels <span style="color:#f92672">*</span> block<span style="color:#f92672">.</span>expansion:
+</span></span><span style="display:flex;"><span>            downsample <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>                nn<span style="color:#f92672">.</span>Conv2d(self<span style="color:#f92672">.</span>in_channels, out_channels <span style="color:#f92672">*</span> block<span style="color:#f92672">.</span>expansion,
+</span></span><span style="display:flex;"><span>                          kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, stride<span style="color:#f92672">=</span>stride, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>),
+</span></span><span style="display:flex;"><span>                nn<span style="color:#f92672">.</span>BatchNorm2d(out_channels <span style="color:#f92672">*</span> block<span style="color:#f92672">.</span>expansion),
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        layers <span style="color:#f92672">=</span> [block(self<span style="color:#f92672">.</span>in_channels, out_channels, stride, downsample)]
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">=</span> out_channels <span style="color:#f92672">*</span> block<span style="color:#f92672">.</span>expansion
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, blocks):
+</span></span><span style="display:flex;"><span>            layers<span style="color:#f92672">.</span>append(block(self<span style="color:#f92672">.</span>in_channels, out_channels))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> nn<span style="color:#f92672">.</span>Sequential(<span style="color:#f92672">*</span>layers)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_initialize_weights</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>modules():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> isinstance(m, nn<span style="color:#f92672">.</span>Conv2d):
+</span></span><span style="display:flex;"><span>                nn<span style="color:#f92672">.</span>init<span style="color:#f92672">.</span>kaiming_normal_(m<span style="color:#f92672">.</span>weight, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;fan_out&#39;</span>, nonlinearity<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;relu&#39;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">elif</span> isinstance(m, nn<span style="color:#f92672">.</span>BatchNorm2d):
+</span></span><span style="display:flex;"><span>                nn<span style="color:#f92672">.</span>init<span style="color:#f92672">.</span>constant_(m<span style="color:#f92672">.</span>weight, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>                nn<span style="color:#f92672">.</span>init<span style="color:#f92672">.</span>constant_(m<span style="color:#f92672">.</span>bias, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>relu(self<span style="color:#f92672">.</span>bn1(self<span style="color:#f92672">.</span>conv1(x)))
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>layer1(x)  <span style="color:#75715e"># conv2_x</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>layer2(x)  <span style="color:#75715e"># conv3_x</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>layer3(x)  <span style="color:#75715e"># conv4_x</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>layer4(x)  <span style="color:#75715e"># conv5_x</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>avgpool(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>flatten(x, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x
+</span></span></code></pre></div><p>Then, create the model by applying Factory pattern:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Step 3: Factory Function</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_resnet50_for_cifar10</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># model = models.resnet50(pretrained=False)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># model.fc = nn.Linear(model.fc.in_features, 10)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># return model</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ResNet(Bottleneck, [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">3</span>], num_classes<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define optimizer and learning rate scheduler</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> get_resnet50_for_cifar10()
+</span></span></code></pre></div><p>Where the <code>[3,4,6,3]</code> means:</p>
+<table>
+  <thead>
+      <tr>
+          <th>layer group</th>
+          <th>feature map size</th>
+          <th>bottleneck blocks</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>layer1</code></td>
+          <td>56 x 56</td>
+          <td>3 blocks</td>
+      </tr>
+      <tr>
+          <td><code>layer2</code></td>
+          <td>28 x 28</td>
+          <td>4 blocks</td>
+      </tr>
+      <tr>
+          <td><code>layer3</code></td>
+          <td>14 x 14</td>
+          <td>6 blocks</td>
+      </tr>
+      <tr>
+          <td><code>layer4</code></td>
+          <td>7 x 7</td>
+          <td>3 blocks</td>
+      </tr>
+  </tbody>
+</table>
+</details>
+<h2 id="time-to-train-">Time to train 🏋️‍♂️</h2>
+<ul>
+<li>Plotly is used to visualize the training process. The <code>live_plot</code> function will be called at the end of each epoch to update the plot with the latest training and testing losses and accuracies. We could be able to monitor the training process in real-time!</li>
+</ul>
+<h3 id="how-to-train-the-model">How to train the model</h3>
+<p>Lets first determine what we need to train/test</p>
+<ul>
+<li>We need to take in a <code>model</code> to train the model</li>
+<li>We need to take in data, which handled by dataloader: <code>loader</code> object</li>
+<li>We need to take in an <code>optimizer</code> to optimize the model, it&rsquo;s optional</li>
+<li>We need to determin how many <code>epoch</code>s we want to train the model</li>
+<li>Finally, we need to take in a <code>logger</code> object we defined previously to log the training process</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Section 4: Model Training &amp; Evaluation</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train</span>(model, loader, optimizer, epoch, logger):
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">.</span>train()
+</span></span><span style="display:flex;"><span>    total_loss <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    correct <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    total <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> data, target <span style="color:#f92672">in</span> loader:
+</span></span><span style="display:flex;"><span>        data, target <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>to(device), target<span style="color:#f92672">.</span>to(device)
+</span></span><span style="display:flex;"><span>        optimizer<span style="color:#f92672">.</span>zero_grad()
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> model(data)
+</span></span><span style="display:flex;"><span>        loss <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>cross_entropy(output, target)
+</span></span><span style="display:flex;"><span>        loss<span style="color:#f92672">.</span>backward()
+</span></span><span style="display:flex;"><span>        optimizer<span style="color:#f92672">.</span>step()
+</span></span><span style="display:flex;"><span>        total_loss <span style="color:#f92672">+=</span> loss<span style="color:#f92672">.</span>item()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        pred <span style="color:#f92672">=</span> output<span style="color:#f92672">.</span>argmax(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        correct <span style="color:#f92672">+=</span> (pred <span style="color:#f92672">==</span> target)<span style="color:#f92672">.</span>sum()<span style="color:#f92672">.</span>item()
+</span></span><span style="display:flex;"><span>        total <span style="color:#f92672">+=</span> target<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    avg_loss <span style="color:#f92672">=</span> total_loss <span style="color:#f92672">/</span> len(loader)
+</span></span><span style="display:flex;"><span>    accuracy <span style="color:#f92672">=</span> correct <span style="color:#f92672">/</span> total
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Train Epoch: </span><span style="color:#e6db74">{</span>epoch<span style="color:#e6db74">}</span><span style="color:#e6db74">, Loss: </span><span style="color:#e6db74">{</span>avg_loss<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, Accuracy: </span><span style="color:#e6db74">{</span>accuracy<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    logger<span style="color:#f92672">.</span>log_train(avg_loss, accuracy)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test</span>(model, loader, logger):
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">.</span>eval()
+</span></span><span style="display:flex;"><span>    correct <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    total <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    total_loss <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> data, target <span style="color:#f92672">in</span> loader:
+</span></span><span style="display:flex;"><span>            data, target <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>to(device), target<span style="color:#f92672">.</span>to(device)
+</span></span><span style="display:flex;"><span>            output <span style="color:#f92672">=</span> model(data)
+</span></span><span style="display:flex;"><span>            loss <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>cross_entropy(output, target)
+</span></span><span style="display:flex;"><span>            total_loss <span style="color:#f92672">+=</span> loss<span style="color:#f92672">.</span>item()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            pred <span style="color:#f92672">=</span> output<span style="color:#f92672">.</span>argmax(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            correct <span style="color:#f92672">+=</span> (pred <span style="color:#f92672">==</span> target)<span style="color:#f92672">.</span>sum()<span style="color:#f92672">.</span>item()
+</span></span><span style="display:flex;"><span>            total <span style="color:#f92672">+=</span> target<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    avg_loss <span style="color:#f92672">=</span> total_loss <span style="color:#f92672">/</span> len(loader)
+</span></span><span style="display:flex;"><span>    acc <span style="color:#f92672">=</span> correct <span style="color:#f92672">/</span> total
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Test Accuracy: </span><span style="color:#e6db74">{</span>acc<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, Loss: </span><span style="color:#e6db74">{</span>avg_loss<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    logger<span style="color:#f92672">.</span>log_test(avg_loss, acc)
+</span></span></code></pre></div><h3 id="gather-the-training-process-in-one-place">Gather the training process in one place</h3>
+<p>We can gather all these into one place, lets say the entire process is considered as an experiment:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Section 5: Run Experiments</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ============================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> copy  <span style="color:#75715e"># for deep copying model state_dict</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_experiment</span>(name, model, train_dataset, test_dataset, epochs,
+</span></span><span style="display:flex;"><span>                   optimizer_class<span style="color:#f92672">=</span>optim<span style="color:#f92672">.</span>SGD, optimizer_kwargs<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>                   optimizer<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, lr_scheduler<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, 
+</span></span><span style="display:flex;"><span>                   batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span>, val_batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span>,
+</span></span><span style="display:flex;"><span>                   patience<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, delta<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-4</span>, 
+</span></span><span style="display:flex;"><span>                   checkpoint_path<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>  <span style="color:#75715e"># path to save the best model</span>
+</span></span><span style="display:flex;"><span>                   ):
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    best_model_state <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    model <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>to(device)
+</span></span><span style="display:flex;"><span>    show_model_structure(model, name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    logger <span style="color:#f92672">=</span> ExperimentLogger()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Use provided optimizer or construct one</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> optimizer <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        optimizer_kwargs <span style="color:#f92672">=</span> optimizer_kwargs <span style="color:#f92672">or</span> {<span style="color:#e6db74">&#34;lr&#34;</span>: <span style="color:#ae81ff">0.1</span>, <span style="color:#e6db74">&#34;momentum&#34;</span>: <span style="color:#ae81ff">0.9</span>}
+</span></span><span style="display:flex;"><span>        optimizer <span style="color:#f92672">=</span> optimizer_class(model<span style="color:#f92672">.</span>parameters(), <span style="color:#f92672">**</span>optimizer_kwargs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    train_loader <span style="color:#f92672">=</span> DataLoader(train_dataset, batch_size<span style="color:#f92672">=</span>batch_size, shuffle<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>    test_loader <span style="color:#f92672">=</span> DataLoader(test_dataset, batch_size<span style="color:#f92672">=</span>val_batch_size, shuffle<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    best_accuracy <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    epochs_no_improve <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> epoch <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, epochs <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        train(model, train_loader, optimizer, epoch, logger)
+</span></span><span style="display:flex;"><span>        test(model, test_loader, logger)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        current_lr <span style="color:#f92672">=</span> optimizer<span style="color:#f92672">.</span>param_groups[<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;lr&#39;</span>]
+</span></span><span style="display:flex;"><span>        logger<span style="color:#f92672">.</span>log_learning_rate(current_lr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> lr_scheduler:
+</span></span><span style="display:flex;"><span>            lr_scheduler<span style="color:#f92672">.</span>step()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> logger<span style="color:#f92672">.</span>test_accuracies[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&gt;</span> best_accuracy <span style="color:#f92672">+</span> delta:
+</span></span><span style="display:flex;"><span>            best_accuracy <span style="color:#f92672">=</span> logger<span style="color:#f92672">.</span>test_accuracies[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>            best_model_state <span style="color:#f92672">=</span> copy<span style="color:#f92672">.</span>deepcopy(model<span style="color:#f92672">.</span>state_dict())  <span style="color:#75715e"># 💾 store best model</span>
+</span></span><span style="display:flex;"><span>            epochs_no_improve <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            epochs_no_improve <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> patience <span style="color:#f92672">and</span> epochs_no_improve <span style="color:#f92672">&gt;=</span> patience:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Early stopping at epoch </span><span style="color:#e6db74">{</span>epoch<span style="color:#e6db74">}</span><span style="color:#e6db74"> (no improvement for </span><span style="color:#e6db74">{</span>patience<span style="color:#e6db74">}</span><span style="color:#e6db74"> epochs)&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        logger<span style="color:#f92672">.</span>live_plot(epoch, name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> checkpoint_path <span style="color:#f92672">and</span> best_model_state:
+</span></span><span style="display:flex;"><span>        torch<span style="color:#f92672">.</span>save(best_model_state, checkpoint_path)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ Saved best model to: </span><span style="color:#e6db74">{</span>checkpoint_path<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> model, logger
+</span></span></code></pre></div><p>According to the <a href="https://arxiv.org/abs/1512.03385"> paper from Kaiming He</a>, in the paper, the authors trained ResNet-50 on the ImageNet dataset using the following settings:</p>
+<ul>
+<li><strong>Optimizer</strong>: Stochastic Gradient Descent (SGD) with momentum</li>
+<li><strong>Momentum</strong>: 0.9</li>
+<li><strong>Weight Decay</strong>: 1e-4</li>
+<li><strong>Batch Size</strong>: 256</li>
+<li><strong>Initial Learning Rate</strong>: 1e-4</li>
+<li><strong>Learning Rate Schedule</strong>: The lr was divided by 10 when the validation error plateaued.</li>
+</ul>
+<p>Here&rsquo;s the interactive Plotly visualization of the training results (without data augmentation):</p>
+<iframe src="/plotly/ResNetPytorch.html" width="100%" height="600px" frameborder="0" allowfullscreen></iframe>
+<p>And here is the visualization of the training results (with data augmentation):</p>
+<iframe src="/plotly/ResNetPytorchDataAug.html" width="100%" height="600px" frameborder="0" allowfullscreen></iframe>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
