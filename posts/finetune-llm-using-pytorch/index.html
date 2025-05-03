@@ -4,7 +4,7 @@
     <title>Finetune LLM Using Pytorch // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.146.7">
+    <meta name="generator" content="Hugo 0.147.1">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -27,6 +27,25 @@
     <meta property="article:published_time" content="2025-04-22T21:08:11-04:00">
     <meta property="article:modified_time" content="2025-04-22T21:08:11-04:00">
 
+
+    
+      <script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js">
+</script>
+
+
+    
 
   </head>
   <body>
@@ -767,7 +786,7 @@ style, or 0 if the text is not at all written in the style of Yoda.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> opik.evaluation.metrics <span style="color:#f92672">import</span> base_metric, score_result
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LLMJudgeEvaluator</span>(base_metric<span style="color:#f92672">.</span>BaseMetric):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, judge: mdl<span style="color:#f92672">.</span>lab3<span style="color:#f92672">.</span>LLMClient <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>, system_prompt: str <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, judge: mdl<span style="color:#f92672">.</span>lab3<span style="color:#f92672">.</span>LLMClient <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>, system_prompt: str <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>):
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>judge <span style="color:#f92672">=</span> judge
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>system_prompt <span style="color:#f92672">=</span> system_prompt
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>prompt_template <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Evaluate this text: </span><span style="color:#e6db74">{text}</span><span style="color:#e6db74">&#34;</span>

@@ -2,8 +2,80 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/tags/adobe/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/amazon/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/apple/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/bloomberg/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-04-23T22:34:35-04:00</lastmod>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/intuit/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/ixl/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/leetcode/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/linked-list/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/meta/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/microsoft/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/nvidia/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/oracle/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/palindrome/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/palindrome-linked-list/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/recursion/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/siemens/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/stack/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/two-pointer/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/uber/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/yahoo/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/yandex/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/zoho/</loc>
+    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/deep-learning/</loc>
     <lastmod>2025-04-23T22:34:35-04:00</lastmod>
@@ -11,16 +83,10 @@
     <loc>http://localhost:1313/tags/image-classification/</loc>
     <lastmod>2025-04-23T22:34:35-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-04-23T22:34:35-04:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/pytorch/</loc>
     <lastmod>2025-04-23T22:34:35-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/resnet/</loc>
-    <lastmod>2025-04-23T22:34:35-04:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-04-23T22:34:35-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/training-resnet-using-pytorch/</loc>
@@ -320,9 +386,6 @@
     <loc>http://localhost:1313/tags/workflow/</loc>
     <lastmod>2025-03-22T15:09:57-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/leetcode/</loc>
-    <lastmod>2025-03-12T22:47:23-04:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/strings/</loc>
     <lastmod>2025-03-12T22:47:23-04:00</lastmod>
   </url><url>
@@ -396,9 +459,6 @@
     <lastmod>2025-02-07T22:30:57-05:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/hash-table/</loc>
-    <lastmod>2025-02-07T22:30:57-05:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/linked-list/</loc>
     <lastmod>2025-02-07T22:30:57-05:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/binary-tree-path-sum/</loc>

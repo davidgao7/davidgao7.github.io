@@ -4,7 +4,7 @@
     <title>Training Resnet Using Pytorch // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.146.7">
+    <meta name="generator" content="Hugo 0.147.1">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -35,6 +35,25 @@ torch torchvision plotly IPython Import the libraries, and check the GPU availab
     <meta property="article:tag" content="Deep Learning">
     <meta property="article:tag" content="Image Classification">
 
+
+    
+      <script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js">
+</script>
+
+
+    
 
   </head>
   <body>
@@ -163,7 +182,7 @@ IPython
 </span></span><span style="display:flex;"><span>drive<span style="color:#f92672">.</span>mount(<span style="color:#e6db74">&#39;/content/drive&#39;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExperimentLogger</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>train_losses <span style="color:#f92672">=</span> []
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>train_accuracies <span style="color:#f92672">=</span> []
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>test_losses <span style="color:#f92672">=</span> []
@@ -329,8 +348,8 @@ IPython
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bottleneck</span>(nn<span style="color:#f92672">.</span>Module):
 </span></span><span style="display:flex;"><span>    expansion <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, in_channels, out_channels, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, downsample<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
-</span></span><span style="display:flex;"><span>        super(Bottleneck, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, in_channels, out_channels, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, downsample<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        super(Bottleneck, self)<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(in_channels, out_channels, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bn1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>BatchNorm2d(out_channels)
 </span></span><span style="display:flex;"><span>
@@ -364,8 +383,8 @@ The ResNet-50 model consists of an initial convolutional layer, followed by four
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Step 2: Define ResNet Framework</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------------------</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResNet</span>(nn<span style="color:#f92672">.</span>Module):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, block, layers, num_classes<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
-</span></span><span style="display:flex;"><span>        super(ResNet, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, block, layers, num_classes<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>        super(ResNet, self)<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">64</span>, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)  <span style="color:#75715e"># CIFAR-10: no downsample</span>

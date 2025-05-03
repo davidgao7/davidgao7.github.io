@@ -6,8 +6,15 @@
     <description>Recent content in LeetCode on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Mar 2025 22:47:23 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 03 May 2025 18:38:09 -0400</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Palindrome Linked List</title>
+      <link>http://localhost:1313/posts/palindrome-linked-list/</link>
+      <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
+      <guid>http://localhost:1313/posts/palindrome-linked-list/</guid>
+      <description>&lt;h1 id=&#34;234-palindrome-linked-list&#34;&gt;234-palindrome-linked-list&lt;/h1&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Date created: 2025-05-03-Sat 18:39&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;question-description&#34;&gt;Question Description&lt;/h2&gt;&#xA;&lt;p&gt;Given the head of a singly linked list, return true if it is a&lt;/p&gt;&#xA;&lt;p&gt;or false otherwise.&lt;/p&gt;&#xA;&lt;p&gt;Example 1:&lt;/p&gt;&#xA;&lt;p&gt;Input: head = [1,2,2,1]&#xA;Output: true&lt;/p&gt;&#xA;&lt;p&gt;Example 2:&lt;/p&gt;&#xA;&lt;p&gt;Input: head = [1,2]&#xA;Output: false&lt;/p&gt;&#xA;&lt;p&gt;Constraints:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;The number of nodes in the list is in the range [1, 105].&#xA;0 &amp;lt;= Node.val &amp;lt;= 9&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;Follow up: Could you do it in O(n) time and O(1) space?&#xA;Seen this question in a real interview before?&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Valid Word Abbreviation</title>
       <link>http://localhost:1313/posts/valid-word-abbr/</link>
