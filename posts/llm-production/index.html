@@ -4,7 +4,7 @@
     <title>LLM Production // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.147.1">
+    <meta name="generator" content="Hugo 0.147.2">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -16,18 +16,24 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="LLM Production">
   <meta name="twitter:description" content="Deploying LLMs in Production In this post, I will share my experience deploying LLMs in production. I will cover the challenges I faced, the solutions I found, and the lessons I learned along the way.
-Reference repo Code for people in hurry Setup automated deployments to the AKS cluster ( optional ) Reference">
+first I managed to find a gpu from runpod to experience one complete conversation(multi-inferences). now I know that if you want to deploy this in production, you not only need multiple gpu like the one I’m using in the following writing, you also need a system to help you manage resources (i.e. Kubernetes). 2.1. so they have the solution called vllm production-stack Got to find a cluster with powerful GPUs, OR I could just deploy the stack, since now I’ve experienced model inference. But it will be hard to tell if I deploy it successfully or not… ~(- &lt;_ -)&gt; Reference repo">
 
     <meta property="og:url" content="http://localhost:1313/posts/llm-production/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="LLM Production">
   <meta property="og:description" content="Deploying LLMs in Production In this post, I will share my experience deploying LLMs in production. I will cover the challenges I faced, the solutions I found, and the lessons I learned along the way.
-Reference repo Code for people in hurry Setup automated deployments to the AKS cluster ( optional ) Reference">
+first I managed to find a gpu from runpod to experience one complete conversation(multi-inferences). now I know that if you want to deploy this in production, you not only need multiple gpu like the one I’m using in the following writing, you also need a system to help you manage resources (i.e. Kubernetes). 2.1. so they have the solution called vllm production-stack Got to find a cluster with powerful GPUs, OR I could just deploy the stack, since now I’ve experienced model inference. But it will be hard to tell if I deploy it successfully or not… ~(- &lt;_ -)&gt; Reference repo">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-04-13T15:13:29-04:00">
     <meta property="article:modified_time" content="2025-04-13T15:13:29-04:00">
+    <meta property="article:tag" content="LLM">
+    <meta property="article:tag" content="Production">
+    <meta property="article:tag" content="Deployment">
+    <meta property="article:tag" content="EGPU">
+    <meta property="article:tag" content="Lambda">
+    <meta property="article:tag" content="Runpod">
 
 
     
@@ -67,6 +73,10 @@ window.MathJax = {
             <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
           </a>
         
+          <a href="https://x.com/AiiGen71976j" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-x" viewBox="0 0 24 24" fill="currentColor"><title>X</title><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+          </a>
+        
       </div>
     </header>
     <main class="app-container">
@@ -81,7 +91,16 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          1 min read
+          14 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/llm/">LLM</a>
+              <a class="tag" href="/tags/production/">Production</a>
+              <a class="tag" href="/tags/deployment/">Deployment</a>
+              <a class="tag" href="/tags/egpu/">EGPU</a>
+              <a class="tag" href="/tags/lambda/">Lambda</a>
+              <a class="tag" href="/tags/runpod/">Runpod</a>
         </div>
       </div>
     </header>
@@ -89,14 +108,631 @@ window.MathJax = {
       <h1 id="deploying-llms-in-production">Deploying LLMs in Production</h1>
 <blockquote>
 <p>In this post, I will share my experience deploying LLMs in production. I will cover the challenges I faced, the solutions I found, and the lessons I learned along the way.</p></blockquote>
+<ol>
+<li>first I managed to find a gpu from runpod to experience one complete conversation(multi-inferences).</li>
+<li>now I know that if you want to deploy this in production, you not only need multiple gpu like the one
+I&rsquo;m using in the following writing, you also need a system to help you manage resources (i.e. Kubernetes).
+2.1. so they have the solution called <code>vllm production-stack</code>
+Got to find a cluster with powerful GPUs, OR I could just deploy the stack, since now I&rsquo;ve experienced model inference. But it will be hard to tell if I deploy it successfully or not&hellip;  ~(- &lt;_ -)&gt;</li>
+</ol>
 <ul>
-<li><a href="https://github.com/vllm-project/production-stack/"> Reference repo </a></li>
-<li><a href="https://github.com/davidgao7/homelab"> Code for people in hurry </a></li>
+<li>
+<p><a href="https://github.com/vllm-project/production-stack/">Reference repo</a></p>
+</li>
+<li>
+<p><a href="https://github.com/davidgao7/homelab">Code for people in hurry</a></p>
+</li>
+<li>
+<p>resource for personal: <a href="https://www.runpod.io/console/signup">runpod.io</a></p>
+</li>
+<li>
+<p>for similar service, you can use <a href="https://lambda.ai/">Lambda(not AWS)</a>, GCP, Azure, etc.</p>
+</li>
 </ul>
-<h2 id="setup-automated-deployments-to-the-aks-cluster--optional-">Setup automated deployments to the AKS cluster ( optional )</h2>
+<p>If using AKS: Setup automated deployments to the AKS cluster ( optional )</p>
 <ul>
-<li><a href="https://learn.microsoft.com/en-us/azure/aks/automated-deployments"> Reference </a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/aks/automated-deployments">Reference</a></li>
 </ul>
+<h2 id="create-a-runpodio-account-to-get-cloud-gpu-access">Create a runpod.io account to get cloud GPU access</h2>
+<ul>
+<li>You can use API keys for project access</li>
+<li>Passkey for secure passwordless authentication access</li>
+</ul>
+<p><img src="/images/run-pod-api-passkey-tutorial.png" alt="run-pod-api-passkey-tutorial"></p>
+<h2 id="create-ssh-keys-to-for-remote-access">Create ssh keys to for remote access</h2>
+<ul>
+<li>
+<p>Runpod just a service to provide you powerful GPUs</p>
+</li>
+<li>
+<p>create a ssh-key pair</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-keygen -t rsa -b <span style="color:#ae81ff">4096</span> -C <span style="color:#e6db74">&#34;This is a comment&#34;</span>
+</span></span></code></pre></div><ul>
+<li>Paste the public key to the runpod.io&rsquo;s ssh public key at <code>Account &gt; Settings &gt; SSH Public Keys</code></li>
+<li>Click <strong>Update Public Key</strong></li>
+</ul>
+<p>ssh into the server</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh <span style="color:#f92672">[</span>server-ip<span style="color:#f92672">]</span> -i ~/
+</span></span></code></pre></div><ul>
+<li>Go to <code>Pods</code> -&gt; <code>Deploy</code> -&gt; create a pod -&gt; wait till it creates -&gt; click <code>Connect</code></li>
+</ul>
+<p><img src="/images/connect-options.png" alt="connect options"></p>
+<h2 id="yay-now-you-got-powerful-gpus">yay! now you got powerful GPUs</h2>
+<ul>
+<li>lets see what OS is it</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@f00742593164:/# uname -a
+</span></span><span style="display:flex;"><span>Linux f00742593164 6.8.0-49-generic <span style="color:#75715e">#49~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Nov  6 17:42:15 UTC 2 x86_64 x86_64 x86_64 GNU/Linux</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>alright, Ubuntu 22.04, classic</p>
+</li>
+<li>
+<p>alright &hellip; same xxx, different day</p>
+</li>
+<li>
+<p>install python, lets use uv this time</p>
+</li>
+<li>
+<p>make it more intresting, lets build the vllm from source, so that</p>
+<ol>
+<li>in production, are u really sure you don&rsquo;t want to customize it to fit your company&rsquo;s need?</li>
+<li>are you sure vllm production-stack is mature enough?</li>
+</ol>
+</li>
+<li>
+<p>I only have one machine, I could build few virtual pods, then add k8s to manage them, then use production-stack to get the &ldquo;llm in production starter pack&rdquo;</p>
+</li>
+</ul>
+<h2 id="install-dependencies">Install dependencies</h2>
+<h3 id="install-uv-python-virtual-environment-manager">Install uv python virtual environment manager</h3>
+<h3 id="install-python">Install python</h3>
+<ul>
+<li>
+<p>recommend python version: <code>python 3.12</code></p>
+</li>
+<li>
+<p>give a little old <code>apt update &amp;&amp; apt upgrade</code> first to fetch the latest packages</p>
+</li>
+<li>
+<p>for Ubuntu you have these package managers:</p>
+<ul>
+<li><code>apt</code> (Debian-based)</li>
+<li><code>yum</code> (Red Hat-based)</li>
+<li><code>dnf</code> (Fedora-based)</li>
+<li><code>zypper</code> (openSUSE-based)</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt update <span style="color:#f92672">&amp;&amp;</span> apt upgrade
+</span></span></code></pre></div><p>Lets check the GPU to make sure I&rsquo;m not get scammed</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@f00742593164:/# nvidia-smi
+</span></span><span style="display:flex;"><span>Fri May  <span style="color:#ae81ff">9</span> 01:39:25 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>+-----------------------------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span>| NVIDIA-SMI 550.127.05             Driver Version: 550.127.05     CUDA Version: 12.4     |
+</span></span><span style="display:flex;"><span>|-----------------------------------------+------------------------+----------------------+
+</span></span><span style="display:flex;"><span>| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+</span></span><span style="display:flex;"><span>| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+</span></span><span style="display:flex;"><span>|                                         |                        |               MIG M. |
+</span></span><span style="display:flex;"><span>|<span style="color:#f92672">=========================================</span>+<span style="color:#f92672">========================</span>+<span style="color:#f92672">======================</span>|
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">0</span>  NVIDIA H100 PCIe               On  |   00000000:61:00.0 Off |                    <span style="color:#ae81ff">0</span> |
+</span></span><span style="display:flex;"><span>| N/A   35C    P0             48W /  310W |       1MiB /  81559MiB |      0%      Default |
+</span></span><span style="display:flex;"><span>|                                         |                        |             Disabled |
+</span></span><span style="display:flex;"><span>+-----------------------------------------+------------------------+----------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>+-----------------------------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span>| Processes:                                                                              |
+</span></span><span style="display:flex;"><span>|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+</span></span><span style="display:flex;"><span>|        ID   ID                                                               Usage      |
+</span></span><span style="display:flex;"><span>|<span style="color:#f92672">=========================================================================================</span>|
+</span></span><span style="display:flex;"><span>|  No running processes found                                                             |
+</span></span><span style="display:flex;"><span>+-----------------------------------------------------------------------------------------+
+</span></span></code></pre></div><p>Good&hellip;</p>
+<p>Lets see if system has python or not</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@f00742593164:/# which python
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># /usr/bin/python</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@f00742593164:/# whereis python
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># python: /usr/bin/python</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@f00742593164:/# /usr/bin/python
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Python 3.10.12 (main, Feb  4 2025, 14:57:36) [GCC 11.4.0] on linux</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># &gt;&gt;&gt; exit()</span>
+</span></span></code></pre></div><p>Impressive, but we need 3.12 -_-</p>
+<p>Well don&rsquo;t worry, 🤓☝️ we can use <a href="https://docs.astral.sh/uv/">uv</a>, a python package and project manager, written in <strong>Rust</strong>🐐.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install uv</span>
+</span></span><span style="display:flex;"><span>curl -LsSf https://astral.sh/uv/install.sh | sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># downloading uv 0.7.3 x86_64-unknown-linux-gnu</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># no checksums to verify</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># installing to /root/.local/bin</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   uv</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   uvx</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># everything&#39;s installed!</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To add $HOME/.local/bin to your PATH, either restart your shell or run:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     source $HOME/.local/bin/env (sh, bash, zsh)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     source $HOME/.local/bin/env.fish (fish)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># know what shell you&#39;re using</span>
+</span></span><span style="display:flex;"><span>echo $SHELL
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@f00742593164:/# echo $SHELL
+</span></span><span style="display:flex;"><span>/bin/bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># alright...bash then</span>
+</span></span><span style="display:flex;"><span>source $HOME/.local/bin/env <span style="color:#75715e"># (sh, bash, zsh)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># test uv</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># root@f00742593164:/# uv</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># An extremely fast Python package manager.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Usage: uv [OPTIONS] &lt;COMMAND&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Commands:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   run      Run a command or script</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   init     Create a new project</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   add      Add dependencies to the project</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   remove   Remove dependencies from the project</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   sync     Update the project&#39;s environment</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   lock     Update the project&#39;s lockfile</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   export   Export the project&#39;s lockfile to an alternate format</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   tree     Display the project&#39;s dependency tree</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   tool     Run and install commands provided by Python packages</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   python   Manage Python versions and installations</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   pip      Manage Python packages with a pip-compatible interface</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   venv     Create a virtual environment</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   build    Build Python packages into source distributions and wheels</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   publish  Upload distributions to an index</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   cache    Manage uv&#39;s cache</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   self     Manage the uv executable</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   version  Read or update the project&#39;s version</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   help     Display documentation for a command</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Cache options:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   -n, --no-cache               Avoid reading from or writing to the cache, instead using a temporary directory for</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                                the duration of the operation [env: UV_NO_CACHE=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --cache-dir &lt;CACHE_DIR&gt;  Path to the cache directory [env: UV_CACHE_DIR=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Python options:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   --managed-python       Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   --no-managed-python    Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   --no-python-downloads  Disable automatic downloads of Python. [env: &#34;UV_PYTHON_DOWNLOADS=never&#34;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Global options:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   -q, --quiet...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Use quiet output</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   -v, --verbose...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Use verbose output</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --color &lt;COLOR_CHOICE&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Control the use of color in output [possible values: auto, always, never]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --native-tls</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Whether to load TLS certificates from the platform&#39;s native certificate store [env: UV_NATIVE_TLS=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --offline</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Disable network access [env: UV_OFFLINE=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --allow-insecure-host &lt;ALLOW_INSECURE_HOST&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Allow insecure connections to a host [env: UV_INSECURE_HOST=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --no-progress</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Hide all progress outputs [env: UV_NO_PROGRESS=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --directory &lt;DIRECTORY&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Change to the given directory prior to running the command</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --project &lt;PROJECT&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Run the command within the given project directory [env: UV_PROJECT=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --config-file &lt;CONFIG_FILE&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           The path to a `uv.toml` file to use for configuration [env: UV_CONFIG_FILE=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --no-config</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Avoid discovering configuration files (`pyproject.toml`, `uv.toml`) [env: UV_NO_CONFIG=]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   -h, --help</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Display the concise help for this command</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   -V, --version</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           Display the uv version</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Use `uv help` for more details.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create python virtual environment in one line</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># uv [venv name] --python [python version]</span>
+</span></span><span style="display:flex;"><span>uv venv --python 3.12 --seed
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --seed  # Install seed packages (one or more of: `pip`, `setuptools`, and</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># #`wheel`) into the virtual environment [env: UV_VENV_SEED=]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># root@f00742593164:/# uv venv --python 3.12 --seed</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Using CPython 3.12.10</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Creating virtual environment with seed packages at: .venv</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  + pip==25.1.1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Activate with: source .venv/bin/activate</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>source .venv/bin/activate
+</span></span></code></pre></div><ul>
+<li><code>--seed</code> option will install <em>essential packages</em> into the virtual environment after it&rsquo;s created, not python itself
+<ul>
+<li>So it&rsquo;s like using apt-get install ppa-xxx, setup-tools &hellip; &ldquo;pre-packages&rdquo; like this before building python</li>
+</ul>
+</li>
+</ul>
+<h3 id="build-vllm-from-source">Build vllm from source</h3>
+<ul>
+<li>since it can build with cuda, lets check the cuda version</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nvcc --version
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># nvcc: NVIDIA (R) Cuda compiler driver</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Copyright (c) 2005-2022 NVIDIA Corporation</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Built on Wed_Sep_21_10:33:58_PDT_2022</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Cuda compilation tools, release 11.8, V11.8.89</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Build cuda_11.8.r11.8/compiler.31833905_0</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>build the vllm from source , with correct cuda version</p>
+</li>
+<li>
+<p>clone my fork(you can just clone the original repo)</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/home# git clone https://github.com/davidgao7/vllm.git
+</span></span><span style="display:flex;"><span>Cloning into <span style="color:#e6db74">&#39;vllm&#39;</span>...
+</span></span><span style="display:flex;"><span>remote: Enumerating objects: 70376, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Counting objects: 100% <span style="color:#f92672">(</span>189/189<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Compressing objects: 100% <span style="color:#f92672">(</span>157/157<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Total <span style="color:#ae81ff">70376</span> <span style="color:#f92672">(</span>delta 92<span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">32</span> <span style="color:#f92672">(</span>delta 32<span style="color:#f92672">)</span>, pack-reused <span style="color:#ae81ff">70187</span> <span style="color:#f92672">(</span>from 3<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Receiving objects: 100% <span style="color:#f92672">(</span>70376/70376<span style="color:#f92672">)</span>, 48.99 MiB | 15.81 MiB/s, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>Resolving deltas: 100% <span style="color:#f92672">(</span>54878/54878<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+</span></span></code></pre></div><ul>
+<li>
+<p>build from source (for nividia cuda)</p>
+</li>
+<li>
+<p>In the docs: <code>If you only need to change Python code, you can build and install vLLM without compilation. Using pip’s --editable flag, changes you make to the code will be reflected when you run vLLM</code>, which is exactly what we want</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>cd vllm
+</span></span><span style="display:flex;"><span>VLLM_USE_PRECOMPILED<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> uv pip install <span style="color:#f92672">--</span>editable <span style="color:#f92672">.</span>
+</span></span></code></pre></div><p>This command will do the following:</p>
+<ol>
+<li>
+<p>Look for the current branch in your vLLM clone(default branch: ).</p>
+</li>
+<li>
+<p>Identify the corresponding base commit in the main branch.</p>
+</li>
+<li>
+<p>Download the pre-built wheel of the base commit.</p>
+</li>
+<li>
+<p>Use its compiled libraries in the installation.</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>vllm<span style="color:#f92672">)</span> root@49924402e807:/workspace/vllm# VLLM_USE_PRECOMPILED<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> uv pip install --editable .
+</span></span><span style="display:flex;"><span>Resolved <span style="color:#ae81ff">146</span> packages in 24.08s
+</span></span><span style="display:flex;"><span>      Built vllm @ file:///workspace/vllm
+</span></span><span style="display:flex;"><span>Prepared <span style="color:#ae81ff">1</span> package in 56.50s
+</span></span><span style="display:flex;"><span>░░░░░░░░░░░░░░░░░░░░ <span style="color:#f92672">[</span>0/146<span style="color:#f92672">]</span> Installing wheels...                                                                 warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+</span></span><span style="display:flex;"><span>         If the cache and target directories are on different filesystems, hardlinking may not be supported.
+</span></span><span style="display:flex;"><span>         If this is intentional, set <span style="color:#e6db74">`</span>export UV_LINK_MODE<span style="color:#f92672">=</span>copy<span style="color:#e6db74">`</span> or use <span style="color:#e6db74">`</span>--link-mode<span style="color:#f92672">=</span>copy<span style="color:#e6db74">`</span> to suppress this warning.
+</span></span><span style="display:flex;"><span>Installed <span style="color:#ae81ff">146</span> packages in 54.49s
+</span></span><span style="display:flex;"><span> + aiohappyeyeballs<span style="color:#f92672">==</span>2.6.1
+</span></span><span style="display:flex;"><span> + aiohttp<span style="color:#f92672">==</span>3.11.18
+</span></span><span style="display:flex;"><span> + aiosignal<span style="color:#f92672">==</span>1.3.2
+</span></span><span style="display:flex;"><span> + airportsdata<span style="color:#f92672">==</span><span style="color:#ae81ff">20250224</span>
+</span></span><span style="display:flex;"><span> + annotated-types<span style="color:#f92672">==</span>0.7.0
+</span></span><span style="display:flex;"><span> + anyio<span style="color:#f92672">==</span>4.9.0
+</span></span><span style="display:flex;"><span> + astor<span style="color:#f92672">==</span>0.8.1
+</span></span><span style="display:flex;"><span> + attrs<span style="color:#f92672">==</span>25.3.0
+</span></span><span style="display:flex;"><span> + blake3<span style="color:#f92672">==</span>1.0.4
+</span></span><span style="display:flex;"><span> + cachetools<span style="color:#f92672">==</span>5.5.2
+</span></span><span style="display:flex;"><span> + certifi<span style="color:#f92672">==</span>2025.4.26
+</span></span><span style="display:flex;"><span> + charset-normalizer<span style="color:#f92672">==</span>3.4.2
+</span></span><span style="display:flex;"><span> + click<span style="color:#f92672">==</span>8.1.8
+</span></span><span style="display:flex;"><span> + cloudpickle<span style="color:#f92672">==</span>3.1.1
+</span></span><span style="display:flex;"><span> + compressed-tensors<span style="color:#f92672">==</span>0.9.4
+</span></span><span style="display:flex;"><span> + cupy-cuda12x<span style="color:#f92672">==</span>13.4.1
+</span></span><span style="display:flex;"><span> + deprecated<span style="color:#f92672">==</span>1.2.18
+</span></span><span style="display:flex;"><span> + depyf<span style="color:#f92672">==</span>0.18.0
+</span></span><span style="display:flex;"><span> + dill<span style="color:#f92672">==</span>0.4.0
+</span></span><span style="display:flex;"><span> + diskcache<span style="color:#f92672">==</span>5.6.3
+</span></span><span style="display:flex;"><span> + distro<span style="color:#f92672">==</span>1.9.0
+</span></span><span style="display:flex;"><span> + dnspython<span style="color:#f92672">==</span>2.7.0
+</span></span><span style="display:flex;"><span> + einops<span style="color:#f92672">==</span>0.8.1
+</span></span><span style="display:flex;"><span> + email-validator<span style="color:#f92672">==</span>2.2.0
+</span></span><span style="display:flex;"><span> + fastapi<span style="color:#f92672">==</span>0.115.12
+</span></span><span style="display:flex;"><span> + fastapi-cli<span style="color:#f92672">==</span>0.0.7
+</span></span><span style="display:flex;"><span> + fastrlock<span style="color:#f92672">==</span>0.8.3
+</span></span><span style="display:flex;"><span> + filelock<span style="color:#f92672">==</span>3.18.0
+</span></span><span style="display:flex;"><span> + frozenlist<span style="color:#f92672">==</span>1.6.0
+</span></span><span style="display:flex;"><span> + fsspec<span style="color:#f92672">==</span>2025.3.2
+</span></span><span style="display:flex;"><span> + gguf<span style="color:#f92672">==</span>0.16.3
+</span></span><span style="display:flex;"><span> + googleapis-common-protos<span style="color:#f92672">==</span>1.70.0
+</span></span><span style="display:flex;"><span> + grpcio<span style="color:#f92672">==</span>1.71.0
+</span></span><span style="display:flex;"><span> + h11<span style="color:#f92672">==</span>0.16.0
+</span></span><span style="display:flex;"><span> + hf-xet<span style="color:#f92672">==</span>1.1.0
+</span></span><span style="display:flex;"><span> + httpcore<span style="color:#f92672">==</span>1.0.9
+</span></span><span style="display:flex;"><span> + httptools<span style="color:#f92672">==</span>0.6.4
+</span></span><span style="display:flex;"><span> + httpx<span style="color:#f92672">==</span>0.28.1
+</span></span><span style="display:flex;"><span> + huggingface-hub<span style="color:#f92672">==</span>0.31.1
+</span></span><span style="display:flex;"><span> + idna<span style="color:#f92672">==</span>3.10
+</span></span><span style="display:flex;"><span> + importlib-metadata<span style="color:#f92672">==</span>8.6.1
+</span></span><span style="display:flex;"><span> + interegular<span style="color:#f92672">==</span>0.3.3
+</span></span><span style="display:flex;"><span> + jinja2<span style="color:#f92672">==</span>3.1.6
+</span></span><span style="display:flex;"><span> + jiter<span style="color:#f92672">==</span>0.9.0
+</span></span><span style="display:flex;"><span> + jsonschema<span style="color:#f92672">==</span>4.23.0
+</span></span><span style="display:flex;"><span> + jsonschema-specifications<span style="color:#f92672">==</span>2025.4.1
+</span></span><span style="display:flex;"><span> + lark<span style="color:#f92672">==</span>1.2.2
+</span></span><span style="display:flex;"><span> + llguidance<span style="color:#f92672">==</span>0.7.19
+</span></span><span style="display:flex;"><span> + llvmlite<span style="color:#f92672">==</span>0.44.0
+</span></span><span style="display:flex;"><span> + lm-format-enforcer<span style="color:#f92672">==</span>0.10.11
+</span></span><span style="display:flex;"><span> + markdown-it-py<span style="color:#f92672">==</span>3.0.0
+</span></span><span style="display:flex;"><span> + markupsafe<span style="color:#f92672">==</span>3.0.2
+</span></span><span style="display:flex;"><span> + mdurl<span style="color:#f92672">==</span>0.1.2
+</span></span><span style="display:flex;"><span> + mistral-common<span style="color:#f92672">==</span>1.5.4
+</span></span><span style="display:flex;"><span> + mpmath<span style="color:#f92672">==</span>1.3.0
+</span></span><span style="display:flex;"><span> + msgpack<span style="color:#f92672">==</span>1.1.0
+</span></span><span style="display:flex;"><span> + msgspec<span style="color:#f92672">==</span>0.19.0
+</span></span><span style="display:flex;"><span> + multidict<span style="color:#f92672">==</span>6.4.3
+</span></span><span style="display:flex;"><span> + nest-asyncio<span style="color:#f92672">==</span>1.6.0
+</span></span><span style="display:flex;"><span> + networkx<span style="color:#f92672">==</span>3.4.2
+</span></span><span style="display:flex;"><span> + ninja<span style="color:#f92672">==</span>1.11.1.4
+</span></span><span style="display:flex;"><span> + numba<span style="color:#f92672">==</span>0.61.2
+</span></span><span style="display:flex;"><span> + numpy<span style="color:#f92672">==</span>2.2.5
+</span></span><span style="display:flex;"><span> + nvidia-cublas-cu12<span style="color:#f92672">==</span>12.6.4.1
+</span></span><span style="display:flex;"><span> + nvidia-cuda-cupti-cu12<span style="color:#f92672">==</span>12.6.80
+</span></span><span style="display:flex;"><span> + nvidia-cuda-nvrtc-cu12<span style="color:#f92672">==</span>12.6.77
+</span></span><span style="display:flex;"><span> + nvidia-cuda-runtime-cu12<span style="color:#f92672">==</span>12.6.77
+</span></span><span style="display:flex;"><span> + nvidia-cudnn-cu12<span style="color:#f92672">==</span>9.5.1.17
+</span></span><span style="display:flex;"><span> + nvidia-cufft-cu12<span style="color:#f92672">==</span>11.3.0.4
+</span></span><span style="display:flex;"><span> + nvidia-cufile-cu12<span style="color:#f92672">==</span>1.11.1.6
+</span></span><span style="display:flex;"><span> + nvidia-curand-cu12<span style="color:#f92672">==</span>10.3.7.77
+</span></span><span style="display:flex;"><span> + nvidia-cusolver-cu12<span style="color:#f92672">==</span>11.7.1.2
+</span></span><span style="display:flex;"><span> + nvidia-cusparse-cu12<span style="color:#f92672">==</span>12.5.4.2
+</span></span><span style="display:flex;"><span> + nvidia-cusparselt-cu12<span style="color:#f92672">==</span>0.6.3
+</span></span><span style="display:flex;"><span> + nvidia-nccl-cu12<span style="color:#f92672">==</span>2.26.2
+</span></span><span style="display:flex;"><span> + nvidia-nvjitlink-cu12<span style="color:#f92672">==</span>12.6.85
+</span></span><span style="display:flex;"><span> + nvidia-nvtx-cu12<span style="color:#f92672">==</span>12.6.77
+</span></span><span style="display:flex;"><span> + openai<span style="color:#f92672">==</span>1.78.0
+</span></span><span style="display:flex;"><span> + opencv-python-headless<span style="color:#f92672">==</span>4.11.0.86
+</span></span><span style="display:flex;"><span> + opentelemetry-api<span style="color:#f92672">==</span>1.32.1
+</span></span><span style="display:flex;"><span> + opentelemetry-exporter-otlp<span style="color:#f92672">==</span>1.32.1
+</span></span><span style="display:flex;"><span> + opentelemetry-exporter-otlp-proto-common<span style="color:#f92672">==</span>1.32.1
+</span></span><span style="display:flex;"><span> + opentelemetry-exporter-otlp-proto-grpc<span style="color:#f92672">==</span>1.32.1
+</span></span><span style="display:flex;"><span> + opentelemetry-exporter-otlp-proto-http<span style="color:#f92672">==</span>1.32.1
+</span></span><span style="display:flex;"><span> + opentelemetry-proto<span style="color:#f92672">==</span>1.32.1
+</span></span><span style="display:flex;"><span> + opentelemetry-sdk<span style="color:#f92672">==</span>1.32.1
+</span></span><span style="display:flex;"><span> + opentelemetry-semantic-conventions<span style="color:#f92672">==</span>0.53b1
+</span></span><span style="display:flex;"><span> + opentelemetry-semantic-conventions-ai<span style="color:#f92672">==</span>0.4.7
+</span></span><span style="display:flex;"><span> + outlines<span style="color:#f92672">==</span>0.1.11
+</span></span><span style="display:flex;"><span> + outlines-core<span style="color:#f92672">==</span>0.1.26
+</span></span><span style="display:flex;"><span> + packaging<span style="color:#f92672">==</span>25.0
+</span></span><span style="display:flex;"><span> + partial-json-parser<span style="color:#f92672">==</span>0.2.1.1.post5
+</span></span><span style="display:flex;"><span> + pillow<span style="color:#f92672">==</span>11.2.1
+</span></span><span style="display:flex;"><span> + prometheus-client<span style="color:#f92672">==</span>0.21.1
+</span></span><span style="display:flex;"><span> + prometheus-fastapi-instrumentator<span style="color:#f92672">==</span>7.1.0
+</span></span><span style="display:flex;"><span> + propcache<span style="color:#f92672">==</span>0.3.1
+</span></span><span style="display:flex;"><span> + protobuf<span style="color:#f92672">==</span>5.29.4
+</span></span><span style="display:flex;"><span> + psutil<span style="color:#f92672">==</span>7.0.0
+</span></span><span style="display:flex;"><span> + py-cpuinfo<span style="color:#f92672">==</span>9.0.0
+</span></span><span style="display:flex;"><span> + pycountry<span style="color:#f92672">==</span>24.6.1
+</span></span><span style="display:flex;"><span> + pydantic<span style="color:#f92672">==</span>2.11.4
+</span></span><span style="display:flex;"><span> + pydantic-core<span style="color:#f92672">==</span>2.33.2
+</span></span><span style="display:flex;"><span> + pygments<span style="color:#f92672">==</span>2.19.1
+</span></span><span style="display:flex;"><span> + python-dotenv<span style="color:#f92672">==</span>1.1.0
+</span></span><span style="display:flex;"><span> + python-json-logger<span style="color:#f92672">==</span>3.3.0
+</span></span><span style="display:flex;"><span> + python-multipart<span style="color:#f92672">==</span>0.0.20
+</span></span><span style="display:flex;"><span> + pyyaml<span style="color:#f92672">==</span>6.0.2
+</span></span><span style="display:flex;"><span> + pyzmq<span style="color:#f92672">==</span>26.4.0
+</span></span><span style="display:flex;"><span> + ray<span style="color:#f92672">==</span>2.46.0
+</span></span><span style="display:flex;"><span> + referencing<span style="color:#f92672">==</span>0.36.2
+</span></span><span style="display:flex;"><span> + regex<span style="color:#f92672">==</span>2024.11.6
+</span></span><span style="display:flex;"><span> + requests<span style="color:#f92672">==</span>2.32.3
+</span></span><span style="display:flex;"><span> + rich<span style="color:#f92672">==</span>14.0.0
+</span></span><span style="display:flex;"><span> + rich-toolkit<span style="color:#f92672">==</span>0.14.5
+</span></span><span style="display:flex;"><span> + rpds-py<span style="color:#f92672">==</span>0.24.0
+</span></span><span style="display:flex;"><span> + safetensors<span style="color:#f92672">==</span>0.5.3
+</span></span><span style="display:flex;"><span> + scipy<span style="color:#f92672">==</span>1.15.3
+</span></span><span style="display:flex;"><span> + sentencepiece<span style="color:#f92672">==</span>0.2.0
+</span></span><span style="display:flex;"><span> + setuptools<span style="color:#f92672">==</span>79.0.1
+</span></span><span style="display:flex;"><span> + shellingham<span style="color:#f92672">==</span>1.5.4
+</span></span><span style="display:flex;"><span> + six<span style="color:#f92672">==</span>1.17.0
+</span></span><span style="display:flex;"><span> + sniffio<span style="color:#f92672">==</span>1.3.1
+</span></span><span style="display:flex;"><span> + starlette<span style="color:#f92672">==</span>0.46.2
+</span></span><span style="display:flex;"><span> + sympy<span style="color:#f92672">==</span>1.14.0
+</span></span><span style="display:flex;"><span> + tiktoken<span style="color:#f92672">==</span>0.9.0
+</span></span><span style="display:flex;"><span> + tokenizers<span style="color:#f92672">==</span>0.21.1
+</span></span><span style="display:flex;"><span> + torch<span style="color:#f92672">==</span>2.7.0
+</span></span><span style="display:flex;"><span> + torchaudio<span style="color:#f92672">==</span>2.7.0
+</span></span><span style="display:flex;"><span> + torchvision<span style="color:#f92672">==</span>0.22.0
+</span></span><span style="display:flex;"><span> + tqdm<span style="color:#f92672">==</span>4.67.1
+</span></span><span style="display:flex;"><span> + transformers<span style="color:#f92672">==</span>4.51.3
+</span></span><span style="display:flex;"><span> + triton<span style="color:#f92672">==</span>3.3.0
+</span></span><span style="display:flex;"><span> + typer<span style="color:#f92672">==</span>0.15.3
+</span></span><span style="display:flex;"><span> + typing-extensions<span style="color:#f92672">==</span>4.13.2
+</span></span><span style="display:flex;"><span> + typing-inspection<span style="color:#f92672">==</span>0.4.0
+</span></span><span style="display:flex;"><span> + urllib3<span style="color:#f92672">==</span>2.4.0
+</span></span><span style="display:flex;"><span> + uvicorn<span style="color:#f92672">==</span>0.34.2
+</span></span><span style="display:flex;"><span> + uvloop<span style="color:#f92672">==</span>0.21.0
+</span></span><span style="display:flex;"><span> + vllm<span style="color:#f92672">==</span>0.1.dev6367+g3d1e387.precompiled <span style="color:#f92672">(</span>from file:///workspace/vllm<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> + watchfiles<span style="color:#f92672">==</span>1.0.5
+</span></span><span style="display:flex;"><span> + websockets<span style="color:#f92672">==</span>15.0.1
+</span></span><span style="display:flex;"><span> + wrapt<span style="color:#f92672">==</span>1.17.2
+</span></span><span style="display:flex;"><span> + xformers<span style="color:#f92672">==</span>0.0.30
+</span></span><span style="display:flex;"><span> + xgrammar<span style="color:#f92672">==</span>0.1.18
+</span></span><span style="display:flex;"><span> + yarl<span style="color:#f92672">==</span>1.20.0
+</span></span><span style="display:flex;"><span> + zipp<span style="color:#f92672">==</span>3.21.0
+</span></span></code></pre></div><p>[!NOTE] 🤡 20GB is not engough to install the package</p>
+<p>Usually <code>workspace/</code> has more storage.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/home/vllm# df -h
+</span></span><span style="display:flex;"><span>Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span style="display:flex;"><span>overlay          20G   12G  8.5G  58% /
+</span></span><span style="display:flex;"><span>tmpfs            64M     <span style="color:#ae81ff">0</span>   64M   0% /dev
+</span></span><span style="display:flex;"><span>tmpfs           756G     <span style="color:#ae81ff">0</span>  756G   0% /sys/fs/cgroup
+</span></span><span style="display:flex;"><span>shm              88G     <span style="color:#ae81ff">0</span>   88G   0% /dev/shm
+</span></span><span style="display:flex;"><span>/dev/sda2       3.5T   22G  3.3T   1% /usr/bin/nvidia-smi
+</span></span><span style="display:flex;"><span>/dev/sdb         20G     <span style="color:#ae81ff">0</span>   20G   0% /workspace
+</span></span><span style="display:flex;"><span>tmpfs           756G   12K  756G   1% /proc/driver/nvidia
+</span></span><span style="display:flex;"><span>tmpfs           756G  4.0K  756G   1% /etc/nvidia/nvidia-application-profiles-rc.d
+</span></span><span style="display:flex;"><span>tmpfs           152G   52M  152G   1% /run/nvidia-persistenced/socket
+</span></span><span style="display:flex;"><span>tmpfs           756G     <span style="color:#ae81ff">0</span>  756G   0% /proc/acpi
+</span></span><span style="display:flex;"><span>tmpfs           756G     <span style="color:#ae81ff">0</span>  756G   0% /proc/scsi
+</span></span><span style="display:flex;"><span>tmpfs           756G     <span style="color:#ae81ff">0</span>  756G   0% /sys/firmware
+</span></span><span style="display:flex;"><span>tmpfs           756G     <span style="color:#ae81ff">0</span>  756G   0% /sys/devices/virtual/powercap
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/home/vllm# df -h --output<span style="color:#f92672">=</span>source,target,size,used,avail
+</span></span><span style="display:flex;"><span>Filesystem     Mounted on                                    Size  Used Avail
+</span></span><span style="display:flex;"><span>overlay        /                                              20G   12G  8.5G
+</span></span><span style="display:flex;"><span>tmpfs          /dev                                           64M     <span style="color:#ae81ff">0</span>   64M
+</span></span><span style="display:flex;"><span>tmpfs          /sys/fs/cgroup                                756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span>shm            /dev/shm                                       88G     <span style="color:#ae81ff">0</span>   88G
+</span></span><span style="display:flex;"><span>/dev/sda2      /usr/bin/nvidia-smi                           3.5T   22G  3.3T
+</span></span><span style="display:flex;"><span>/dev/sdb       /workspace                                     20G     <span style="color:#ae81ff">0</span>   20G
+</span></span><span style="display:flex;"><span>tmpfs          /proc/driver/nvidia                           756G   12K  756G
+</span></span><span style="display:flex;"><span>tmpfs          /etc/nvidia/nvidia-application-profiles-rc.d  756G  4.0K  756G
+</span></span><span style="display:flex;"><span>tmpfs          /run/nvidia-persistenced/socket               152G   52M  152G
+</span></span><span style="display:flex;"><span>tmpfs          /proc/acpi                                    756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span>tmpfs          /proc/scsi                                    756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span>tmpfs          /sys/firmware                                 756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span>tmpfs          /sys/devices/virtual/powercap                 756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/home/vllm# cd ..
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/home# mv vllm/ ../workspace/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/home# ls
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/home# cd ..
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/# cd workspace/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/workspace# ls
+</span></span><span style="display:flex;"><span>vllm
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/workspace# cd vllm
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/workspace/vllm# df -h --output<span style="color:#f92672">=</span>source,target,size,used,avail
+</span></span><span style="display:flex;"><span>Filesystem     Mounted on                                    Size  Used Avail
+</span></span><span style="display:flex;"><span>overlay        /                                              20G   11G  9.6G
+</span></span><span style="display:flex;"><span>tmpfs          /dev                                           64M     <span style="color:#ae81ff">0</span>   64M
+</span></span><span style="display:flex;"><span>tmpfs          /sys/fs/cgroup                                756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span>shm            /dev/shm                                       88G     <span style="color:#ae81ff">0</span>   88G
+</span></span><span style="display:flex;"><span>/dev/sda2      /usr/bin/nvidia-smi                           3.5T   22G  3.3T
+</span></span><span style="display:flex;"><span>/dev/sdb       /workspace                                     20G  1.2G   19G
+</span></span><span style="display:flex;"><span>tmpfs          /proc/driver/nvidia                           756G   12K  756G
+</span></span><span style="display:flex;"><span>tmpfs          /etc/nvidia/nvidia-application-profiles-rc.d  756G  4.0K  756G
+</span></span><span style="display:flex;"><span>tmpfs          /run/nvidia-persistenced/socket               152G   52M  152G
+</span></span><span style="display:flex;"><span>tmpfs          /proc/acpi                                    756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span>tmpfs          /proc/scsi                                    756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span>tmpfs          /sys/firmware                                 756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span>tmpfs          /sys/devices/virtual/powercap                 756G     <span style="color:#ae81ff">0</span>  756G
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/workspace/vllm# rm -rf ../../.venv/
+</span></span></code></pre></div><p>Git structure should&rsquo;ve not changed, double check&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/workspace/vllm# git remote -v
+</span></span><span style="display:flex;"><span>origin  https://github.com/davidgao7/vllm.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>origin  https://github.com/davidgao7/vllm.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Noice, 😅</p>
+<p>Try that again&hellip;
+Oh yea don&rsquo;t forget to create virtual environment again and activate it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>VLLM_USE_PRECOMPILED<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> pip install --editable .
+</span></span></code></pre></div><p>Install python env</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/workspace/vllm# uv venv --python 3.12 --seed
+</span></span><span style="display:flex;"><span>Using CPython 3.12.10
+</span></span><span style="display:flex;"><span>Creating virtual environment with seed packages at: .venv
+</span></span><span style="display:flex;"><span>warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+</span></span><span style="display:flex;"><span>         If the cache and target directories are on different filesystems, hardlinking may not be supported.
+</span></span><span style="display:flex;"><span>         If this is intentional, set <span style="color:#e6db74">`</span>export UV_LINK_MODE<span style="color:#f92672">=</span>copy<span style="color:#e6db74">`</span> or use <span style="color:#e6db74">`</span>--link-mode<span style="color:#f92672">=</span>copy<span style="color:#e6db74">`</span> to suppress this warning.
+</span></span><span style="display:flex;"><span> + pip<span style="color:#f92672">==</span>25.1.1
+</span></span><span style="display:flex;"><span>Activate with: source .venv/bin/activate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>.venv<span style="color:#f92672">)</span> root@f00742593164:/workspace/vllm# source .venv/bin/activate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>vllm<span style="color:#f92672">)</span> root@f00742593164:/workspace/vllm# python
+</span></span><span style="display:flex;"><span>Python 3.12.10 <span style="color:#f92672">(</span>main, Apr  <span style="color:#ae81ff">9</span> 2025, 04:03:51<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Clang 20.1.0 <span style="color:#f92672">]</span> on linux
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> or <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; exit<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>vllm<span style="color:#f92672">)</span> root@f00742593164:/workspace/vllm#
+</span></span></code></pre></div><p>Install dependencies</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>VLLM_USE_PRECOMPILED<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> pip install --editable .
+</span></span></code></pre></div><p>Let&rsquo;s try if vllm really work, here is an <a href="https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/basic/basic.py">example script</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> vllm <span style="color:#f92672">import</span> LLM, SamplingParams
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sample prompts.</span>
+</span></span><span style="display:flex;"><span>prompts <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Hello, my name is&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;The president of the United States is&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;The capital of France is&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;The future of AI is&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create a sampling params object.</span>
+</span></span><span style="display:flex;"><span>sampling_params <span style="color:#f92672">=</span> SamplingParams(temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>, top_p<span style="color:#f92672">=</span><span style="color:#ae81ff">0.95</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Create an LLM.</span>
+</span></span><span style="display:flex;"><span>    llm <span style="color:#f92672">=</span> LLM(model<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;facebook/opt-125m&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Generate texts from the prompts.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># The output is a list of RequestOutput objects</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># that contain the prompt, generated text, and other information.</span>
+</span></span><span style="display:flex;"><span>    outputs <span style="color:#f92672">=</span> llm<span style="color:#f92672">.</span>generate(prompts, sampling_params)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Print the outputs.</span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Generated Outputs:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> output <span style="color:#f92672">in</span> outputs:
+</span></span><span style="display:flex;"><span>        prompt <span style="color:#f92672">=</span> output<span style="color:#f92672">.</span>prompt
+</span></span><span style="display:flex;"><span>        generated_text <span style="color:#f92672">=</span> output<span style="color:#f92672">.</span>outputs[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>text
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Prompt:    </span><span style="color:#e6db74">{</span>prompt<span style="color:#e6db74">!r}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Output:    </span><span style="color:#e6db74">{</span>generated_text<span style="color:#e6db74">!r}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><p>In this example, we pull the opt-125m model from huggingface, and generate some text with it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>uv run examples<span style="color:#f92672">/</span>offline_inference<span style="color:#f92672">/</span>basic<span style="color:#f92672">/</span>basic<span style="color:#f92672">.</span>py
+</span></span></code></pre></div><p>Finally, if your machine is powerful enough(and you store at <em>correct large</em> disk), you could run one inference(multi-inferences when speaking about per token)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>vllm<span style="color:#f92672">)</span> root@49924402e807:/workspace/vllm# uv run examples/offline_inference/basic/basic.py
+</span></span><span style="display:flex;"><span>INFO 05-09 06:46:59 <span style="color:#f92672">[</span>__init__.py:248<span style="color:#f92672">]</span> Automatically detected platform cuda.
+</span></span><span style="display:flex;"><span>config.json: 100%|███████████████████████████████████████████████████████████████| 651/651 <span style="color:#f92672">[</span>00:00&lt;00:00, 3.33MB/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>INFO 05-09 06:47:58 <span style="color:#f92672">[</span>config.py:752<span style="color:#f92672">]</span> This model supports multiple tasks: <span style="color:#f92672">{</span><span style="color:#e6db74">&#39;classify&#39;</span>, <span style="color:#e6db74">&#39;score&#39;</span>, <span style="color:#e6db74">&#39;generate&#39;</span>, <span style="color:#e6db74">&#39;embed&#39;</span>, <span style="color:#e6db74">&#39;reward&#39;</span><span style="color:#f92672">}</span>. Defaulting to <span style="color:#e6db74">&#39;generate&#39;</span>.
+</span></span><span style="display:flex;"><span>INFO 05-09 06:47:58 <span style="color:#f92672">[</span>config.py:2057<span style="color:#f92672">]</span> Chunked prefill is enabled with max_num_batched_tokens<span style="color:#f92672">=</span>8192.
+</span></span><span style="display:flex;"><span>tokenizer_config.json: 100%|█████████████████████████████████████████████████████| 685/685 <span style="color:#f92672">[</span>00:00&lt;00:00, 4.21MB/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>vocab.json: 100%|██████████████████████████████████████████████████████████████| 899k/899k <span style="color:#f92672">[</span>00:00&lt;00:00, 3.76MB/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>merges.txt: 100%|██████████████████████████████████████████████████████████████| 456k/456k <span style="color:#f92672">[</span>00:00&lt;00:00, 2.91MB/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>special_tokens_map.json: 100%|███████████████████████████████████████████████████| 441/441 <span style="color:#f92672">[</span>00:00&lt;00:00, 3.28MB/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>generation_config.json: 100%|█████████████████████████████████████████████████████| 137/137 <span style="color:#f92672">[</span>00:00&lt;00:00, 809kB/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>INFO 05-09 06:48:05 <span style="color:#f92672">[</span>core.py:61<span style="color:#f92672">]</span> Initializing a V1 LLM engine <span style="color:#f92672">(</span>v0.1.dev6367+g3d1e387<span style="color:#f92672">)</span> with config: model<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;facebook/opt-125m&#39;</span>, speculative_config<span style="color:#f92672">=</span>None, tokenizer<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;facebook/opt-125m&#39;</span>, skip_tokenizer_init<span style="color:#f92672">=</span>False, tokenizer_mode<span style="color:#f92672">=</span>auto, revision<span style="color:#f92672">=</span>None, override_neuron_config<span style="color:#f92672">={}</span>, tokenizer_revision<span style="color:#f92672">=</span>None, trust_remote_code<span style="color:#f92672">=</span>False, dtype<span style="color:#f92672">=</span>torch.float16, max_seq_len<span style="color:#f92672">=</span>2048, download_dir<span style="color:#f92672">=</span>None, load_format<span style="color:#f92672">=</span>LoadFormat.AUTO, tensor_parallel_size<span style="color:#f92672">=</span>1, pipeline_parallel_size<span style="color:#f92672">=</span>1, disable_custom_all_reduce<span style="color:#f92672">=</span>False, quantization<span style="color:#f92672">=</span>None, enforce_eager<span style="color:#f92672">=</span>False, kv_cache_dtype<span style="color:#f92672">=</span>auto,  device_config<span style="color:#f92672">=</span>cuda, decoding_config<span style="color:#f92672">=</span>DecodingConfig<span style="color:#f92672">(</span>backend<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;auto&#39;</span>, disable_fallback<span style="color:#f92672">=</span>False, disable_any_whitespace<span style="color:#f92672">=</span>False, disable_additional_properties<span style="color:#f92672">=</span>False, reasoning_backend<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">)</span>, observability_config<span style="color:#f92672">=</span>ObservabilityConfig<span style="color:#f92672">(</span>show_hidden_metrics_for_version<span style="color:#f92672">=</span>None, otlp_traces_endpoint<span style="color:#f92672">=</span>None, collect_detailed_traces<span style="color:#f92672">=</span>None<span style="color:#f92672">)</span>, seed<span style="color:#f92672">=</span>None, served_model_name<span style="color:#f92672">=</span>facebook/opt-125m, num_scheduler_steps<span style="color:#f92672">=</span>1, multi_step_stream_outputs<span style="color:#f92672">=</span>True, enable_prefix_caching<span style="color:#f92672">=</span>True, chunked_prefill_enabled<span style="color:#f92672">=</span>True, use_async_output_proc<span style="color:#f92672">=</span>True, pooler_config<span style="color:#f92672">=</span>None, compilation_config<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;level&#34;</span>:3,<span style="color:#e6db74">&#34;custom_ops&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;none&#34;</span><span style="color:#f92672">]</span>,<span style="color:#e6db74">&#34;splitting_ops&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;vllm.unified_attention&#34;</span>,<span style="color:#e6db74">&#34;vllm.unified_attention_with_output&#34;</span><span style="color:#f92672">]</span>,<span style="color:#e6db74">&#34;use_inductor&#34;</span>:true,<span style="color:#e6db74">&#34;compile_sizes&#34;</span>:<span style="color:#f92672">[]</span>,<span style="color:#e6db74">&#34;use_cudagraph&#34;</span>:true,<span style="color:#e6db74">&#34;cudagraph_num_of_warmups&#34;</span>:1,<span style="color:#e6db74">&#34;cudagraph_capture_sizes&#34;</span>:<span style="color:#f92672">[</span>512,504,496,488,480,472,464,456,448,440,432,424,416,408,400,392,384,376,368,360,352,344,336,328,320,312,304,296,288,280,272,264,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1<span style="color:#f92672">]</span>,<span style="color:#e6db74">&#34;max_capture_size&#34;</span>:512<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>WARNING 05-09 06:48:09 <span style="color:#f92672">[</span>utils.py:2587<span style="color:#f92672">]</span> Methods determine_num_available_blocks,device_config,get_cache_block_size_bytes,initialize_cache not implemented in &lt;vllm.v1.worker.gpu_worker.Worker object at 0x7fb0ff70d8b0&gt;
+</span></span><span style="display:flex;"><span>INFO 05-09 06:48:10 <span style="color:#f92672">[</span>parallel_state.py:1004<span style="color:#f92672">]</span> rank <span style="color:#ae81ff">0</span> in world size <span style="color:#ae81ff">1</span> is assigned as DP rank 0, PP rank 0, TP rank <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>INFO 05-09 06:48:10 <span style="color:#f92672">[</span>cuda.py:221<span style="color:#f92672">]</span> Using Flash Attention backend on V1 engine.
+</span></span><span style="display:flex;"><span>WARNING 05-09 06:48:10 <span style="color:#f92672">[</span>topk_topp_sampler.py:69<span style="color:#f92672">]</span> FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p &amp; top-k sampling. For the best performance, please install FlashInfer.
+</span></span><span style="display:flex;"><span>INFO 05-09 06:48:10 <span style="color:#f92672">[</span>gpu_model_runner.py:1393<span style="color:#f92672">]</span> Starting to load model facebook/opt-125m...
+</span></span><span style="display:flex;"><span>INFO 05-09 06:48:11 <span style="color:#f92672">[</span>weight_utils.py:257<span style="color:#f92672">]</span> Using model weights format <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;*.bin&#39;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>pytorch_model.bin: 100%|███████████████████████████████████████████████████████| 251M/251M <span style="color:#f92672">[</span>00:03&lt;00:00, 83.0MB/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>INFO 05-09 06:48:15 <span style="color:#f92672">[</span>weight_utils.py:273<span style="color:#f92672">]</span> Time spent downloading weights <span style="color:#66d9ef">for</span> facebook/opt-125m: 3.667131 seconds
+</span></span><span style="display:flex;"><span>Loading pt checkpoint shards:   0% Completed | 0/1 <span style="color:#f92672">[</span>00:00&lt;?, ?it/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Loading pt checkpoint shards: 100% Completed | 1/1 <span style="color:#f92672">[</span>00:00&lt;00:00,  3.20it/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Loading pt checkpoint shards: 100% Completed | 1/1 <span style="color:#f92672">[</span>00:00&lt;00:00,  3.19it/s<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INFO 05-09 06:48:15 <span style="color:#f92672">[</span>default_loader.py:278<span style="color:#f92672">]</span> Loading weights took 0.32 seconds
+</span></span><span style="display:flex;"><span>INFO 05-09 06:48:15 <span style="color:#f92672">[</span>gpu_model_runner.py:1411<span style="color:#f92672">]</span> Model loading took 0.2389 GiB and 4.768521 seconds
+</span></span><span style="display:flex;"><span>INFO 05-09 06:48:24 <span style="color:#f92672">[</span>backends.py:437<span style="color:#f92672">]</span> Using cache directory: /root/.cache/vllm/torch_compile_cache/f75f64201d/rank_0_0 <span style="color:#66d9ef">for</span> vLLM<span style="color:#e6db74">&#39;s torch.compile
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">INFO 05-09 06:48:24 [backends.py:447] Dynamo bytecode transform time: 8.85 s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">INFO 05-09 06:48:27 [backends.py:138] Cache the graph of shape None for later use
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">INFO 05-09 06:48:34 [backends.py:150] Compiling a graph for general shape takes 9.91 s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">INFO 05-09 06:48:37 [monitor.py:33] torch.compile takes 18.75 s in total
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">INFO 05-09 06:48:38 [kv_cache_utils.py:639] GPU KV cache size: 582,208 tokens
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">INFO 05-09 06:48:38 [kv_cache_utils.py:642] Maximum concurrency for 2,048 tokens per request: 284.28x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">INFO 05-09 06:48:59 [gpu_model_runner.py:1774] Graph capturing finished in 21 secs, took 0.20 GiB
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">INFO 05-09 06:48:59 [core.py:163] init engine (profile, create kv cache, warmup model) took 43.73 seconds
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">INFO 05-09 06:48:59 [core_client.py:442] Core engine process 0 ready.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Adding requests: 100%|█████████████████████████████████████████████████████████████| 4/4 [00:00&lt;00:00, 233.82it/s]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Processed prompts: 100%|█████| 4/4 [00:00&lt;00:00, 11.66it/s, est. speed input: 75.80 toks/s, output: 186.57 toks/s]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Generated Outputs:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">------------------------------------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Prompt:    &#39;</span>Hello, my name is<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Output:    &#39;</span> Ken Li and I’m a computer science student. My primary interest is<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">------------------------------------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Prompt:    &#39;</span>The president of the United States is<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Output:    &#39;</span> attempting to subvert a very important issue, one which many of us are of<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">------------------------------------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Prompt:    &#39;</span>The capital of France is<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Output:    &#39;</span> filled with tourists, retirees and independent artists but, by far, the most popular<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">------------------------------------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Prompt:    &#39;</span>The future of AI is<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Output:    &#39;</span> becoming more connected. This requires more research and development than ever before. With the<span style="color:#960050;background-color:#1e0010">&#39;</span>
+</span></span><span style="display:flex;"><span>------------------------------------------------------------
+</span></span></code></pre></div><p>Love the verbose logs.</p>
 
     </div>
     <div class="post-footer">

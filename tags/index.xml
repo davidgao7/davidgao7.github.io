@@ -226,6 +226,34 @@
       <description></description>
     </item>
     <item>
+      <title>Deployment</title>
+      <link>http://localhost:1313/tags/deployment/</link>
+      <pubDate>Sun, 13 Apr 2025 15:13:29 -0400</pubDate>
+      <guid>http://localhost:1313/tags/deployment/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>EGPU</title>
+      <link>http://localhost:1313/tags/egpu/</link>
+      <pubDate>Sun, 13 Apr 2025 15:13:29 -0400</pubDate>
+      <guid>http://localhost:1313/tags/egpu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lambda</title>
+      <link>http://localhost:1313/tags/lambda/</link>
+      <pubDate>Sun, 13 Apr 2025 15:13:29 -0400</pubDate>
+      <guid>http://localhost:1313/tags/lambda/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Runpod</title>
+      <link>http://localhost:1313/tags/runpod/</link>
+      <pubDate>Sun, 13 Apr 2025 15:13:29 -0400</pubDate>
+      <guid>http://localhost:1313/tags/runpod/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>A* Algorithm</title>
       <link>http://localhost:1313/tags/a-algorithm/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
