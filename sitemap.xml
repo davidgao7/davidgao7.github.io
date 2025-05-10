@@ -2,6 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/deployment/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/egpu/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/lambda/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/llm/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/production/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/runpod/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/vllm/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/wrong-vllm-production-stack-setup/</loc>
+    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/adobe/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
@@ -12,9 +45,6 @@
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/bloomberg/</loc>
-    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/intuit/</loc>
@@ -47,9 +77,6 @@
     <loc>http://localhost:1313/posts/palindrome-linked-list/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/recursion/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
@@ -57,9 +84,6 @@
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/stack/</loc>
-    <lastmod>2025-05-03T18:38:09-04:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/two-pointer/</loc>
@@ -98,15 +122,6 @@
     <loc>http://localhost:1313/tags/k8s/</loc>
     <lastmod>2025-04-22T11:14:45-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/llm/</loc>
-    <lastmod>2025-04-22T11:14:45-04:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/production/</loc>
-    <lastmod>2025-04-22T11:14:45-04:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/vllm/</loc>
-    <lastmod>2025-04-22T11:14:45-04:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/vllm-deep-dive/</loc>
     <lastmod>2025-04-22T11:14:45-04:00</lastmod>
   </url><url>
@@ -119,19 +134,7 @@
     <loc>http://localhost:1313/tags/mlx/</loc>
     <lastmod>2025-04-19T16:59:26-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/deployment/</loc>
-    <lastmod>2025-04-13T15:13:29-04:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/egpu/</loc>
-    <lastmod>2025-04-13T15:13:29-04:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/lambda/</loc>
-    <lastmod>2025-04-13T15:13:29-04:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/llm-production/</loc>
-    <lastmod>2025-04-13T15:13:29-04:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/runpod/</loc>
     <lastmod>2025-04-13T15:13:29-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/a-algorithm/</loc>
