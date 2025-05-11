@@ -91,7 +91,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          15 min read
+          19 min read
         </div>
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
@@ -761,9 +761,231 @@ Extend the production-stack router to expose the <code>/v1/audio/transcriptions<
 <hr>
 <h2 id="2-environment-setup">2. Environment Setup</h2>
 <ul>
-<li>spin up an instant cluster in runpod is MUCH easier</li>
-<li><a href="/posts/wrong-vllm-production-stack-setup/">here is the issue I faced when I try to do in one machine</a></li>
+<li>
+<p>spin up an instant cluster in runpod is MUCH easier</p>
+</li>
+<li>
+<p><a href="/posts/wrong-vllm-production-stack-setup/">here is the issue I faced when I try to do in one machine</a></p>
+</li>
+<li>
+<p>Through sweats and tears, trails and errors, I finally find the correct way: use the <a href="https://docs.runpod.io/instant-clusters">Instant clusters</a></p>
+</li>
 </ul>
+<table>
+  <thead>
+      <tr>
+          <th>Pain in single pod</th>
+          <th>Why it breaks</th>
+          <th>How Instant Clusters fix it</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>OverlayFS / bind‑mount denied</strong></td>
+          <td>Container security on a pod</td>
+          <td>Nodes are full VMs → kernel features allowed (<a href="https://docs.runpod.io/instant-clusters" title="Overview | RunPod Documentation">RunPod Docs</a>)</td>
+      </tr>
+      <tr>
+          <td><strong><code>/dev/kmsg</code> &amp; other device files missing</strong></td>
+          <td>Device files masked</td>
+          <td>Full device namespace, kubelet starts cleanly</td>
+      </tr>
+      <tr>
+          <td><strong>Static intra‑cluster networking needed</strong></td>
+          <td>Pod IPs are ephemeral</td>
+          <td>Each node gets a static <code>NODE_ADDR</code>; primary node gets <code>PRIMARY_ADDR</code> (<a href="https://docs.runpod.io/instant-clusters" title="Overview | RunPod Documentation">RunPod Docs</a>)</td>
+      </tr>
+      <tr>
+          <td><strong>GPU scheduling</strong></td>
+          <td>No privileged runtime</td>
+          <td>Install NVIDIA device‑plugin once; GPUs appear in <code>kubectl describe node</code></td>
+      </tr>
+      <tr>
+          <td><strong>Scalability</strong></td>
+          <td>Single host only</td>
+          <td>Up to 8 nodes × 8 GPUs per node (64 GPU max) with high‑speed mesh (<a href="https://docs.runpod.io/instant-clusters" title="Overview | RunPod Documentation">RunPod Docs</a>)</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="so-what-machine-configuration-should-i-choose">So what machine configuration should I choose?</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Option</th>
+          <th>Meets K8s‑production need?</th>
+          <th>Gives GPU node?</th>
+          <th>Avoids earlier sandbox errors?</th>
+          <th>Practical notes</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>RunPod Single Pod</strong></td>
+          <td>✘ (kubelet fails)</td>
+          <td>✔ RTX 3090</td>
+          <td>✘ sandbox limits</td>
+          <td>Already ruled out</td>
+      </tr>
+      <tr>
+          <td><strong>RunPod Instant Cluster</strong></td>
+          <td>✘ (K8s not supported)</td>
+          <td>✔ multi‑GPU</td>
+          <td>✔ root VM, but no kube‑API</td>
+          <td>Great for PyTorch/Slurm, not Helm</td>
+      </tr>
+      <tr>
+          <td><strong>RunPod Bare Metal</strong></td>
+          <td>✔ install K3s easily</td>
+          <td>✔ pick 1–8 GPUs</td>
+          <td>✔ full server</td>
+          <td>Same RunPod UI; hourly billing</td>
+      </tr>
+      <tr>
+          <td><strong>AWS / Azure / GCP managed K8s (EKS / AKS / GKE)</strong></td>
+          <td>✔ fully managed control‑plane</td>
+          <td>✔ add GPU node‑pool</td>
+          <td>✔ real VMs</td>
+          <td>Slightly higher cost; IAM setup</td>
+      </tr>
+      <tr>
+          <td><strong>Self‑host K3s on any GPU VM (Lambda, Paperspace, Hetzner, OCI)</strong></td>
+          <td>✔ single‑node or multi‑node</td>
+          <td>✔ if you rent GPU VM</td>
+          <td>✔ full root</td>
+          <td>You manage everything, but simple for dev work</td>
+      </tr>
+  </tbody>
+</table>
+<ul>
+<li>uhh, I still have 10 bucks remain on runpod&hellip;
+<ul>
+<li>Bare metal cluster cheapest one cost hundreds of bucks :(</li>
+<li>I do need a k8s environment</li>
+</ul>
+</li>
+</ul>
+<h2 id="i-found-gke-is-the-cheapest-option">I found GKE is the cheapest option</h2>
+<p>Why GKE?</p>
+<ul>
+<li><em>Focus on your app, not infrastructure</em>: GKE handles the heavy lifting of managing Kubernetes, letting you concentrate on building and innovating.</li>
+<li><em>GPU Power Made Easy</em>: GKE makes it straightforward to use GPUs, which is crucial for your AI/ML workloads and resolving your specific bug.</li>
+<li><em>Scale Effortlessly</em>: GKE grows with you, easily handling increased demands on your application without you having to worry about the details.</li>
+<li><em>Production-Ready Reproduction</em>: GKE gives you the environment you need to pinpoint and fix the router pod, vLLM + Whisper worker, and GPU interaction bug.</li>
+<li><em>Plays Well with Everything</em>: GKE integrates smoothly with other Google Cloud services you might need.
+Cost-Effective: GKE has features like Autopilot mode and cost optimization tools to help you manage your spending.</li>
+<li><em>Secure</em>: GKE offers built-in security features to protect your applications.
+Future-Proof: Kubernetes is the industry standard, and GKE is a leading managed Kubernetes service.</li>
+</ul>
+<ol>
+<li>standard cluster</li>
+<li>us-east-1</li>
+<li>fleet registration: A Google Cloud fleet is a top‑level “super‑cluster” object that lets you manage multiple Kubernetes clusters (GKE, on‑prem, or other clouds) as a single unit—enabling shared policies, multi‑cluster services, and centralized observability with no extra cost.</li>
+<li>CIDR only allow my ip addr</li>
+</ol>
+<h2 id="connect-to-cluster">Connect to cluster</h2>
+<p>For google cloud we can install <code>gcloud</code> cli tool, and use <code>gcloud container clusters get-credentials</code> to connect to the cluster</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gcloud container clusters get-credentials autopilot-cluster-1 --region us-east1
+</span></span></code></pre></div><ul>
+<li>If you don&rsquo;t have <code>gcloud</code>, <a href="https://cloud.google.com/sdk/docs/install">here is a tutorial how to install it</a>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-darwin-arm.tar.gz
+</span></span><span style="display:flex;"><span>tar -xf google-cloud-cli-darwin-arm.tar.gz
+</span></span><span style="display:flex;"><span>cd google-cloud-sdk
+</span></span><span style="display:flex;"><span>chmod +x install.sh  <span style="color:#75715e"># just in case...</span>
+</span></span><span style="display:flex;"><span>sh install.sh
+</span></span></code></pre></div><p>And it&rsquo;s writing on your rc file&hellip; Check the execution order, you can modify yourself.</p>
+<p>Then login your gcloud cli, and setup corresponding project id</p>
+<ol>
+<li>login</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gcloud auth login
+</span></span></code></pre></div><ol start="2">
+<li>setup corresponding project id</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gcloud config set project gen-lang-client-0475913374
+</span></span></code></pre></div><ol start="3">
+<li>connect the local machine <code>kubectl</code> to cluster</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gcloud container clusters get-credentials autopilot-cluster-1 --region us-east1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fetching cluster endpoint and auth data.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># CRITICAL: ACTION REQUIRED: gke-gcloud-auth-plugin, which is needed for continued use of kubectl, was not found or is not executable. Install gke-gcloud-auth-plugin for use with kubectl by following https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># kubeconfig entry generated for autopilot-cluster-1.</span>
+</span></span></code></pre></div><p>Ok more installations,</p>
+<ol start="4">
+<li>Install required plugins</li>
+</ol>
+<p><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin">reference</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gcloud components install gke-gcloud-auth-plugin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Your current Google Cloud CLI version is: 521.0.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Installing components from version: 521.0.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ┌────────────────────────────────────────────────────────────────┐</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># │              These components will be installed.               │</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├────────────────────────────────────────────┬─────────┬─────────┤</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># │                    Name                    │ Version │   Size  │</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├────────────────────────────────────────────┼─────────┼─────────┤</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># │ gke-gcloud-auth-plugin (Platform Specific) │  0.5.10 │ 3.3 MiB │</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># └────────────────────────────────────────────┴─────────┴─────────┘</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For the latest full release notes, please visit:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   https://cloud.google.com/sdk/release_notes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Once started, canceling this operation may leave your SDK installation in an inconsistent state.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Do you want to continue (Y/n)?  Y</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Performing in place update...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ╔════════════════════════════════════════════════════════════╗</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ╠═ Downloading: gke-gcloud-auth-plugin                      ═╣</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ╠════════════════════════════════════════════════════════════╣</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ╠═ Downloading: gke-gcloud-auth-plugin (Platform Specific)  ═╣</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ╠════════════════════════════════════════════════════════════╣</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ╠═ Installing: gke-gcloud-auth-plugin                       ═╣</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ╠════════════════════════════════════════════════════════════╣</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ╠═ Installing: gke-gcloud-auth-plugin (Platform Specific)   ═╣</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ╚════════════════════════════════════════════════════════════╝</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Performing post processing steps...done.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update done!</span>
+</span></span></code></pre></div><ol start="5">
+<li>Try to initialize the cluster again</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gcloud container clusters get-credentials autopilot-cluster-1 --region us-east1 <span style="color:#75715e"># or other region</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fetching cluster endpoint and auth data.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># kubeconfig entry generated for autopilot-cluster-1.</span>
+</span></span></code></pre></div><p>[!NOTE]
+Performance Monitoring: To monitor and verify the latency and performance between your location and the GKE cluster, you can utilize tools like <a href="https://www.gcping.com/">GCPing</a>, which provides latency measurements to various Google Cloud regions.</p>
+<ol start="6">
+<li>Connect to the cluster 🔥</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; kubectl get nodes
+</span></span><span style="display:flex;"><span>No resources found
+</span></span></code></pre></div><p>Nice, it&rsquo;s working</p>
+<h2 id="install-nvidia-gpu-device-plugin-need">Install NVIDIA GPU Device Plugin (Need?)</h2>
+<ul>
+<li>Currently no, GKE Autopilot automatically provisions GPU nodes and installs the necessary NVIDIA drivers and device plugins when you deploy a workload that requests GPU resources.</li>
+</ul>
+<p>Psst Here is the Plugin repo</p>
+<ul>
+<li>Github: <a href="https://github.com/NVIDIA/k8s-device-plugin">NVIDIA/k8s-device-plugin</a></li>
+<li>NGC Catalog: <a href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/k8s-device-plugin">NIVIDIA Device Plugin</a></li>
+</ul>
+<h2 id="reproducing-the-issue">Reproducing the issue</h2>
+<h3 id="deploy-the-current-production-stack-on-gcp">Deploy the current production-stack on GCP</h3>
+<p>For GCP, there are 2 tutorials:</p>
+<ul>
+<li><code>/tutorials/cloud_deployments/02-GCP-GKE-deployment.md</code></li>
+<li><code>/deployment_on_cloud/gcp/README.md</code></li>
+<li><code>/deployment_on_cloud/gcp/OPT125_CPU/README.md</code></li>
+</ul>
+<p>I already have GKE cluster, I just need to manually depoly the vLLM production stack using helm, no need to use the scripts to create cluster.</p>
 
     </div>
     <div class="post-footer">
