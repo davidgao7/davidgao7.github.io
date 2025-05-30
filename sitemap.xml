@@ -3,34 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/deployment/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/egpu/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/lambda/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/llm/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/production/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/runpod/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/vllm/</loc>
-    <lastmod>2025-05-10T02:30:34-04:00</lastmod>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/vllm-v1-whisper-transcription/</loc>
+    <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/wrong-vllm-production-stack-setup/</loc>
     <lastmod>2025-05-10T02:30:34-04:00</lastmod>

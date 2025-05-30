@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Vllm V1 Whisper Transcription // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/images/favicon.jpg" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.147.6">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vllm V1 Whisper Transcription">
+  <meta name="twitter:description" content="In this blog I’ll refine my work process for the whisper transcription api implementation , as a support material for transcription api endpoint pr, here are step by step how I did it
+Create a GPU environment I use Runpod.io for renting a RTX4090. You will get ssh access when initialize a pod. Some trails and errors details can reference Deploying LLMs in a single Machine Clone the repo, Setup python environment with uv cd workspace/ # workspace has the largest size apt update &amp;&amp; apt upgrade curl -LsSf https://astral.sh/uv/install.sh | sh export PATH=&#34;$HOME/.local/bin:$PATH&#34; source ~/.bashrc Then you can use uv">
+
+    <meta property="og:url" content="http://localhost:1313/posts/vllm-v1-whisper-transcription/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="Vllm V1 Whisper Transcription">
+  <meta property="og:description" content="In this blog I’ll refine my work process for the whisper transcription api implementation , as a support material for transcription api endpoint pr, here are step by step how I did it
+Create a GPU environment I use Runpod.io for renting a RTX4090. You will get ssh access when initialize a pod. Some trails and errors details can reference Deploying LLMs in a single Machine Clone the repo, Setup python environment with uv cd workspace/ # workspace has the largest size apt update &amp;&amp; apt upgrade curl -LsSf https://astral.sh/uv/install.sh | sh export PATH=&#34;$HOME/.local/bin:$PATH&#34; source ~/.bashrc Then you can use uv">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-05-30T13:49:26-04:00">
+    <meta property="article:modified_time" content="2025-05-30T13:49:26-04:00">
+    <meta property="article:tag" content="VLLM">
+    <meta property="article:tag" content="LLM">
+    <meta property="article:tag" content="Production">
+    <meta property="article:tag" content="Deployment">
+    <meta property="article:tag" content="EGPU">
+    <meta property="article:tag" content="Lambda">
+
+
+    
+      <script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js">
+</script>
+
+
+    
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+          <a href="https://x.com/AiiGen71976j" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-x" viewBox="0 0 24 24" fill="currentColor"><title>X</title><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Vllm V1 Whisper Transcription</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          May 30, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          3 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/vllm/">VLLM</a>
+              <a class="tag" href="/tags/llm/">LLM</a>
+              <a class="tag" href="/tags/production/">Production</a>
+              <a class="tag" href="/tags/deployment/">Deployment</a>
+              <a class="tag" href="/tags/egpu/">EGPU</a>
+              <a class="tag" href="/tags/lambda/">Lambda</a>
+              <a class="tag" href="/tags/runpod/">Runpod</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <blockquote>
+<p>In this blog I&rsquo;ll refine my work process for the whisper transcription api implementation , as a support material for <a href="https://github.com/vllm-project/production-stack/pull/469">transcription api endpoint pr</a>, here are step by step how I did it</p></blockquote>
+<h1 id="create-a-gpu-environment">Create a GPU environment</h1>
+<ul>
+<li>I use <em>Runpod.io</em> for renting a RTX4090.</li>
+<li>You will get ssh access when initialize a pod.</li>
+<li>Some trails and errors details can reference <a href="https://davidgao7.github.io/posts/llm-production/">Deploying LLMs in a single Machine</a></li>
+</ul>
+<h1 id="clone-the-repo-setup-python-environment-with-uv">Clone the repo, Setup python environment with uv</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd workspace/  <span style="color:#75715e"># workspace has the largest size</span>
+</span></span><span style="display:flex;"><span>apt update <span style="color:#f92672">&amp;&amp;</span> apt upgrade
+</span></span><span style="display:flex;"><span>curl -LsSf https://astral.sh/uv/install.sh | sh
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.local/bin:</span>$PATH<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>source ~/.bashrc
+</span></span></code></pre></div><p>Then you can use <code>uv</code></p>
+<p>[!NOTE] For production-stack repo we need <em>python 3.12</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uv venv --python 3.12.0 --seed
+</span></span><span style="display:flex;"><span>source .venv/bin/activate
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/davidgao7/production-stack.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd production-stack
+</span></span></code></pre></div><p>Install the dependencies</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>which pip  <span style="color:#75715e"># make sure the pip you are using is the venv one</span>
+</span></span><span style="display:flex;"><span>pip install -e /workspace/production-stack<span style="color:#f92672">[</span>dev<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Wait till it finishes, it will take a while to download the dependencies.</p>
+<p>Install vLLM (with audio) without filling the small overlay cache</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install vllm<span style="color:#f92672">[</span>audio<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Verify you have both <em>vllm</em> and <em>vllm-router</em> installed</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip list | grep -E <span style="color:#e6db74">&#34;vllm|vllm-router&#34;</span>
+</span></span></code></pre></div><h1 id="code-implementation-snippet">Code implementation snippet</h1>
+<p>In <em>production-stack</em> repo</p>
+<ul>
+<li>Main router implementation pit I fell before: <strong>src/vllm_router/routers/main_router.py/async def audio_transcriptions</strong></li>
+<li>File upload for fastapi</li>
+<li>Filter endpoint urls for transcription as the start url</li>
+<li>Pick one of the endpoint url using <code>router.route_request</code></li>
+<li>Proxy the request with <code>httpx.AsyncClient</code></li>
+<li>Get the whisper model output</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@main_router.post</span>(<span style="color:#e6db74">&#34;/v1/audio/transcriptions&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">audio_transcriptions</span>(
+</span></span><span style="display:flex;"><span>    file: UploadFile <span style="color:#f92672">=</span> File(<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># pick one using the router&#39;s configured logic (roundrobin, least-loaded, etc.)</span>
+</span></span><span style="display:flex;"><span>    chosen_url <span style="color:#f92672">=</span> router<span style="color:#f92672">.</span>route_request(
+</span></span><span style="display:flex;"><span>        transcription_endpoints,
+</span></span><span style="display:flex;"><span>        engine_stats,
+</span></span><span style="display:flex;"><span>        request_stats,
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># we don’t need to pass the original FastAPI Request object here,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># but you can if your routing logic looks at headers or body</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># proxy the request</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># by default httpx will only wait for 5 seconds, large audio transcriptions generally</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># take longer than that</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">with</span> httpx<span style="color:#f92672">.</span>AsyncClient(
+</span></span><span style="display:flex;"><span>        base_url<span style="color:#f92672">=</span>chosen_url,
+</span></span><span style="display:flex;"><span>        timeout<span style="color:#f92672">=</span>httpx<span style="color:#f92672">.</span>Timeout(
+</span></span><span style="display:flex;"><span>            connect<span style="color:#f92672">=</span><span style="color:#ae81ff">60.0</span>,  <span style="color:#75715e"># connect timeout</span>
+</span></span><span style="display:flex;"><span>            read<span style="color:#f92672">=</span><span style="color:#ae81ff">300.0</span>,  <span style="color:#75715e"># read timeout</span>
+</span></span><span style="display:flex;"><span>            write<span style="color:#f92672">=</span><span style="color:#ae81ff">30.0</span>,  <span style="color:#75715e"># if you’re streaming uploads</span>
+</span></span><span style="display:flex;"><span>            pool<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,  <span style="color:#75715e"># no pool timeout</span>
+</span></span><span style="display:flex;"><span>        ),
+</span></span><span style="display:flex;"><span>    ) <span style="color:#66d9ef">as</span> client:
+</span></span><span style="display:flex;"><span>        logger<span style="color:#f92672">.</span>debug(<span style="color:#e6db74">&#34;Sending multipart to </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/v1/audio/transcriptions …&#34;</span>, chosen_url)
+</span></span><span style="display:flex;"><span>        proxied <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> client<span style="color:#f92672">.</span>post(<span style="color:#e6db74">&#34;/v1/audio/transcriptions&#34;</span>, data<span style="color:#f92672">=</span>data, files<span style="color:#f92672">=</span>files)
+</span></span></code></pre></div><ul>
+<li>
+<p>Make sure input is a wav audio file.</p>
+</li>
+<li>
+<p>Adding model type: <strong>src/vllm_router/utils.py</strong></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ModelType</span>(enum<span style="color:#f92672">.</span>Enum):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#...</span>
+</span></span><span style="display:flex;"><span>    transcription <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/v1/audio/transcriptions&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@staticmethod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_test_payload</span>(model_type: str):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">match</span> ModelType[model_type]:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># ...</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> ModelType<span style="color:#f92672">.</span>transcription:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;file&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;model&#34;</span>: <span style="color:#e6db74">&#34;openai/whisper-small&#34;</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span></code></pre></div><h1 id="testing">Testing</h1>
+<ul>
+<li>create a shell script to take <code>router port</code>, <code>backend_url</code>, spin up the vllm api endpoint</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ROUTER_PORT<span style="color:#f92672">=</span>$1
+</span></span><span style="display:flex;"><span>BACKEND_URL<span style="color:#f92672">=</span>$2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python3 -m vllm_router.app <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --host 0.0.0.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --port <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>ROUTER_PORT<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --service-discovery static <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-backends <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>BACKEND_URL<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-models <span style="color:#e6db74">&#34;openai/whisper-small&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-model-types <span style="color:#e6db74">&#34;transcription&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --routing-logic roundrobin <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --log-stats <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --engine-stats-interval <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --request-stats-window <span style="color:#ae81ff">10</span>
+</span></span></code></pre></div><p>Then wait till it&rsquo;s listen on the port, you can post an audio file to the endpoint, for example</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -v http://localhost:8000/v1/audio/transcriptions <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -F <span style="color:#e6db74">&#39;file=@/workspace/production-stack/src/vllm_router/audo_transcriptions_test.wav;type=audio/wav&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -F <span style="color:#e6db74">&#39;model=openai/whisper-small&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -F <span style="color:#e6db74">&#39;response_format=json&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -F <span style="color:#e6db74">&#39;language=en&#39;</span>
+</span></span></code></pre></div><p>In the test audio file, I said: &ldquo;Testing testing, testing the whisper small model; testing testing, testing the audio transcription function; testing testing, testing the whisper small model.&rdquo;</p>
+<p>You will see the response like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>*   Trying 127.0.0.1:8000...
+</span></span><span style="display:flex;"><span>* Connected to localhost <span style="color:#f92672">(</span>127.0.0.1<span style="color:#f92672">)</span> port <span style="color:#ae81ff">8000</span> <span style="color:#f92672">(</span><span style="color:#75715e">#0)</span>
+</span></span><span style="display:flex;"><span>&gt; POST /v1/audio/transcriptions HTTP/1.1
+</span></span><span style="display:flex;"><span>&gt; Host: localhost:8000
+</span></span><span style="display:flex;"><span>&gt; User-Agent: curl/7.81.0
+</span></span><span style="display:flex;"><span>&gt; Accept: */*
+</span></span><span style="display:flex;"><span>&gt; Content-Length: <span style="color:#ae81ff">969308</span>
+</span></span><span style="display:flex;"><span>&gt; Content-Type: multipart/form-data; boundary<span style="color:#f92672">=</span>------------------------33ea69d796e611cf
+</span></span><span style="display:flex;"><span>&gt;
+</span></span><span style="display:flex;"><span>* We are completely uploaded and fine
+</span></span><span style="display:flex;"><span>* Mark bundle as not supporting multiuse
+</span></span><span style="display:flex;"><span>&lt; HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>&lt; date: Fri, <span style="color:#ae81ff">30</span> May <span style="color:#ae81ff">2025</span> 05:58:32 GMT
+</span></span><span style="display:flex;"><span>&lt; server: uvicorn
+</span></span><span style="display:flex;"><span>&lt; date: Fri, <span style="color:#ae81ff">30</span> May <span style="color:#ae81ff">2025</span> 05:58:31 GMT
+</span></span><span style="display:flex;"><span>&lt; server: uvicorn
+</span></span><span style="display:flex;"><span>&lt; content-length: <span style="color:#ae81ff">164</span>
+</span></span><span style="display:flex;"><span>&lt; content-type: application/json
+</span></span><span style="display:flex;"><span>&lt;
+</span></span><span style="display:flex;"><span>* Connection <span style="color:#75715e">#0 to host localhost left intact</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;text&#34;</span>:<span style="color:#e6db74">&#34; Testing testing testing the whisper small model testing testing testing the audio transcription function testing testing testing the whisper small model&#34;</span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>result json:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;text&#34;</span>:<span style="color:#e6db74">&#34; Testing testing testing the whisper small model testing testing testing the audio transcription function testing testing testing the whisper small model&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
