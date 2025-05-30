@@ -2,1081 +2,1081 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on davidgao7 blog</title>
-    <link>https://davidgao7.github.io/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 10 May 2025 02:30:34 -0400</lastBuildDate>
-    <atom:link href="https://davidgao7.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Deployment</title>
-      <link>https://davidgao7.github.io/tags/deployment/</link>
+      <link>http://localhost:1313/tags/deployment/</link>
       <pubDate>Sat, 10 May 2025 02:30:34 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/deployment/</guid>
+      <guid>http://localhost:1313/tags/deployment/</guid>
       <description></description>
     </item>
     <item>
       <title>EGPU</title>
-      <link>https://davidgao7.github.io/tags/egpu/</link>
+      <link>http://localhost:1313/tags/egpu/</link>
       <pubDate>Sat, 10 May 2025 02:30:34 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/egpu/</guid>
+      <guid>http://localhost:1313/tags/egpu/</guid>
       <description></description>
     </item>
     <item>
       <title>Lambda</title>
-      <link>https://davidgao7.github.io/tags/lambda/</link>
+      <link>http://localhost:1313/tags/lambda/</link>
       <pubDate>Sat, 10 May 2025 02:30:34 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/lambda/</guid>
+      <guid>http://localhost:1313/tags/lambda/</guid>
       <description></description>
     </item>
     <item>
       <title>LLM</title>
-      <link>https://davidgao7.github.io/tags/llm/</link>
+      <link>http://localhost:1313/tags/llm/</link>
       <pubDate>Sat, 10 May 2025 02:30:34 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/llm/</guid>
+      <guid>http://localhost:1313/tags/llm/</guid>
       <description></description>
     </item>
     <item>
       <title>Production</title>
-      <link>https://davidgao7.github.io/tags/production/</link>
+      <link>http://localhost:1313/tags/production/</link>
       <pubDate>Sat, 10 May 2025 02:30:34 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/production/</guid>
+      <guid>http://localhost:1313/tags/production/</guid>
       <description></description>
     </item>
     <item>
       <title>Runpod</title>
-      <link>https://davidgao7.github.io/tags/runpod/</link>
+      <link>http://localhost:1313/tags/runpod/</link>
       <pubDate>Sat, 10 May 2025 02:30:34 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/runpod/</guid>
+      <guid>http://localhost:1313/tags/runpod/</guid>
       <description></description>
     </item>
     <item>
       <title>VLLM</title>
-      <link>https://davidgao7.github.io/tags/vllm/</link>
+      <link>http://localhost:1313/tags/vllm/</link>
       <pubDate>Sat, 10 May 2025 02:30:34 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/vllm/</guid>
+      <guid>http://localhost:1313/tags/vllm/</guid>
       <description></description>
     </item>
     <item>
       <title>Adobe</title>
-      <link>https://davidgao7.github.io/tags/adobe/</link>
+      <link>http://localhost:1313/tags/adobe/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/adobe/</guid>
+      <guid>http://localhost:1313/tags/adobe/</guid>
       <description></description>
     </item>
     <item>
       <title>Amazon</title>
-      <link>https://davidgao7.github.io/tags/amazon/</link>
+      <link>http://localhost:1313/tags/amazon/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/amazon/</guid>
+      <guid>http://localhost:1313/tags/amazon/</guid>
       <description></description>
     </item>
     <item>
       <title>Apple</title>
-      <link>https://davidgao7.github.io/tags/apple/</link>
+      <link>http://localhost:1313/tags/apple/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/apple/</guid>
+      <guid>http://localhost:1313/tags/apple/</guid>
       <description></description>
     </item>
     <item>
       <title>Bloomberg</title>
-      <link>https://davidgao7.github.io/tags/bloomberg/</link>
+      <link>http://localhost:1313/tags/bloomberg/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/bloomberg/</guid>
+      <guid>http://localhost:1313/tags/bloomberg/</guid>
       <description></description>
     </item>
     <item>
       <title>Intuit</title>
-      <link>https://davidgao7.github.io/tags/intuit/</link>
+      <link>http://localhost:1313/tags/intuit/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/intuit/</guid>
+      <guid>http://localhost:1313/tags/intuit/</guid>
       <description></description>
     </item>
     <item>
       <title>IXL</title>
-      <link>https://davidgao7.github.io/tags/ixl/</link>
+      <link>http://localhost:1313/tags/ixl/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/ixl/</guid>
+      <guid>http://localhost:1313/tags/ixl/</guid>
       <description></description>
     </item>
     <item>
       <title>LeetCode</title>
-      <link>https://davidgao7.github.io/tags/leetcode/</link>
+      <link>http://localhost:1313/tags/leetcode/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/leetcode/</guid>
+      <guid>http://localhost:1313/tags/leetcode/</guid>
       <description></description>
     </item>
     <item>
       <title>Linked-List</title>
-      <link>https://davidgao7.github.io/tags/linked-list/</link>
+      <link>http://localhost:1313/tags/linked-list/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/linked-list/</guid>
+      <guid>http://localhost:1313/tags/linked-list/</guid>
       <description></description>
     </item>
     <item>
       <title>Meta</title>
-      <link>https://davidgao7.github.io/tags/meta/</link>
+      <link>http://localhost:1313/tags/meta/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/meta/</guid>
+      <guid>http://localhost:1313/tags/meta/</guid>
       <description></description>
     </item>
     <item>
       <title>Microsoft</title>
-      <link>https://davidgao7.github.io/tags/microsoft/</link>
+      <link>http://localhost:1313/tags/microsoft/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/microsoft/</guid>
+      <guid>http://localhost:1313/tags/microsoft/</guid>
       <description></description>
     </item>
     <item>
       <title>Nvidia</title>
-      <link>https://davidgao7.github.io/tags/nvidia/</link>
+      <link>http://localhost:1313/tags/nvidia/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/nvidia/</guid>
+      <guid>http://localhost:1313/tags/nvidia/</guid>
       <description></description>
     </item>
     <item>
       <title>Oracle</title>
-      <link>https://davidgao7.github.io/tags/oracle/</link>
+      <link>http://localhost:1313/tags/oracle/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/oracle/</guid>
+      <guid>http://localhost:1313/tags/oracle/</guid>
       <description></description>
     </item>
     <item>
       <title>Palindrome</title>
-      <link>https://davidgao7.github.io/tags/palindrome/</link>
+      <link>http://localhost:1313/tags/palindrome/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/palindrome/</guid>
+      <guid>http://localhost:1313/tags/palindrome/</guid>
       <description></description>
     </item>
     <item>
       <title>Recursion</title>
-      <link>https://davidgao7.github.io/tags/recursion/</link>
+      <link>http://localhost:1313/tags/recursion/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/recursion/</guid>
+      <guid>http://localhost:1313/tags/recursion/</guid>
       <description></description>
     </item>
     <item>
       <title>Siemens</title>
-      <link>https://davidgao7.github.io/tags/siemens/</link>
+      <link>http://localhost:1313/tags/siemens/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/siemens/</guid>
+      <guid>http://localhost:1313/tags/siemens/</guid>
       <description></description>
     </item>
     <item>
       <title>Stack</title>
-      <link>https://davidgao7.github.io/tags/stack/</link>
+      <link>http://localhost:1313/tags/stack/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/stack/</guid>
+      <guid>http://localhost:1313/tags/stack/</guid>
       <description></description>
     </item>
     <item>
       <title>Two-Pointer</title>
-      <link>https://davidgao7.github.io/tags/two-pointer/</link>
+      <link>http://localhost:1313/tags/two-pointer/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/two-pointer/</guid>
+      <guid>http://localhost:1313/tags/two-pointer/</guid>
       <description></description>
     </item>
     <item>
       <title>Uber</title>
-      <link>https://davidgao7.github.io/tags/uber/</link>
+      <link>http://localhost:1313/tags/uber/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/uber/</guid>
+      <guid>http://localhost:1313/tags/uber/</guid>
       <description></description>
     </item>
     <item>
       <title>Yahoo</title>
-      <link>https://davidgao7.github.io/tags/yahoo/</link>
+      <link>http://localhost:1313/tags/yahoo/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/yahoo/</guid>
+      <guid>http://localhost:1313/tags/yahoo/</guid>
       <description></description>
     </item>
     <item>
       <title>Yandex</title>
-      <link>https://davidgao7.github.io/tags/yandex/</link>
+      <link>http://localhost:1313/tags/yandex/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/yandex/</guid>
+      <guid>http://localhost:1313/tags/yandex/</guid>
       <description></description>
     </item>
     <item>
       <title>Zoho</title>
-      <link>https://davidgao7.github.io/tags/zoho/</link>
+      <link>http://localhost:1313/tags/zoho/</link>
       <pubDate>Sat, 03 May 2025 18:38:09 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/zoho/</guid>
+      <guid>http://localhost:1313/tags/zoho/</guid>
       <description></description>
     </item>
     <item>
       <title>Deep Learning</title>
-      <link>https://davidgao7.github.io/tags/deep-learning/</link>
+      <link>http://localhost:1313/tags/deep-learning/</link>
       <pubDate>Wed, 23 Apr 2025 22:34:35 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/deep-learning/</guid>
+      <guid>http://localhost:1313/tags/deep-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Image Classification</title>
-      <link>https://davidgao7.github.io/tags/image-classification/</link>
+      <link>http://localhost:1313/tags/image-classification/</link>
       <pubDate>Wed, 23 Apr 2025 22:34:35 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/image-classification/</guid>
+      <guid>http://localhost:1313/tags/image-classification/</guid>
       <description></description>
     </item>
     <item>
       <title>Pytorch</title>
-      <link>https://davidgao7.github.io/tags/pytorch/</link>
+      <link>http://localhost:1313/tags/pytorch/</link>
       <pubDate>Wed, 23 Apr 2025 22:34:35 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/pytorch/</guid>
+      <guid>http://localhost:1313/tags/pytorch/</guid>
       <description></description>
     </item>
     <item>
       <title>Resnet</title>
-      <link>https://davidgao7.github.io/tags/resnet/</link>
+      <link>http://localhost:1313/tags/resnet/</link>
       <pubDate>Wed, 23 Apr 2025 22:34:35 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/resnet/</guid>
+      <guid>http://localhost:1313/tags/resnet/</guid>
       <description></description>
     </item>
     <item>
       <title>K8s</title>
-      <link>https://davidgao7.github.io/tags/k8s/</link>
+      <link>http://localhost:1313/tags/k8s/</link>
       <pubDate>Tue, 22 Apr 2025 11:14:45 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/k8s/</guid>
+      <guid>http://localhost:1313/tags/k8s/</guid>
       <description></description>
     </item>
     <item>
       <title>Finetune</title>
-      <link>https://davidgao7.github.io/tags/finetune/</link>
+      <link>http://localhost:1313/tags/finetune/</link>
       <pubDate>Sat, 19 Apr 2025 16:59:26 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/finetune/</guid>
+      <guid>http://localhost:1313/tags/finetune/</guid>
       <description></description>
     </item>
     <item>
       <title>MLX</title>
-      <link>https://davidgao7.github.io/tags/mlx/</link>
+      <link>http://localhost:1313/tags/mlx/</link>
       <pubDate>Sat, 19 Apr 2025 16:59:26 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/mlx/</guid>
+      <guid>http://localhost:1313/tags/mlx/</guid>
       <description></description>
     </item>
     <item>
       <title>A* Algorithm</title>
-      <link>https://davidgao7.github.io/tags/a-algorithm/</link>
+      <link>http://localhost:1313/tags/a-algorithm/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/a-algorithm/</guid>
+      <guid>http://localhost:1313/tags/a-algorithm/</guid>
       <description></description>
     </item>
     <item>
       <title>Adaptive Cost Function Learning</title>
-      <link>https://davidgao7.github.io/tags/adaptive-cost-function-learning/</link>
+      <link>http://localhost:1313/tags/adaptive-cost-function-learning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/adaptive-cost-function-learning/</guid>
+      <guid>http://localhost:1313/tags/adaptive-cost-function-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Amazon Condor</title>
-      <link>https://davidgao7.github.io/tags/amazon-condor/</link>
+      <link>http://localhost:1313/tags/amazon-condor/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/amazon-condor/</guid>
+      <guid>http://localhost:1313/tags/amazon-condor/</guid>
       <description></description>
     </item>
     <item>
       <title>Amazon Logistics</title>
-      <link>https://davidgao7.github.io/tags/amazon-logistics/</link>
+      <link>http://localhost:1313/tags/amazon-logistics/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/amazon-logistics/</guid>
+      <guid>http://localhost:1313/tags/amazon-logistics/</guid>
       <description></description>
     </item>
     <item>
       <title>Apollo Autonomous Platform</title>
-      <link>https://davidgao7.github.io/tags/apollo-autonomous-platform/</link>
+      <link>http://localhost:1313/tags/apollo-autonomous-platform/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/apollo-autonomous-platform/</guid>
+      <guid>http://localhost:1313/tags/apollo-autonomous-platform/</guid>
       <description></description>
     </item>
     <item>
       <title>Apollo Go</title>
-      <link>https://davidgao7.github.io/tags/apollo-go/</link>
+      <link>http://localhost:1313/tags/apollo-go/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/apollo-go/</guid>
+      <guid>http://localhost:1313/tags/apollo-go/</guid>
       <description></description>
     </item>
     <item>
       <title>Apple Maps</title>
-      <link>https://davidgao7.github.io/tags/apple-maps/</link>
+      <link>http://localhost:1313/tags/apple-maps/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/apple-maps/</guid>
+      <guid>http://localhost:1313/tags/apple-maps/</guid>
       <description></description>
     </item>
     <item>
       <title>Autonomous Driving RL</title>
-      <link>https://davidgao7.github.io/tags/autonomous-driving-rl/</link>
+      <link>http://localhost:1313/tags/autonomous-driving-rl/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/autonomous-driving-rl/</guid>
+      <guid>http://localhost:1313/tags/autonomous-driving-rl/</guid>
       <description></description>
     </item>
     <item>
       <title>Baidu Maps</title>
-      <link>https://davidgao7.github.io/tags/baidu-maps/</link>
+      <link>http://localhost:1313/tags/baidu-maps/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/baidu-maps/</guid>
+      <guid>http://localhost:1313/tags/baidu-maps/</guid>
       <description></description>
     </item>
     <item>
       <title>Baidu Polestar</title>
-      <link>https://davidgao7.github.io/tags/baidu-polestar/</link>
+      <link>http://localhost:1313/tags/baidu-polestar/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/baidu-polestar/</guid>
+      <guid>http://localhost:1313/tags/baidu-polestar/</guid>
       <description></description>
     </item>
     <item>
       <title>Bellman-Ford</title>
-      <link>https://davidgao7.github.io/tags/bellman-ford/</link>
+      <link>http://localhost:1313/tags/bellman-ford/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/bellman-ford/</guid>
+      <guid>http://localhost:1313/tags/bellman-ford/</guid>
       <description></description>
     </item>
     <item>
       <title>BFS</title>
-      <link>https://davidgao7.github.io/tags/bfs/</link>
+      <link>http://localhost:1313/tags/bfs/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/bfs/</guid>
+      <guid>http://localhost:1313/tags/bfs/</guid>
       <description></description>
     </item>
     <item>
       <title>Bidirectional Search</title>
-      <link>https://davidgao7.github.io/tags/bidirectional-search/</link>
+      <link>http://localhost:1313/tags/bidirectional-search/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/bidirectional-search/</guid>
+      <guid>http://localhost:1313/tags/bidirectional-search/</guid>
       <description></description>
     </item>
     <item>
       <title>Chain-of-Thought</title>
-      <link>https://davidgao7.github.io/tags/chain-of-thought/</link>
+      <link>http://localhost:1313/tags/chain-of-thought/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/chain-of-thought/</guid>
+      <guid>http://localhost:1313/tags/chain-of-thought/</guid>
       <description></description>
     </item>
     <item>
       <title>Chain-of-Thought Prompting</title>
-      <link>https://davidgao7.github.io/tags/chain-of-thought-prompting/</link>
+      <link>http://localhost:1313/tags/chain-of-thought-prompting/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/chain-of-thought-prompting/</guid>
+      <guid>http://localhost:1313/tags/chain-of-thought-prompting/</guid>
       <description></description>
     </item>
     <item>
       <title>Combinatorial Optimization</title>
-      <link>https://davidgao7.github.io/tags/combinatorial-optimization/</link>
+      <link>http://localhost:1313/tags/combinatorial-optimization/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/combinatorial-optimization/</guid>
+      <guid>http://localhost:1313/tags/combinatorial-optimization/</guid>
       <description></description>
     </item>
     <item>
       <title>Contraction Hierarchies</title>
-      <link>https://davidgao7.github.io/tags/contraction-hierarchies/</link>
+      <link>http://localhost:1313/tags/contraction-hierarchies/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/contraction-hierarchies/</guid>
+      <guid>http://localhost:1313/tags/contraction-hierarchies/</guid>
       <description></description>
     </item>
     <item>
       <title>Conversational AI</title>
-      <link>https://davidgao7.github.io/tags/conversational-ai/</link>
+      <link>http://localhost:1313/tags/conversational-ai/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/conversational-ai/</guid>
+      <guid>http://localhost:1313/tags/conversational-ai/</guid>
       <description></description>
     </item>
     <item>
       <title>Deep Q Network</title>
-      <link>https://davidgao7.github.io/tags/deep-q-network/</link>
+      <link>http://localhost:1313/tags/deep-q-network/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/deep-q-network/</guid>
+      <guid>http://localhost:1313/tags/deep-q-network/</guid>
       <description></description>
     </item>
     <item>
       <title>DFS</title>
-      <link>https://davidgao7.github.io/tags/dfs/</link>
+      <link>http://localhost:1313/tags/dfs/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/dfs/</guid>
+      <guid>http://localhost:1313/tags/dfs/</guid>
       <description></description>
     </item>
     <item>
       <title>DGL</title>
-      <link>https://davidgao7.github.io/tags/dgl/</link>
+      <link>http://localhost:1313/tags/dgl/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/dgl/</guid>
+      <guid>http://localhost:1313/tags/dgl/</guid>
       <description></description>
     </item>
     <item>
       <title>Dijkstra Algorithm</title>
-      <link>https://davidgao7.github.io/tags/dijkstra-algorithm/</link>
+      <link>http://localhost:1313/tags/dijkstra-algorithm/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/dijkstra-algorithm/</guid>
+      <guid>http://localhost:1313/tags/dijkstra-algorithm/</guid>
       <description></description>
     </item>
     <item>
       <title>ETA Estimation</title>
-      <link>https://davidgao7.github.io/tags/eta-estimation/</link>
+      <link>http://localhost:1313/tags/eta-estimation/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/eta-estimation/</guid>
+      <guid>http://localhost:1313/tags/eta-estimation/</guid>
       <description></description>
     </item>
     <item>
       <title>Floyd-Warshall</title>
-      <link>https://davidgao7.github.io/tags/floyd-warshall/</link>
+      <link>http://localhost:1313/tags/floyd-warshall/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/floyd-warshall/</guid>
+      <guid>http://localhost:1313/tags/floyd-warshall/</guid>
       <description></description>
     </item>
     <item>
       <title>Google Maps</title>
-      <link>https://davidgao7.github.io/tags/google-maps/</link>
+      <link>http://localhost:1313/tags/google-maps/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/google-maps/</guid>
+      <guid>http://localhost:1313/tags/google-maps/</guid>
       <description></description>
     </item>
     <item>
       <title>Graph Algorithms</title>
-      <link>https://davidgao7.github.io/tags/graph-algorithms/</link>
+      <link>http://localhost:1313/tags/graph-algorithms/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/graph-algorithms/</guid>
+      <guid>http://localhost:1313/tags/graph-algorithms/</guid>
       <description></description>
     </item>
     <item>
       <title>Graph Neural Networks</title>
-      <link>https://davidgao7.github.io/tags/graph-neural-networks/</link>
+      <link>http://localhost:1313/tags/graph-neural-networks/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/graph-neural-networks/</guid>
+      <guid>http://localhost:1313/tags/graph-neural-networks/</guid>
       <description></description>
     </item>
     <item>
       <title>Graph Neural Networks for Traffic Forecasting</title>
-      <link>https://davidgao7.github.io/tags/graph-neural-networks-for-traffic-forecasting/</link>
+      <link>http://localhost:1313/tags/graph-neural-networks-for-traffic-forecasting/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/graph-neural-networks-for-traffic-forecasting/</guid>
+      <guid>http://localhost:1313/tags/graph-neural-networks-for-traffic-forecasting/</guid>
       <description></description>
     </item>
     <item>
       <title>GraphHopper</title>
-      <link>https://davidgao7.github.io/tags/graphhopper/</link>
+      <link>http://localhost:1313/tags/graphhopper/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/graphhopper/</guid>
+      <guid>http://localhost:1313/tags/graphhopper/</guid>
       <description></description>
     </item>
     <item>
       <title>Greedy Search</title>
-      <link>https://davidgao7.github.io/tags/greedy-search/</link>
+      <link>http://localhost:1313/tags/greedy-search/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/greedy-search/</guid>
+      <guid>http://localhost:1313/tags/greedy-search/</guid>
       <description></description>
     </item>
     <item>
       <title>Heuristic Search</title>
-      <link>https://davidgao7.github.io/tags/heuristic-search/</link>
+      <link>http://localhost:1313/tags/heuristic-search/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/heuristic-search/</guid>
+      <guid>http://localhost:1313/tags/heuristic-search/</guid>
       <description></description>
     </item>
     <item>
       <title>Hierarchical Routing</title>
-      <link>https://davidgao7.github.io/tags/hierarchical-routing/</link>
+      <link>http://localhost:1313/tags/hierarchical-routing/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/hierarchical-routing/</guid>
+      <guid>http://localhost:1313/tags/hierarchical-routing/</guid>
       <description></description>
     </item>
     <item>
       <title>Imitation Learning</title>
-      <link>https://davidgao7.github.io/tags/imitation-learning/</link>
+      <link>http://localhost:1313/tags/imitation-learning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/imitation-learning/</guid>
+      <guid>http://localhost:1313/tags/imitation-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>ITS (Intelligent Transportation Systems)</title>
-      <link>https://davidgao7.github.io/tags/its-intelligent-transportation-systems/</link>
+      <link>http://localhost:1313/tags/its-intelligent-transportation-systems/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/its-intelligent-transportation-systems/</guid>
+      <guid>http://localhost:1313/tags/its-intelligent-transportation-systems/</guid>
       <description></description>
     </item>
     <item>
       <title>Landmark Heuristics</title>
-      <link>https://davidgao7.github.io/tags/landmark-heuristics/</link>
+      <link>http://localhost:1313/tags/landmark-heuristics/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/landmark-heuristics/</guid>
+      <guid>http://localhost:1313/tags/landmark-heuristics/</guid>
       <description></description>
     </item>
     <item>
       <title>LangChain</title>
-      <link>https://davidgao7.github.io/tags/langchain/</link>
+      <link>http://localhost:1313/tags/langchain/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/langchain/</guid>
+      <guid>http://localhost:1313/tags/langchain/</guid>
       <description></description>
     </item>
     <item>
       <title>Large Language Models</title>
-      <link>https://davidgao7.github.io/tags/large-language-models/</link>
+      <link>http://localhost:1313/tags/large-language-models/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/large-language-models/</guid>
+      <guid>http://localhost:1313/tags/large-language-models/</guid>
       <description></description>
     </item>
     <item>
       <title>Last Mile Delivery</title>
-      <link>https://davidgao7.github.io/tags/last-mile-delivery/</link>
+      <link>http://localhost:1313/tags/last-mile-delivery/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/last-mile-delivery/</guid>
+      <guid>http://localhost:1313/tags/last-mile-delivery/</guid>
       <description></description>
     </item>
     <item>
       <title>Learning Local Heuristics</title>
-      <link>https://davidgao7.github.io/tags/learning-local-heuristics/</link>
+      <link>http://localhost:1313/tags/learning-local-heuristics/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/learning-local-heuristics/</guid>
+      <guid>http://localhost:1313/tags/learning-local-heuristics/</guid>
       <description></description>
     </item>
     <item>
       <title>LLM Integration in Navigation</title>
-      <link>https://davidgao7.github.io/tags/llm-integration-in-navigation/</link>
+      <link>http://localhost:1313/tags/llm-integration-in-navigation/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/llm-integration-in-navigation/</guid>
+      <guid>http://localhost:1313/tags/llm-integration-in-navigation/</guid>
       <description></description>
     </item>
     <item>
       <title>LLM Route Planning</title>
-      <link>https://davidgao7.github.io/tags/llm-route-planning/</link>
+      <link>http://localhost:1313/tags/llm-route-planning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/llm-route-planning/</guid>
+      <guid>http://localhost:1313/tags/llm-route-planning/</guid>
       <description></description>
     </item>
     <item>
       <title>LLM-Assist</title>
-      <link>https://davidgao7.github.io/tags/llm-assist/</link>
+      <link>http://localhost:1313/tags/llm-assist/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/llm-assist/</guid>
+      <guid>http://localhost:1313/tags/llm-assist/</guid>
       <description></description>
     </item>
     <item>
       <title>Machine Learning</title>
-      <link>https://davidgao7.github.io/tags/machine-learning/</link>
+      <link>http://localhost:1313/tags/machine-learning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/machine-learning/</guid>
+      <guid>http://localhost:1313/tags/machine-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Meta Learning</title>
-      <link>https://davidgao7.github.io/tags/meta-learning/</link>
+      <link>http://localhost:1313/tags/meta-learning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/meta-learning/</guid>
+      <guid>http://localhost:1313/tags/meta-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Multi-Modal Transport</title>
-      <link>https://davidgao7.github.io/tags/multi-modal-transport/</link>
+      <link>http://localhost:1313/tags/multi-modal-transport/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/multi-modal-transport/</guid>
+      <guid>http://localhost:1313/tags/multi-modal-transport/</guid>
       <description></description>
     </item>
     <item>
       <title>Multi-Stop Optimization</title>
-      <link>https://davidgao7.github.io/tags/multi-stop-optimization/</link>
+      <link>http://localhost:1313/tags/multi-stop-optimization/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/multi-stop-optimization/</guid>
+      <guid>http://localhost:1313/tags/multi-stop-optimization/</guid>
       <description></description>
     </item>
     <item>
       <title>Multimodal Navigation</title>
-      <link>https://davidgao7.github.io/tags/multimodal-navigation/</link>
+      <link>http://localhost:1313/tags/multimodal-navigation/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/multimodal-navigation/</guid>
+      <guid>http://localhost:1313/tags/multimodal-navigation/</guid>
       <description></description>
     </item>
     <item>
       <title>Natural Language Navigation</title>
-      <link>https://davidgao7.github.io/tags/natural-language-navigation/</link>
+      <link>http://localhost:1313/tags/natural-language-navigation/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/natural-language-navigation/</guid>
+      <guid>http://localhost:1313/tags/natural-language-navigation/</guid>
       <description></description>
     </item>
     <item>
       <title>NavGPT</title>
-      <link>https://davidgao7.github.io/tags/navgpt/</link>
+      <link>http://localhost:1313/tags/navgpt/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/navgpt/</guid>
+      <guid>http://localhost:1313/tags/navgpt/</guid>
       <description></description>
     </item>
     <item>
       <title>NetworkX</title>
-      <link>https://davidgao7.github.io/tags/networkx/</link>
+      <link>http://localhost:1313/tags/networkx/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/networkx/</guid>
+      <guid>http://localhost:1313/tags/networkx/</guid>
       <description></description>
     </item>
     <item>
       <title>Neural Network-Enhanced A*</title>
-      <link>https://davidgao7.github.io/tags/neural-network-enhanced-a/</link>
+      <link>http://localhost:1313/tags/neural-network-enhanced-a/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/neural-network-enhanced-a/</guid>
+      <guid>http://localhost:1313/tags/neural-network-enhanced-a/</guid>
       <description></description>
     </item>
     <item>
       <title>Neural Path Planning</title>
-      <link>https://davidgao7.github.io/tags/neural-path-planning/</link>
+      <link>http://localhost:1313/tags/neural-path-planning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/neural-path-planning/</guid>
+      <guid>http://localhost:1313/tags/neural-path-planning/</guid>
       <description></description>
     </item>
     <item>
       <title>OpenAI API</title>
-      <link>https://davidgao7.github.io/tags/openai-api/</link>
+      <link>http://localhost:1313/tags/openai-api/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/openai-api/</guid>
+      <guid>http://localhost:1313/tags/openai-api/</guid>
       <description></description>
     </item>
     <item>
       <title>OR-Tools</title>
-      <link>https://davidgao7.github.io/tags/or-tools/</link>
+      <link>http://localhost:1313/tags/or-tools/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/or-tools/</guid>
+      <guid>http://localhost:1313/tags/or-tools/</guid>
       <description></description>
     </item>
     <item>
       <title>OSRM</title>
-      <link>https://davidgao7.github.io/tags/osrm/</link>
+      <link>http://localhost:1313/tags/osrm/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/osrm/</guid>
+      <guid>http://localhost:1313/tags/osrm/</guid>
       <description></description>
     </item>
     <item>
       <title>Personalized Route Recommendation</title>
-      <link>https://davidgao7.github.io/tags/personalized-route-recommendation/</link>
+      <link>http://localhost:1313/tags/personalized-route-recommendation/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/personalized-route-recommendation/</guid>
+      <guid>http://localhost:1313/tags/personalized-route-recommendation/</guid>
       <description></description>
     </item>
     <item>
       <title>Policy Learning</title>
-      <link>https://davidgao7.github.io/tags/policy-learning/</link>
+      <link>http://localhost:1313/tags/policy-learning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/policy-learning/</guid>
+      <guid>http://localhost:1313/tags/policy-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Public Transit Optimization</title>
-      <link>https://davidgao7.github.io/tags/public-transit-optimization/</link>
+      <link>http://localhost:1313/tags/public-transit-optimization/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/public-transit-optimization/</guid>
+      <guid>http://localhost:1313/tags/public-transit-optimization/</guid>
       <description></description>
     </item>
     <item>
       <title>PyG</title>
-      <link>https://davidgao7.github.io/tags/pyg/</link>
+      <link>http://localhost:1313/tags/pyg/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/pyg/</guid>
+      <guid>http://localhost:1313/tags/pyg/</guid>
       <description></description>
     </item>
     <item>
       <title>Python</title>
-      <link>https://davidgao7.github.io/tags/python/</link>
+      <link>http://localhost:1313/tags/python/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/python/</guid>
+      <guid>http://localhost:1313/tags/python/</guid>
       <description></description>
     </item>
     <item>
       <title>Q-Learning</title>
-      <link>https://davidgao7.github.io/tags/q-learning/</link>
+      <link>http://localhost:1313/tags/q-learning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/q-learning/</guid>
+      <guid>http://localhost:1313/tags/q-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>ReAct Prompting</title>
-      <link>https://davidgao7.github.io/tags/react-prompting/</link>
+      <link>http://localhost:1313/tags/react-prompting/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/react-prompting/</guid>
+      <guid>http://localhost:1313/tags/react-prompting/</guid>
       <description></description>
     </item>
     <item>
       <title>Real-Time Traffic</title>
-      <link>https://davidgao7.github.io/tags/real-time-traffic/</link>
+      <link>http://localhost:1313/tags/real-time-traffic/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/real-time-traffic/</guid>
+      <guid>http://localhost:1313/tags/real-time-traffic/</guid>
       <description></description>
     </item>
     <item>
       <title>Reinforcement Learning</title>
-      <link>https://davidgao7.github.io/tags/reinforcement-learning/</link>
+      <link>http://localhost:1313/tags/reinforcement-learning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/reinforcement-learning/</guid>
+      <guid>http://localhost:1313/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Route Planning</title>
-      <link>https://davidgao7.github.io/tags/route-planning/</link>
+      <link>http://localhost:1313/tags/route-planning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/route-planning/</guid>
+      <guid>http://localhost:1313/tags/route-planning/</guid>
       <description></description>
     </item>
     <item>
       <title>Self-Supervised Learning</title>
-      <link>https://davidgao7.github.io/tags/self-supervised-learning/</link>
+      <link>http://localhost:1313/tags/self-supervised-learning/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/self-supervised-learning/</guid>
+      <guid>http://localhost:1313/tags/self-supervised-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Sequence Modeling</title>
-      <link>https://davidgao7.github.io/tags/sequence-modeling/</link>
+      <link>http://localhost:1313/tags/sequence-modeling/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/sequence-modeling/</guid>
+      <guid>http://localhost:1313/tags/sequence-modeling/</guid>
       <description></description>
     </item>
     <item>
       <title>Shortest Path</title>
-      <link>https://davidgao7.github.io/tags/shortest-path/</link>
+      <link>http://localhost:1313/tags/shortest-path/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/shortest-path/</guid>
+      <guid>http://localhost:1313/tags/shortest-path/</guid>
       <description></description>
     </item>
     <item>
       <title>Smart City</title>
-      <link>https://davidgao7.github.io/tags/smart-city/</link>
+      <link>http://localhost:1313/tags/smart-city/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/smart-city/</guid>
+      <guid>http://localhost:1313/tags/smart-city/</guid>
       <description></description>
     </item>
     <item>
       <title>Stable Baselines</title>
-      <link>https://davidgao7.github.io/tags/stable-baselines/</link>
+      <link>http://localhost:1313/tags/stable-baselines/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/stable-baselines/</guid>
+      <guid>http://localhost:1313/tags/stable-baselines/</guid>
       <description></description>
     </item>
     <item>
       <title>SUMO Simulator</title>
-      <link>https://davidgao7.github.io/tags/sumo-simulator/</link>
+      <link>http://localhost:1313/tags/sumo-simulator/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/sumo-simulator/</guid>
+      <guid>http://localhost:1313/tags/sumo-simulator/</guid>
       <description></description>
     </item>
     <item>
       <title>Tesla Autopilot</title>
-      <link>https://davidgao7.github.io/tags/tesla-autopilot/</link>
+      <link>http://localhost:1313/tags/tesla-autopilot/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/tesla-autopilot/</guid>
+      <guid>http://localhost:1313/tags/tesla-autopilot/</guid>
       <description></description>
     </item>
     <item>
       <title>Time-Dependent Routing</title>
-      <link>https://davidgao7.github.io/tags/time-dependent-routing/</link>
+      <link>http://localhost:1313/tags/time-dependent-routing/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/time-dependent-routing/</guid>
+      <guid>http://localhost:1313/tags/time-dependent-routing/</guid>
       <description></description>
     </item>
     <item>
       <title>Traffic Congestion Management</title>
-      <link>https://davidgao7.github.io/tags/traffic-congestion-management/</link>
+      <link>http://localhost:1313/tags/traffic-congestion-management/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/traffic-congestion-management/</guid>
+      <guid>http://localhost:1313/tags/traffic-congestion-management/</guid>
       <description></description>
     </item>
     <item>
       <title>Traffic Signal Optimization</title>
-      <link>https://davidgao7.github.io/tags/traffic-signal-optimization/</link>
+      <link>http://localhost:1313/tags/traffic-signal-optimization/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/traffic-signal-optimization/</guid>
+      <guid>http://localhost:1313/tags/traffic-signal-optimization/</guid>
       <description></description>
     </item>
     <item>
       <title>Transit Node Routing</title>
-      <link>https://davidgao7.github.io/tags/transit-node-routing/</link>
+      <link>http://localhost:1313/tags/transit-node-routing/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/transit-node-routing/</guid>
+      <guid>http://localhost:1313/tags/transit-node-routing/</guid>
       <description></description>
     </item>
     <item>
       <title>Travel Time Prediction</title>
-      <link>https://davidgao7.github.io/tags/travel-time-prediction/</link>
+      <link>http://localhost:1313/tags/travel-time-prediction/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/travel-time-prediction/</guid>
+      <guid>http://localhost:1313/tags/travel-time-prediction/</guid>
       <description></description>
     </item>
     <item>
       <title>TSP</title>
-      <link>https://davidgao7.github.io/tags/tsp/</link>
+      <link>http://localhost:1313/tags/tsp/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/tsp/</guid>
+      <guid>http://localhost:1313/tags/tsp/</guid>
       <description></description>
     </item>
     <item>
       <title>Urban Mobility</title>
-      <link>https://davidgao7.github.io/tags/urban-mobility/</link>
+      <link>http://localhost:1313/tags/urban-mobility/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/urban-mobility/</guid>
+      <guid>http://localhost:1313/tags/urban-mobility/</guid>
       <description></description>
     </item>
     <item>
       <title>V2X</title>
-      <link>https://davidgao7.github.io/tags/v2x/</link>
+      <link>http://localhost:1313/tags/v2x/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/v2x/</guid>
+      <guid>http://localhost:1313/tags/v2x/</guid>
       <description></description>
     </item>
     <item>
       <title>Value Iteration Network</title>
-      <link>https://davidgao7.github.io/tags/value-iteration-network/</link>
+      <link>http://localhost:1313/tags/value-iteration-network/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/value-iteration-network/</guid>
+      <guid>http://localhost:1313/tags/value-iteration-network/</guid>
       <description></description>
     </item>
     <item>
       <title>Vehicle Routing Problem (VRP)</title>
-      <link>https://davidgao7.github.io/tags/vehicle-routing-problem-vrp/</link>
+      <link>http://localhost:1313/tags/vehicle-routing-problem-vrp/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/vehicle-routing-problem-vrp/</guid>
+      <guid>http://localhost:1313/tags/vehicle-routing-problem-vrp/</guid>
       <description></description>
     </item>
     <item>
       <title>Waymo</title>
-      <link>https://davidgao7.github.io/tags/waymo/</link>
+      <link>http://localhost:1313/tags/waymo/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/waymo/</guid>
+      <guid>http://localhost:1313/tags/waymo/</guid>
       <description></description>
     </item>
     <item>
       <title>Agent</title>
-      <link>https://davidgao7.github.io/tags/agent/</link>
+      <link>http://localhost:1313/tags/agent/</link>
       <pubDate>Sat, 22 Mar 2025 15:09:57 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/agent/</guid>
+      <guid>http://localhost:1313/tags/agent/</guid>
       <description></description>
     </item>
     <item>
       <title>N8n</title>
-      <link>https://davidgao7.github.io/tags/n8n/</link>
+      <link>http://localhost:1313/tags/n8n/</link>
       <pubDate>Sat, 22 Mar 2025 15:09:57 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/n8n/</guid>
+      <guid>http://localhost:1313/tags/n8n/</guid>
       <description></description>
     </item>
     <item>
       <title>Workflow</title>
-      <link>https://davidgao7.github.io/tags/workflow/</link>
+      <link>http://localhost:1313/tags/workflow/</link>
       <pubDate>Sat, 22 Mar 2025 15:09:57 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/workflow/</guid>
+      <guid>http://localhost:1313/tags/workflow/</guid>
       <description></description>
     </item>
     <item>
       <title>Strings</title>
-      <link>https://davidgao7.github.io/tags/strings/</link>
+      <link>http://localhost:1313/tags/strings/</link>
       <pubDate>Wed, 12 Mar 2025 22:47:23 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/strings/</guid>
+      <guid>http://localhost:1313/tags/strings/</guid>
       <description></description>
     </item>
     <item>
       <title>Two Pointers</title>
-      <link>https://davidgao7.github.io/tags/two-pointers/</link>
+      <link>http://localhost:1313/tags/two-pointers/</link>
       <pubDate>Wed, 12 Mar 2025 22:47:23 -0400</pubDate>
-      <guid>https://davidgao7.github.io/tags/two-pointers/</guid>
+      <guid>http://localhost:1313/tags/two-pointers/</guid>
       <description></description>
     </item>
     <item>
       <title>Go</title>
-      <link>https://davidgao7.github.io/tags/go/</link>
+      <link>http://localhost:1313/tags/go/</link>
       <pubDate>Sun, 02 Mar 2025 16:56:04 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/go/</guid>
+      <guid>http://localhost:1313/tags/go/</guid>
       <description></description>
     </item>
     <item>
       <title>Array</title>
-      <link>https://davidgao7.github.io/tags/array/</link>
+      <link>http://localhost:1313/tags/array/</link>
       <pubDate>Tue, 25 Feb 2025 17:28:44 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/array/</guid>
+      <guid>http://localhost:1313/tags/array/</guid>
       <description></description>
     </item>
     <item>
       <title>Greedy</title>
-      <link>https://davidgao7.github.io/tags/greedy/</link>
+      <link>http://localhost:1313/tags/greedy/</link>
       <pubDate>Tue, 25 Feb 2025 17:28:44 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/greedy/</guid>
+      <guid>http://localhost:1313/tags/greedy/</guid>
       <description></description>
     </item>
     <item>
       <title>Sorting</title>
-      <link>https://davidgao7.github.io/tags/sorting/</link>
+      <link>http://localhost:1313/tags/sorting/</link>
       <pubDate>Tue, 25 Feb 2025 17:28:44 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/sorting/</guid>
+      <guid>http://localhost:1313/tags/sorting/</guid>
       <description></description>
     </item>
     <item>
       <title>Binary Tree</title>
-      <link>https://davidgao7.github.io/tags/binary-tree/</link>
+      <link>http://localhost:1313/tags/binary-tree/</link>
       <pubDate>Sun, 16 Feb 2025 17:02:01 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/binary-tree/</guid>
+      <guid>http://localhost:1313/tags/binary-tree/</guid>
       <description></description>
     </item>
     <item>
       <title>Breadth-First Search</title>
-      <link>https://davidgao7.github.io/tags/breadth-first-search/</link>
+      <link>http://localhost:1313/tags/breadth-first-search/</link>
       <pubDate>Sun, 16 Feb 2025 17:02:01 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/breadth-first-search/</guid>
+      <guid>http://localhost:1313/tags/breadth-first-search/</guid>
       <description></description>
     </item>
     <item>
       <title>Rag</title>
-      <link>https://davidgao7.github.io/tags/rag/</link>
+      <link>http://localhost:1313/tags/rag/</link>
       <pubDate>Fri, 14 Feb 2025 15:19:01 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/rag/</guid>
+      <guid>http://localhost:1313/tags/rag/</guid>
       <description></description>
     </item>
     <item>
       <title>Homelab</title>
-      <link>https://davidgao7.github.io/tags/homelab/</link>
+      <link>http://localhost:1313/tags/homelab/</link>
       <pubDate>Sun, 09 Feb 2025 14:10:48 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/homelab/</guid>
+      <guid>http://localhost:1313/tags/homelab/</guid>
       <description></description>
     </item>
     <item>
       <title>Monitor and Logging</title>
-      <link>https://davidgao7.github.io/tags/monitor-and-logging/</link>
+      <link>http://localhost:1313/tags/monitor-and-logging/</link>
       <pubDate>Sun, 09 Feb 2025 14:10:48 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/monitor-and-logging/</guid>
+      <guid>http://localhost:1313/tags/monitor-and-logging/</guid>
       <description></description>
     </item>
     <item>
       <title>Network</title>
-      <link>https://davidgao7.github.io/tags/network/</link>
+      <link>http://localhost:1313/tags/network/</link>
       <pubDate>Fri, 07 Feb 2025 22:35:50 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/network/</guid>
+      <guid>http://localhost:1313/tags/network/</guid>
       <description></description>
     </item>
     <item>
       <title>Rust</title>
-      <link>https://davidgao7.github.io/tags/rust/</link>
+      <link>http://localhost:1313/tags/rust/</link>
       <pubDate>Fri, 07 Feb 2025 22:35:50 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/rust/</guid>
+      <guid>http://localhost:1313/tags/rust/</guid>
       <description></description>
     </item>
     <item>
       <title>Tcp</title>
-      <link>https://davidgao7.github.io/tags/tcp/</link>
+      <link>http://localhost:1313/tags/tcp/</link>
       <pubDate>Fri, 07 Feb 2025 22:35:50 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/tcp/</guid>
+      <guid>http://localhost:1313/tags/tcp/</guid>
       <description></description>
     </item>
     <item>
       <title>Hash Table</title>
-      <link>https://davidgao7.github.io/tags/hash-table/</link>
+      <link>http://localhost:1313/tags/hash-table/</link>
       <pubDate>Fri, 07 Feb 2025 22:30:57 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/hash-table/</guid>
+      <guid>http://localhost:1313/tags/hash-table/</guid>
       <description></description>
     </item>
     <item>
       <title>Breath First Search</title>
-      <link>https://davidgao7.github.io/tags/breath-first-search/</link>
+      <link>http://localhost:1313/tags/breath-first-search/</link>
       <pubDate>Fri, 07 Feb 2025 22:29:31 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/breath-first-search/</guid>
+      <guid>http://localhost:1313/tags/breath-first-search/</guid>
       <description></description>
     </item>
     <item>
       <title>Depth First Search</title>
-      <link>https://davidgao7.github.io/tags/depth-first-search/</link>
+      <link>http://localhost:1313/tags/depth-first-search/</link>
       <pubDate>Fri, 07 Feb 2025 22:29:31 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/depth-first-search/</guid>
+      <guid>http://localhost:1313/tags/depth-first-search/</guid>
       <description></description>
     </item>
     <item>
       <title>Arrays</title>
-      <link>https://davidgao7.github.io/tags/arrays/</link>
+      <link>http://localhost:1313/tags/arrays/</link>
       <pubDate>Fri, 07 Feb 2025 22:27:31 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/arrays/</guid>
+      <guid>http://localhost:1313/tags/arrays/</guid>
       <description></description>
     </item>
     <item>
       <title>Divide and Conquer</title>
-      <link>https://davidgao7.github.io/tags/divide-and-conquer/</link>
+      <link>http://localhost:1313/tags/divide-and-conquer/</link>
       <pubDate>Fri, 07 Feb 2025 22:27:31 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/divide-and-conquer/</guid>
+      <guid>http://localhost:1313/tags/divide-and-conquer/</guid>
       <description></description>
     </item>
     <item>
       <title>Heap (Proiority Heap)</title>
-      <link>https://davidgao7.github.io/tags/heap-proiority-heap/</link>
+      <link>http://localhost:1313/tags/heap-proiority-heap/</link>
       <pubDate>Fri, 07 Feb 2025 22:27:31 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/heap-proiority-heap/</guid>
+      <guid>http://localhost:1313/tags/heap-proiority-heap/</guid>
       <description></description>
     </item>
     <item>
       <title>Quick Select</title>
-      <link>https://davidgao7.github.io/tags/quick-select/</link>
+      <link>http://localhost:1313/tags/quick-select/</link>
       <pubDate>Fri, 07 Feb 2025 22:27:31 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/quick-select/</guid>
+      <guid>http://localhost:1313/tags/quick-select/</guid>
       <description></description>
     </item>
     <item>
       <title>Dynamic Programming</title>
-      <link>https://davidgao7.github.io/tags/dynamic-programming/</link>
+      <link>http://localhost:1313/tags/dynamic-programming/</link>
       <pubDate>Fri, 07 Feb 2025 22:24:33 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/dynamic-programming/</guid>
+      <guid>http://localhost:1313/tags/dynamic-programming/</guid>
       <description></description>
     </item>
     <item>
       <title>Dictionary</title>
-      <link>https://davidgao7.github.io/tags/dictionary/</link>
+      <link>http://localhost:1313/tags/dictionary/</link>
       <pubDate>Fri, 07 Feb 2025 22:21:31 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/dictionary/</guid>
+      <guid>http://localhost:1313/tags/dictionary/</guid>
       <description></description>
     </item>
     <item>
       <title>Hash</title>
-      <link>https://davidgao7.github.io/tags/hash/</link>
+      <link>http://localhost:1313/tags/hash/</link>
       <pubDate>Fri, 07 Feb 2025 22:21:31 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/hash/</guid>
+      <guid>http://localhost:1313/tags/hash/</guid>
       <description></description>
     </item>
     <item>
       <title>String</title>
-      <link>https://davidgao7.github.io/tags/string/</link>
+      <link>http://localhost:1313/tags/string/</link>
       <pubDate>Fri, 07 Feb 2025 22:21:31 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/string/</guid>
+      <guid>http://localhost:1313/tags/string/</guid>
       <description></description>
     </item>
     <item>
       <title>Python List</title>
-      <link>https://davidgao7.github.io/tags/python-list/</link>
+      <link>http://localhost:1313/tags/python-list/</link>
       <pubDate>Fri, 07 Feb 2025 20:52:49 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/python-list/</guid>
+      <guid>http://localhost:1313/tags/python-list/</guid>
       <description></description>
     </item>
     <item>
       <title>Binary Search Tree</title>
-      <link>https://davidgao7.github.io/tags/binary-search-tree/</link>
+      <link>http://localhost:1313/tags/binary-search-tree/</link>
       <pubDate>Fri, 07 Feb 2025 20:50:52 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/binary-search-tree/</guid>
+      <guid>http://localhost:1313/tags/binary-search-tree/</guid>
       <description></description>
     </item>
     <item>
       <title>Heap</title>
-      <link>https://davidgao7.github.io/tags/heap/</link>
+      <link>http://localhost:1313/tags/heap/</link>
       <pubDate>Fri, 07 Feb 2025 20:50:52 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/heap/</guid>
+      <guid>http://localhost:1313/tags/heap/</guid>
       <description></description>
     </item>
     <item>
       <title>Priority Queue</title>
-      <link>https://davidgao7.github.io/tags/priority-queue/</link>
+      <link>http://localhost:1313/tags/priority-queue/</link>
       <pubDate>Fri, 07 Feb 2025 20:49:10 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/priority-queue/</guid>
+      <guid>http://localhost:1313/tags/priority-queue/</guid>
       <description></description>
     </item>
     <item>
       <title>Inorder Traversal</title>
-      <link>https://davidgao7.github.io/tags/inorder-traversal/</link>
+      <link>http://localhost:1313/tags/inorder-traversal/</link>
       <pubDate>Fri, 07 Feb 2025 20:47:06 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/inorder-traversal/</guid>
+      <guid>http://localhost:1313/tags/inorder-traversal/</guid>
       <description></description>
     </item>
     <item>
       <title>Matrix</title>
-      <link>https://davidgao7.github.io/tags/matrix/</link>
+      <link>http://localhost:1313/tags/matrix/</link>
       <pubDate>Fri, 07 Feb 2025 20:43:22 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/matrix/</guid>
+      <guid>http://localhost:1313/tags/matrix/</guid>
       <description></description>
     </item>
     <item>
       <title>Pipeline</title>
-      <link>https://davidgao7.github.io/tags/pipeline/</link>
+      <link>http://localhost:1313/tags/pipeline/</link>
       <pubDate>Fri, 07 Feb 2025 04:10:33 -0500</pubDate>
-      <guid>https://davidgao7.github.io/tags/pipeline/</guid>
+      <guid>http://localhost:1313/tags/pipeline/</guid>
       <description></description>
     </item>
   </channel>

@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Cout Vowel Strings // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.147.2">
+    <meta name="generator" content="Hugo 0.147.6">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -20,7 +20,7 @@
 输入：n = 1 输出：5 解释：仅由元音组成的 5 个字典序字符串为 [&#34;a&#34;,&#34;e&#34;,&#34;i&#34;,&#34;o&#34;,&#34;u&#34;] 输入：n = 2 输出：15 解释：仅由元音组成的 15 个字典序字符串为 [&#34;aa&#34;,&#34;ae&#34;,&#34;ai&#34;,&#34;ao&#34;,&#34;au&#34;,&#34;ee&#34;,&#34;ei&#34;,&#34;eo&#34;,&#34;eu&#34;,&#34;ii&#34;,&#34;io&#34;,&#34;iu&#34;,&#34;oo&#34;,&#34;ou&#34;,&#34;uu&#34;] 注意，&#34;ea&#34; 不是符合题意的字符串，因为 &#39;e&#39; 在字母表中的位置比 &#39;a&#39; 靠后 输入：n = 33 输出：66045 解法一： 无脑数学 等价于把n个字母分给五种元音，且分配数目可以为零，就是求c(n&#43;4, n) = c(n&#43;4, 4)
 class Solution { public: int countVowelStrings(int n) { if (n == 1) return 5; return (n &#43; 4) * (n &#43; 3) * (n &#43; 2) * (n &#43; 1) / 24; } }; 解法二： 动态规划 a可以加在（aeiou）之前，e可以加在(eiou)之前，以此类推">
 
-    <meta property="og:url" content="https://davidgao7.github.io/posts/cout-vowel-strings/">
+    <meta property="og:url" content="http://localhost:1313/posts/cout-vowel-strings/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="Cout Vowel Strings">
   <meta property="og:description" content="统计字典序元音字符串的数目 题目描述 给你一个整数n, 请返回长度为 n ，仅由元音a,e,i,o,u 组成且按字典序排列的字符串数量。

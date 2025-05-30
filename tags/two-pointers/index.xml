@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Two Pointers on davidgao7 blog</title>
-    <link>https://davidgao7.github.io/tags/two-pointers/</link>
+    <link>http://localhost:1313/tags/two-pointers/</link>
     <description>Recent content in Two Pointers on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Mar 2025 22:47:23 -0400</lastBuildDate>
-    <atom:link href="https://davidgao7.github.io/tags/two-pointers/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/two-pointers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Valid Word Abbreviation</title>
-      <link>https://davidgao7.github.io/posts/valid-word-abbr/</link>
+      <link>http://localhost:1313/posts/valid-word-abbr/</link>
       <pubDate>Wed, 12 Mar 2025 22:47:23 -0400</pubDate>
-      <guid>https://davidgao7.github.io/posts/valid-word-abbr/</guid>
+      <guid>http://localhost:1313/posts/valid-word-abbr/</guid>
       <description>&lt;h1 id=&#34;9197bbc079a9-valid-word-abbr&#34;&gt;9197bbc079a9-valid-word-abbr&lt;/h1&gt;&#xA;&lt;h3 id=&#34;problem-statement&#34;&gt;Problem Statement&lt;/h3&gt;&#xA;&lt;p&gt;A string can be abbreviated by replacing any number of non-adjacent, non-empty substrings with their lengths. The lengths should not have leading zeros.&lt;/p&gt;&#xA;&lt;p&gt;For example, a string such as &lt;code&gt;&amp;quot;substitution&amp;quot;&lt;/code&gt; could be abbreviated as (but not limited to):&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;&amp;quot;s10n&amp;quot;&lt;/code&gt; (&lt;code&gt;&amp;quot;s ubstitutio n&amp;quot;&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;&amp;quot;sub4u4&amp;quot;&lt;/code&gt; (&lt;code&gt;&amp;quot;sub stit u tion&amp;quot;&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;&amp;quot;12&amp;quot;&lt;/code&gt; (&lt;code&gt;&amp;quot;substitution&amp;quot;&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;&amp;quot;su3i1u2on&amp;quot;&lt;/code&gt; (&lt;code&gt;&amp;quot;su bst i t u ti on&amp;quot;&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;&amp;quot;substitution&amp;quot;&lt;/code&gt; (no substrings replaced)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The following are &lt;strong&gt;not valid&lt;/strong&gt; abbreviations:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Go Syntax Learning</title>
-      <link>https://davidgao7.github.io/posts/go-syntax-learning/</link>
+      <link>http://localhost:1313/posts/go-syntax-learning/</link>
       <pubDate>Sun, 02 Mar 2025 16:56:04 -0500</pubDate>
-      <guid>https://davidgao7.github.io/posts/go-syntax-learning/</guid>
+      <guid>http://localhost:1313/posts/go-syntax-learning/</guid>
       <description>&lt;h1 id=&#34;1740954205-344-reverse-string&#34;&gt;1740954205-344-reverse-string&lt;/h1&gt;&#xA;&lt;h2 id=&#34;question-description&#34;&gt;Question Description&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://leetcode.com/problems/reverse-string/description/&#34;&gt;problem link&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://neetcode.io/solutions/reverse-string&#34;&gt;solution video link&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;thought-process&#34;&gt;Thought Process&lt;/h2&gt;&#xA;&lt;p&gt;nice this is an easy problem, good for getting used to go syntax&lt;/p&gt;&#xA;&lt;p&gt;In Go, you specify the type for a variable when you need to explicitly declare its type. However, Go also supports type inference, where the type is automatically determined based on the assigned value. Here are some guidelines:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;Explicit Type Declaration:&lt;/strong&gt;&#xA;Use this when you want to specify the type explicitly.&lt;/p&gt;</description>
     </item>
   </channel>

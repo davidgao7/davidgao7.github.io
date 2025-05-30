@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Machine Learning Pipeline // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.147.2">
+    <meta name="generator" content="Hugo 0.147.6">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -21,7 +21,7 @@ pipeline 顾名思义，多个任务运行相互独立，相互流通必要的�
 return tuple_name(output_name) 写好方程后，需要告诉pipeline你这个方程在什么环境下运行：
 from kfp.components import func_to_container_op xx_op = func_to_container_op(function_a, base_image=&#39;python@3.8&#39;) 连接管道 from xxx import your container function import kfp import kfp.dsl as dsl @dsl.pipeline(name=&#39;pipeline name&#39;, description=&#39;your pipeline description&#39;) def pipeline_main_function(args): &#34;&#34;&#34; 连接所有的container &#34;&#34;&#34; container1 = op1(op1_parm1, ...) op1_res = container1.outputs[&#39;outputname_outside_func&#39;] # 然后在把这个结果作为参数传到下一个container if __name__ == &#39;__main__&#39;: kfp.compiler.Compiler().compile( pipeline_main_function, package_path=&#39;yaml location you want to store&#39; )">
 
-    <meta property="og:url" content="https://davidgao7.github.io/posts/machine-learning-pipeline/">
+    <meta property="og:url" content="http://localhost:1313/posts/machine-learning-pipeline/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="Machine Learning Pipeline">
   <meta property="og:description" content="记录一下新学习的技术：k8s machine learning pipeline

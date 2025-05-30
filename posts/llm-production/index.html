@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>LLM Production // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.147.2">
+    <meta name="generator" content="Hugo 0.147.6">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -18,7 +18,7 @@
   <meta name="twitter:description" content="Deploying LLMs in a single Machine In this post, I will share my experience deploying LLMs in production. I will cover the challenges I faced, the solutions I found, and the lessons I learned along the way.
 first I managed to find a gpu from runpod to experience one complete conversation(multi-inferences). now I know that if you want to deploy this in production, you not only need multiple gpu like the one I’m using in the following writing, you also need a system to help you manage resources (i.e. Kubernetes). 2.1. so they have the solution called vllm production-stack Got to find a cluster with powerful GPUs, OR I could just deploy the stack, since now I’ve experienced model inference. But it will be hard to tell if I deploy it successfully or not… ~(- &lt;_ -)&gt; Reference repo">
 
-    <meta property="og:url" content="https://davidgao7.github.io/posts/llm-production/">
+    <meta property="og:url" content="http://localhost:1313/posts/llm-production/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="LLM Production">
   <meta property="og:description" content="Deploying LLMs in a single Machine In this post, I will share my experience deploying LLMs in production. I will cover the challenges I faced, the solutions I found, and the lessons I learned along the way.
@@ -91,7 +91,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          19 min read
+          51 min read
         </div>
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
@@ -274,11 +274,18 @@ Got to find a cluster with powerful GPUs, OR I could just deploy the stack, sinc
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># know what shell you&#39;re using</span>
 </span></span><span style="display:flex;"><span>echo $SHELL
 </span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add the env loader to your bash startup</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#echo &#39;source $HOME/.local/bin/env&#39; &gt;&gt; ~/.bashrc</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># use this so that it won&#39;t accedentally crash the shell and disconnected</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># but you have to do it everytime when login</span>
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.local/bin:</span>$PATH<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>root@f00742593164:/# echo $SHELL
 </span></span><span style="display:flex;"><span>/bin/bash
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># alright...bash then</span>
-</span></span><span style="display:flex;"><span>source $HOME/.local/bin/env <span style="color:#75715e"># (sh, bash, zsh)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Reload</span>
+</span></span><span style="display:flex;"><span>source ~/.bashrc
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># test uv</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># root@f00742593164:/# uv</span>
@@ -349,6 +356,8 @@ Got to find a cluster with powerful GPUs, OR I could just deploy the stack, sinc
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># create python virtual environment in one line</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># NOTE: create this venv above both production-stack and vllm , for consistent</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># uv [venv name] --python [python version]</span>
 </span></span><span style="display:flex;"><span>uv venv --python 3.12 --seed
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># --seed  # Install seed packages (one or more of: `pip`, `setuptools`, and</span>
@@ -986,6 +995,1087 @@ Performance Monitoring: To monitor and verify the latency and performance betwee
 <li><code>/deployment_on_cloud/gcp/OPT125_CPU/README.md</code></li>
 </ul>
 <p>I already have GKE cluster, I just need to manually depoly the vLLM production stack using helm, no need to use the scripts to create cluster.</p>
+<p>Add official Helm repo to my cluster.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>helm repo add production-stack https://vllm-project.github.io/production-stack-helm-charts/
+</span></span><span style="display:flex;"><span>helm repo update
+</span></span></code></pre></div><p>[!NOTE] I can access autopilot k8s cluster locally, think of autopilot as a serverless kubernetes experience. If I was to gain SSH access to an Autopilot node, it would be considered a <strong>security vulnerability</strong> because I could potentially bypass the Kubernetes API and run commands directly on the node.</p>
+<p><a href="https://vllm-project.github.io/production-stack">Here is the official docs for vllm production deployment</a>
+For code, we will use the <a href="https://vllm-project.github.io/production-stack-helm-charts/"><strong>Helm repo</strong></a></p>
+<ul>
+<li>The official documentation is using lmcache repo, which might be outdated.</li>
+</ul>
+<p>So , the correct way to deploy production-stack is</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># adds the URL to local list of helm repositories</span>
+</span></span><span style="display:flex;"><span>helm repo add vllm https://vllm-project.github.io/production-stack
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># &gt; helm repo add vllm https://vllm-project.github.io/production-stack</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># zsh: command not found: helm</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># downloads and refreshes the latest list of charts from the repo added</span>
+</span></span><span style="display:flex;"><span>helm repo update
+</span></span></code></pre></div><p>Instead of <code>lmcache.github.io/helm/</code></p>
+<p>😅need to install helm, yay one more install</p>
+<p>To manage Kubernetes deployments on GKE Autopilot cluster using Helm, need to install Helm CLI on local machine.</p>
+<p><a href="https://helm.sh/docs/intro/install/">Here is the official docs on how to install Helm</a>
+Here is the one-liner</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># &gt; curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                                  Dload  Upload   Total   Spent    Left  Speed</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 100 11913  100 11913    0     0  61922      0 --:--:-- --:--:-- --:--:-- 62046</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Downloading https://get.helm.sh/helm-v3.17.3-darwin-arm64.tar.gz</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verifying checksum... Done.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Preparing to install helm into /usr/local/bin</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Password:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># helm installed into /usr/local/bin/helm</span>
+</span></span></code></pre></div><p>Rerun the repo add and update command</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># adds the URL to local list of helm repositories</span>
+</span></span><span style="display:flex;"><span>helm repo add vllm https://vllm-project.github.io/production-stack
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># &#34;vllm&#34; has been added to your repositories</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># downloads and refreshes the latest list of charts from the repo added</span>
+</span></span><span style="display:flex;"><span>helm repo update
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Hang tight while we grab the latest from your chart repositories...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ...Successfully got an update from the &#34;vllm&#34; chart repository</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update Complete. ⎈Happy Helming!⎈</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>helm search repo vllm
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># NAME            CHART VERSION   APP VERSION     DESCRIPTION</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># vllm/vllm-stack 0.1.2                           The stack deployment of vLLM</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># quick sanity check</span>
+</span></span><span style="display:flex;"><span>helm show values vllm/vllm-stack
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># # -- Default values for llmstack helm chart</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># # -- Declare variables to be passed into your templates.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># # -- Serving engine configuratoon</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># servingEngineSpec:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   enableEngine: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Customized labels for the serving engine deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   labels:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     environment: &#34;test&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     release: &#34;test&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # vllmApiKey: (optional) api key for securing the vLLM models. Can be either:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - A string containing the token directly (will be stored in a generated secret)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - An object referencing an existing secret:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     secretName: &#34;my-existing-secret&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     secretKey: &#34;vllm-api-key&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # modelSpec - configuring multiple serving engines deployments that runs different models</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Each entry in the modelSpec array should contain the following fields:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - name: (string) The name of the model, e.g., &#34;example-model&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - repository: (string) The repository of the model, e.g., &#34;vllm/vllm-openai&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - tag: (string) The tag of the model, e.g., &#34;latest&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - imagePullSecret: (Optional, string) Name of secret with credentials to private container repository, e.g. &#34;secret&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - modelURL: (string) The URL of the model, e.g., &#34;facebook/opt-125m&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - chatTemplate: (Optional, string) Chat template (Jinga2) specifying tokenizer configuration, e.g. &#34;{% for message in messages %}\n{% if message[&#39;role&#39;] == &#39;user&#39; %}\n{{ &#39;Question:\n&#39; + message[&#39;content&#39;] + &#39;\n\n&#39; }}{% elif message[&#39;role&#39;] == &#39;system&#39; %}\n{{ &#39;System:\n&#39; + message[&#39;content&#39;] + &#39;\n\n&#39; }}{% elif message[&#39;role&#39;] == &#39;assistant&#39; %}{{ &#39;Answer:\n&#39;  + message[&#39;content&#39;] + &#39;\n\n&#39; }}{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ &#39;Answer:\n&#39; }}{% endif %}{% endfor %}&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - replicaCount: (int) The number of replicas for the model, e.g. 1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - requestCPU: (int) The number of CPUs requested for the model, e.g. 6</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - requestMemory: (string) The amount of memory requested for the model, e.g., &#34;16Gi&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - requestGPU: (int) The number of GPUs requested for the model, e.g., 1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - requestGPUType: (Optional, string) The type of GPU requested, e.g., &#34;nvidia.com/mig-4g.71gb&#34;. If not specified, defaults to &#34;nvidia.com/gpu&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - limitCPU: (Optional, string) The CPU limit for the model, e.g., &#34;8&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - limitMemory: (Optional, string) The memory limit for the model, e.g., &#34;32Gi&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Note: If limitCPU and limitMemory are not specified, only GPU resources will have limits set equal to their requests.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - pvcStorage: (Optional, string) The amount of storage requested for the model, e.g., &#34;50Gi&#34;.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - pvcAccessMode: (Optional, list) The access mode policy for the mounted volume, e.g., [&#34;ReadWriteOnce&#34;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - storageClass: (Optional, String) The storage class of the PVC e.g., &#34;&#34;, default is &#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - pvcMatchLabels: (Optional, map) The labels to match the PVC, e.g., {model: &#34;opt125m&#34;}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - extraVolumes: (Optional, list) Additional volumes to add to the pod, in Kubernetes volume format. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#volume-v1-core</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   Example for an emptyDir volume:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   extraVolumes:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - name: tmp-volume</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     emptyDir:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #       medium: &#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #       sizeLimit: 5Gi</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - extraVolumeMounts: (Optional, list) Additional volume mounts to add to the container, in Kubernetes volumeMount format. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#volumemount-v1-core</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   Example for mounting the tmp-volume to /tmp:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   extraVolumeMounts:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - name: tmp-volume</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     mountPath: /tmp</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - initContainer: (optional, list of objects) The configuration for the init container to be run before the main container.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - name: (string) The name of the init container, e.g., &#34;init&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - image: (string) The Docker image for the init container, e.g., &#34;busybox:latest&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - command: (optional, list) The command to run in the init container, e.g., [&#34;sh&#34;, &#34;-c&#34;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - args: (optional, list) Additional arguments to pass to the command, e.g., [&#34;ls&#34;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - env: (optional, list) List of environment variables to set in the container, each being a map with:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - resources: (optional, map) The resource requests and limits for the container:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - mountPvcStorage: (optional, bool) Whether to mount the model&#39;s volume.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - vllmConfig: (optional, map) The configuration for the VLLM model, supported options are:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - enablePrefixCaching: (optional, bool) Enable prefix caching, e.g., false</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - enableChunkedPrefill: (optional, bool) Enable chunked prefill, e.g., false</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - maxModelLen: (optional, int) The maximum model length, e.g., 16384</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - dtype: (optional, string) The data type, e.g., &#34;bfloat16&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - tensorParallelSize: (optional, int) The degree of tensor parallelism, e.g., 2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - maxNumSeqs: (optional, int) Maximum number of sequences to be processed in a single iteration., e.g., 32</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - maxLoras: (optional, int) The maximum number of LoRA models to be loaded in a single batch, e.g., 4</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - gpuMemoryUtilization: (optional, float) The fraction of GPU memory to be used for the model executor, which can range from 0 to 1. e.g., 0.95</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - extraArgs: (optional, list) Extra command line arguments to pass to vLLM, e.g., [&#34;--disable-log-requests&#34;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - lmcacheConfig: (optional, map) The configuration of the LMCache for KV offloading, supported options are:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - enabled: (optional, bool) Enable LMCache, e.g., true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - cpuOffloadingBufferSize: (optional, string) The CPU offloading buffer size, e.g., &#34;30&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - hf_token: (optional) Hugging Face token configuration. Can be either:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - A string containing the token directly (will be stored in a generated secret)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - An object referencing an existing secret:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     secretName: &#34;my-existing-secret&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     secretKey: &#34;hf-token-key&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - env: (optional, list) The environment variables to set in the container, e.g., your HF_TOKEN</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - nodeSelectorTerms: (optional, list) The node selector terms to match the nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - shmSize: (optional, string) The size of the shared memory, e.g., &#34;20Gi&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Example:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # vllmApiKey: &#34;vllm_xxxxxxxxxxxxx&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # modelSpec:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # - name: &#34;mistral&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   repository: &#34;lmcache/vllm-openai&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   tag: &#34;latest&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   modelURL: &#34;mistralai/Mistral-7B-Instruct-v0.2&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   replicaCount: 1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   requestCPU: 10</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   requestMemory: &#34;64Gi&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   requestGPU: 1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   pvcStorage: &#34;50Gi&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   pvcAccessMode:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     - ReadWriteOnce</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   pvcMatchLabels:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     model: &#34;mistral&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   initContainer:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     name: my-container</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     image: busybox</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     command: [&#34;sh&#34;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     env: {}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     args: []</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     resources: {}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     mountPvcStorage: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   vllmConfig:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     enableChunkedPrefill: false</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     enablePrefixCaching: false</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     maxModelLen: 16384</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     dtype: &#34;bfloat16&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     maxNumSeqs: 32</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     gpuMemoryUtilization: 0.95</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     maxLoras: 4</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     extraArgs: [&#34;--disable-log-requests&#34;, &#34;--trust-remote-code&#34;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   lmcacheConfig:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     enabled: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     cpuOffloadingBufferSize: &#34;30&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   hf_token: &#34;hf_xxxxxxxxxxxxx&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   nodeSelectorTerms:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     - matchExpressions:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #       - key: nvidia.com/gpu.product</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #         operator: &#34;In&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #         values:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #         - &#34;NVIDIA-RTX-A6000&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   modelSpec: []</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Container port</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   containerPort: 8000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Service port</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   servicePort: 80</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Set other environment variables from config map</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   configs: {}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- deployment strategy</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   strategy: {}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Readiness probe configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   startupProbe:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Number of seconds after the container has started before startup probe is initiated</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     initialDelaySeconds: 15</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- How often (in seconds) to perform the startup probe</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     periodSeconds: 10</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Number of times after which if a probe fails in a row, Kubernetes considers that the overall check has failed: the container is not ready</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     failureThreshold:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       60</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       # -- Configuration of the Kubelet http request on the server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     httpGet:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       # -- Path to access on the HTTP server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       path: /health</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       # -- Name or number of the port to access on the container, on which the server is listening</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       port: 8000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Liveness probe configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   livenessProbe:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Number of seconds after the container has started before liveness probe is initiated</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     initialDelaySeconds: 15</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Number of times after which if a probe fails in a row, Kubernetes considers that the overall check has failed: the container is not alive</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     failureThreshold: 3</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- How often (in seconds) to perform the liveness probe</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     periodSeconds: 10</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Configuration of the Kubelet http request on the server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     httpGet:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       # -- Path to access on the HTTP server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       path: /health</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       # -- Name or number of the port to access on the container, on which the server is listening</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       port: 8000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Disruption Budget Configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   maxUnavailablePodDisruptionBudget: &#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Tolerations configuration (when there are taints on nodes)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Example:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # tolerations:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   - key: &#34;node-role.kubernetes.io/control-plane&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     operator: &#34;Exists&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     effect: &#34;NoSchedule&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   tolerations: []</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- RuntimeClassName configuration, set to &#34;nvidia&#34; if the model requires GPU</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   runtimeClassName: &#34;nvidia&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- SchedulerName configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   schedulerName: &#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Pod-level security context configuration. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#podsecuritycontext-v1-core</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   securityContext: {}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Run as a non-root user ID</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # runAsUser: 1000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Run with a non-root group ID</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # runAsGroup: 1000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Run as non-root</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # runAsNonRoot: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Set the seccomp profile</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # seccompProfile:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     #   type: RuntimeDefault</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Drop all capabilities</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # capabilities:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     #   drop:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     #   - ALL</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Set the file system group ID for all containers</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # fsGroup: 1000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Container-level security context configuration. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#securitycontext-v1-core</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   containerSecurityContext:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Run as non-root</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     runAsNonRoot: false</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Don&#39;t allow privilege escalation</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # allowPrivilegeEscalation: false</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Drop all capabilities</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # capabilities:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     #   drop:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     #   - ALL</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Read-only root filesystem</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # readOnlyRootFilesystem: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># routerSpec:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- The docker image of the router. The following values are defaults:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   repository: &#34;lmcache/lmstack-router&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   tag: &#34;latest&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   imagePullPolicy: &#34;Always&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Whether to enable the router service</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   enableRouter: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Number of replicas</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   replicaCount: 1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Container port</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   containerPort: 8000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Service type</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   serviceType: ClusterIP</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Service port</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   servicePort: 80</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Service discovery mode, supports &#34;k8s&#34; or &#34;static&#34;. Defaults to &#34;k8s&#34; if not set.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   serviceDiscovery: &#34;k8s&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- If serviceDiscovery is set to &#34;static&#34;, the comma-separated values below are required. There needs to be the same number of backends and models</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   staticBackends: &#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   staticModels: &#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- routing logic, could be &#34;roundrobin&#34; or &#34;session&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   routingLogic: &#34;roundrobin&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- session key if using &#34;session&#34; routing logic</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   sessionKey: &#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- extra router commandline arguments</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   extraArgs: []</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Interval in seconds to scrape the serving engine metrics</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   engineScrapeInterval: 15</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Window size in seconds to calculate the request statistics</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   requestStatsWindow: 60</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- deployment strategy</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   strategy: {}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # vllmApiKey: (optional) api key for securing the vLLM models. Must be an object referencing an existing secret</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   secretName: &#34;my-existing-secret&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   secretKey: &#34;vllm-api-key&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- router resource requests and limits</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   resources:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     requests:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       cpu: &#34;4&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       memory: &#34;16G&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     limits:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       cpu: &#34;8&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       memory: &#34;32G&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Customized labels for the router deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   labels:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     environment: &#34;router&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     release: &#34;router&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   ingress:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Enable ingress controller resource</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     enabled: false</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- IngressClass that will be used to implement the Ingress</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     className: &#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # -- Additional annotations for the Ingress resource</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     annotations:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       {}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       # kubernetes.io/ingress.class: alb</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       # kubernetes.io/ingress.class: nginx</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       # kubernetes.io/tls-acme: &#34;true&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # The list of hostnames to be covered with this ingress record.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     hosts:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       - host: vllm-router.local</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#         paths:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           - path: /</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#             pathType: Prefix</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     # --  The tls configuration for hostnames to be covered with this ingress record.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     tls: []</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     #  - secretName: vllm-router-tls</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     #    hosts:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     #      - vllm-router.local</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # The node selector terms to match the nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Example:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   nodeSelectorTerms:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #     - matchExpressions:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #       - key: nvidia.com/gpu.product</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #         operator: &#34;In&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #         values:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #         - &#34;NVIDIA-RTX-A6000&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   nodeSelectorTerms: []</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- TODO: Readiness probe configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #startupProbe:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #  # -- Number of seconds after the container has started before startup probe is initiated</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #  initialDelaySeconds: 5</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #  # -- How often (in seconds) to perform the startup probe</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #  periodSeconds: 5</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #  # -- Number of times after which if a probe fails in a row, Kubernetes considers that the overall check has failed: the container is not ready</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #  failureThreshold: 100</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #   # -- Configuration of the Kubelet http request on the server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #  httpGet:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #    # -- Path to access on the HTTP server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   #</span>
+</span></span></code></pre></div><p>Let&rsquo;s parse the yaml file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">&gt; helm show values vllm/vllm-stack | yq</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -- Default values for llmstack helm chart</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -- Declare variables to be passed into your templates.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -- Serving engine configuratoon</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">servingEngineSpec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enableEngine</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Customized labels for the serving engine deployment</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>: <span style="color:#e6db74">&#34;test&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">release</span>: <span style="color:#e6db74">&#34;test&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># vllmApiKey: (optional) api key for securing the vLLM models. Can be either:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - A string containing the token directly (will be stored in a generated secret)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - An object referencing an existing secret:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     secretName: &#34;my-existing-secret&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     secretKey: &#34;vllm-api-key&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># modelSpec - configuring multiple serving engines deployments that runs different models</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Each entry in the modelSpec array should contain the following fields:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - name: (string) The name of the model, e.g., &#34;example-model&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - repository: (string) The repository of the model, e.g., &#34;vllm/vllm-openai&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - tag: (string) The tag of the model, e.g., &#34;latest&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - imagePullSecret: (Optional, string) Name of secret with credentials to private container repository, e.g. &#34;secret&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - modelURL: (string) The URL of the model, e.g., &#34;facebook/opt-125m&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - chatTemplate: (Optional, string) Chat template (Jinga2) specifying tokenizer configuration, e.g. &#34;{% for message in messages %}\n{% if message[&#39;role&#39;] == &#39;user&#39; %}\n{{ &#39;Question:\n&#39; + message[&#39;content&#39;] + &#39;\n\n&#39; }}{% elif message[&#39;role&#39;] == &#39;system&#39; %}\n{{ &#39;System:\n&#39; + message[&#39;content&#39;] + &#39;\n\n&#39; }}{% elif message[&#39;role&#39;] == &#39;assistant&#39; %}{{ &#39;Answer:\n&#39;  + message[&#39;content&#39;] + &#39;\n\n&#39; }}{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ &#39;Answer:\n&#39; }}{% endif %}{% endfor %}&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - replicaCount: (int) The number of replicas for the model, e.g. 1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - requestCPU: (int) The number of CPUs requested for the model, e.g. 6</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - requestMemory: (string) The amount of memory requested for the model, e.g., &#34;16Gi&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - requestGPU: (int) The number of GPUs requested for the model, e.g., 1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - requestGPUType: (Optional, string) The type of GPU requested, e.g., &#34;nvidia.com/mig-4g.71gb&#34;. If not specified, defaults to &#34;nvidia.com/gpu&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - limitCPU: (Optional, string) The CPU limit for the model, e.g., &#34;8&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - limitMemory: (Optional, string) The memory limit for the model, e.g., &#34;32Gi&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Note: If limitCPU and limitMemory are not specified, only GPU resources will have limits set equal to their requests.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - pvcStorage: (Optional, string) The amount of storage requested for the model, e.g., &#34;50Gi&#34;.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - pvcAccessMode: (Optional, list) The access mode policy for the mounted volume, e.g., [&#34;ReadWriteOnce&#34;]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - storageClass: (Optional, String) The storage class of the PVC e.g., &#34;&#34;, default is &#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - pvcMatchLabels: (Optional, map) The labels to match the PVC, e.g., {model: &#34;opt125m&#34;}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - extraVolumes: (Optional, list) Additional volumes to add to the pod, in Kubernetes volume format. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#volume-v1-core</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   Example for an emptyDir volume:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   extraVolumes:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - name: tmp-volume</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     emptyDir:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#       medium: &#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#       sizeLimit: 5Gi</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - extraVolumeMounts: (Optional, list) Additional volume mounts to add to the container, in Kubernetes volumeMount format. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#volumemount-v1-core</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   Example for mounting the tmp-volume to /tmp:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   extraVolumeMounts:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - name: tmp-volume</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     mountPath: /tmp</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - initContainer: (optional, list of objects) The configuration for the init container to be run before the main container.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - name: (string) The name of the init container, e.g., &#34;init&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - image: (string) The Docker image for the init container, e.g., &#34;busybox:latest&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - command: (optional, list) The command to run in the init container, e.g., [&#34;sh&#34;, &#34;-c&#34;]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - args: (optional, list) Additional arguments to pass to the command, e.g., [&#34;ls&#34;]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - env: (optional, list) List of environment variables to set in the container, each being a map with:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - resources: (optional, map) The resource requests and limits for the container:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - mountPvcStorage: (optional, bool) Whether to mount the model&#39;s volume.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - vllmConfig: (optional, map) The configuration for the VLLM model, supported options are:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - enablePrefixCaching: (optional, bool) Enable prefix caching, e.g., false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - enableChunkedPrefill: (optional, bool) Enable chunked prefill, e.g., false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - maxModelLen: (optional, int) The maximum model length, e.g., 16384</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - dtype: (optional, string) The data type, e.g., &#34;bfloat16&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - tensorParallelSize: (optional, int) The degree of tensor parallelism, e.g., 2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - maxNumSeqs: (optional, int) Maximum number of sequences to be processed in a single iteration., e.g., 32</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - maxLoras: (optional, int) The maximum number of LoRA models to be loaded in a single batch, e.g., 4</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - gpuMemoryUtilization: (optional, float) The fraction of GPU memory to be used for the model executor, which can range from 0 to 1. e.g., 0.95</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - extraArgs: (optional, list) Extra command line arguments to pass to vLLM, e.g., [&#34;--disable-log-requests&#34;]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - lmcacheConfig: (optional, map) The configuration of the LMCache for KV offloading, supported options are:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - enabled: (optional, bool) Enable LMCache, e.g., true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - cpuOffloadingBufferSize: (optional, string) The CPU offloading buffer size, e.g., &#34;30&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - hf_token: (optional) Hugging Face token configuration. Can be either:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - A string containing the token directly (will be stored in a generated secret)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - An object referencing an existing secret:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     secretName: &#34;my-existing-secret&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     secretKey: &#34;hf-token-key&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - env: (optional, list) The environment variables to set in the container, e.g., your HF_TOKEN</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - nodeSelectorTerms: (optional, list) The node selector terms to match the nodes</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - shmSize: (optional, string) The size of the shared memory, e.g., &#34;20Gi&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Example:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># vllmApiKey: &#34;vllm_xxxxxxxxxxxxx&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># modelSpec:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># - name: &#34;mistral&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   repository: &#34;lmcache/vllm-openai&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   tag: &#34;latest&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   modelURL: &#34;mistralai/Mistral-7B-Instruct-v0.2&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   replicaCount: 1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   requestCPU: 10</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   requestMemory: &#34;64Gi&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   requestGPU: 1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   pvcStorage: &#34;50Gi&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   pvcAccessMode:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - ReadWriteOnce</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   pvcMatchLabels:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     model: &#34;mistral&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   initContainer:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     name: my-container</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     image: busybox</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     command: [&#34;sh&#34;]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     env: {}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     args: []</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     resources: {}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     mountPvcStorage: true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   vllmConfig:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     enableChunkedPrefill: false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     enablePrefixCaching: false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     maxModelLen: 16384</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     dtype: &#34;bfloat16&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     maxNumSeqs: 32</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     gpuMemoryUtilization: 0.95</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     maxLoras: 4</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     extraArgs: [&#34;--disable-log-requests&#34;, &#34;--trust-remote-code&#34;]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   lmcacheConfig:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     enabled: true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     cpuOffloadingBufferSize: &#34;30&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   hf_token: &#34;hf_xxxxxxxxxxxxx&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   nodeSelectorTerms:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - matchExpressions:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#       - key: nvidia.com/gpu.product</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#         operator: &#34;In&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#         values:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#         - &#34;NVIDIA-RTX-A6000&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">modelSpec</span>: []
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Container port</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Service port</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Set other environment variables from config map</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">configs</span>: {}
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- deployment strategy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">strategy</span>: {}
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Readiness probe configuration</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">startupProbe</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Number of seconds after the container has started before startup probe is initiated</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">initialDelaySeconds</span>: <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- How often (in seconds) to perform the startup probe</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">periodSeconds</span>: <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Number of times after which if a probe fails in a row, Kubernetes considers that the overall check has failed: the container is not ready</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">failureThreshold</span>: <span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Configuration of the Kubelet http request on the server</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">httpGet</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># -- Path to access on the HTTP server</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/health</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># -- Name or number of the port to access on the container, on which the server is listening</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Liveness probe configuration</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">livenessProbe</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Number of seconds after the container has started before liveness probe is initiated</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">initialDelaySeconds</span>: <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Number of times after which if a probe fails in a row, Kubernetes considers that the overall check has failed: the container is not alive</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">failureThreshold</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- How often (in seconds) to perform the liveness probe</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">periodSeconds</span>: <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Configuration of the Kubelet http request on the server</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">httpGet</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># -- Path to access on the HTTP server</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/health</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># -- Name or number of the port to access on the container, on which the server is listening</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Disruption Budget Configuration</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">maxUnavailablePodDisruptionBudget</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Tolerations configuration (when there are taints on nodes)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Example:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># tolerations:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - key: &#34;node-role.kubernetes.io/control-plane&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     operator: &#34;Exists&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     effect: &#34;NoSchedule&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tolerations</span>: []
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- RuntimeClassName configuration, set to &#34;nvidia&#34; if the model requires GPU</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">runtimeClassName</span>: <span style="color:#e6db74">&#34;nvidia&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- SchedulerName configuration</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schedulerName</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Pod-level security context configuration. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#podsecuritycontext-v1-core</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">securityContext</span>: {}
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Run as a non-root user ID</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># runAsUser: 1000</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Run with a non-root group ID</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># runAsGroup: 1000</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Run as non-root</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># runAsNonRoot: true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Set the seccomp profile</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># seccompProfile:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   type: RuntimeDefault</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Drop all capabilities</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># capabilities:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   drop:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - ALL</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Set the file system group ID for all containers</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># fsGroup: 1000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Container-level security context configuration. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#securitycontext-v1-core</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">containerSecurityContext</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Run as non-root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runAsNonRoot</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Don&#39;t allow privilege escalation</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># allowPrivilegeEscalation: false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Drop all capabilities</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># capabilities:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#   drop:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#   - ALL</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Read-only root filesystem</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># readOnlyRootFilesystem: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">routerSpec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- The docker image of the router. The following values are defaults:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">repository</span>: <span style="color:#e6db74">&#34;lmcache/lmstack-router&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tag</span>: <span style="color:#e6db74">&#34;latest&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">imagePullPolicy</span>: <span style="color:#e6db74">&#34;Always&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Whether to enable the router service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enableRouter</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Number of replicas</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicaCount</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Container port</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Service type</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">serviceType</span>: <span style="color:#ae81ff">ClusterIP</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Service port</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Service discovery mode, supports &#34;k8s&#34; or &#34;static&#34;. Defaults to &#34;k8s&#34; if not set.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">serviceDiscovery</span>: <span style="color:#e6db74">&#34;k8s&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- If serviceDiscovery is set to &#34;static&#34;, the comma-separated values below are required. There needs to be the same number of backends and models</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">staticBackends</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">staticModels</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- routing logic, could be &#34;roundrobin&#34; or &#34;session&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">routingLogic</span>: <span style="color:#e6db74">&#34;roundrobin&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- session key if using &#34;session&#34; routing logic</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">sessionKey</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- extra router commandline arguments</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">extraArgs</span>: []
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Interval in seconds to scrape the serving engine metrics</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">engineScrapeInterval</span>: <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Window size in seconds to calculate the request statistics</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">requestStatsWindow</span>: <span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- deployment strategy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">strategy</span>: {}
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># vllmApiKey: (optional) api key for securing the vLLM models. Must be an object referencing an existing secret</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   secretName: &#34;my-existing-secret&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   secretKey: &#34;vllm-api-key&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- router resource requests and limits</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;4&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;16G&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;8&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;32G&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># -- Customized labels for the router deployment</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>: <span style="color:#e6db74">&#34;router&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">release</span>: <span style="color:#e6db74">&#34;router&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ingress</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Enable ingress controller resource</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- IngressClass that will be used to implement the Ingress</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">className</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># -- Additional annotations for the Ingress resource</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">annotations</span>: {}
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># kubernetes.io/ingress.class: alb</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># kubernetes.io/ingress.class: nginx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># kubernetes.io/tls-acme: &#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># The list of hostnames to be covered with this ingress record.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">hosts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">host</span>: <span style="color:#ae81ff">vllm-router.local</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">pathType</span>: <span style="color:#ae81ff">Prefix</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># --  The tls configuration for hostnames to be covered with this ingress record.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tls</span>: []
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#  - secretName: vllm-router-tls</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#    hosts:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#      - vllm-router.local</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># The node selector terms to match the nodes</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Example:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   nodeSelectorTerms:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - matchExpressions:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#       - key: nvidia.com/gpu.product</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#         operator: &#34;In&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#         values:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#         - &#34;NVIDIA-RTX-A6000&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nodeSelectorTerms</span>: []
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -- TODO: Readiness probe configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#startupProbe:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  # -- Number of seconds after the container has started before startup probe is initiated</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  initialDelaySeconds: 5</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  # -- How often (in seconds) to perform the startup probe</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  periodSeconds: 5</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  # -- Number of times after which if a probe fails in a row, Kubernetes considers that the overall check has failed: the container is not ready</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  failureThreshold: 100</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # -- Configuration of the Kubelet http request on the server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  httpGet:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    # -- Path to access on the HTTP server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span></code></pre></div><p>Here is what this yaml settings has:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Section</th>
+          <th style="text-align: left">What It Means</th>
+          <th style="text-align: left">Impact</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>servingEngineSpec.enableEngine: true</code></td>
+          <td style="text-align: left">The vLLM serving engine <strong>will deploy</strong></td>
+          <td style="text-align: left">✅ A model server (FastAPI/vLLM backend) will run</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>servingEngineSpec.modelSpec: []</code></td>
+          <td style="text-align: left"><strong>No models</strong> configured!</td>
+          <td style="text-align: left">❌ vLLM backend will <strong>start EMPTY</strong>, no model loaded, not usable</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>servingEngineSpec.runtimeClassName: &quot;nvidia&quot;</code></td>
+          <td style="text-align: left">Requests GPU scheduling (runtimeClass = NVIDIA)</td>
+          <td style="text-align: left">⚠️ Will require GPU-capable nodes if enforced (Autopilot will handle automatically, but might error if none available)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>servingEngineSpec.containerPort: 8000</code>, <code>servicePort: 80</code></td>
+          <td style="text-align: left">Internal pod listens on 8000; service listens on 80</td>
+          <td style="text-align: left">Standard setup for HTTP access inside cluster</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>routerSpec.enableRouter: true</code></td>
+          <td style="text-align: left">The API router (proxy) <strong>will deploy</strong></td>
+          <td style="text-align: left">✅ Will be able to route user traffic</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>routerSpec.repository: lmcache/lmstack-router</code>, <code>tag: latest</code></td>
+          <td style="text-align: left">Uses default router Docker image</td>
+          <td style="text-align: left">Fine, but might pull latest, unstable sometimes</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>routerSpec.serviceType: ClusterIP</code></td>
+          <td style="text-align: left">Router is only <strong>internally</strong> reachable</td>
+          <td style="text-align: left">❗ No public IP, need port-forward or LoadBalancer later if needed</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>routerSpec.routingLogic: roundrobin</code></td>
+          <td style="text-align: left">Router sends requests evenly across backends</td>
+          <td style="text-align: left">Good for simple load balancing</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>routerSpec.resources.requests: {cpu: &quot;4&quot;, memory: &quot;16G&quot;}</code></td>
+          <td style="text-align: left">Router will <strong>reserve 4 CPU cores and 16Gi RAM</strong> minimum</td>
+          <td style="text-align: left">🏋️ Heavy for tiny clusters; fine for prod-scale</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="open-api-port-on-runpod">Open api port on runpod</h3>
+<ul>
+<li><code>8001</code> is used by nginx, lets use 8002</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Serve on port 8002 instead:</span>
+</span></span><span style="display:flex;"><span>vllm serve <span style="color:#f92672">--</span>task transcription openai<span style="color:#f92672">/</span>whisper<span style="color:#f92672">-</span>small \
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">--</span>host <span style="color:#ae81ff">0.0.0.0</span> <span style="color:#f92672">--</span>port <span style="color:#ae81ff">8002</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># if success , you will get this log</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (workspace) root@33e3bb091952:/workspace/production-stack# vllm serve   --task transcription   openai/whisper-small   --host 0.0.0.0   --port 8002</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:52:43 [__init__.py:243] Automatically detected platform cuda.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:52:59 [__init__.py:31] Available plugins for group vllm.general_plugins:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:52:59 [__init__.py:33] - lora_filesystem_resolver -&gt; vllm.plugins.lora_resolvers.filesystem_resolver:register_filesystem_resolver</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:52:59 [__init__.py:36] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:01 [api_server.py:1289] vLLM API server version 0.9.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:02 [cli_args.py:300] non-default args: {&#39;host&#39;: &#39;0.0.0.0&#39;, &#39;port&#39;: 8002, &#39;task&#39;: &#39;transcription&#39;}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># config.json: 100%|███████████████████████████████████████████████████████████| 1.97k/1.97k [00:00&lt;00:00, 11.5MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># preprocessor_config.json: 100%|████████████████████████████████████████████████| 185k/185k [00:00&lt;00:00, 4.46MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:03 [config.py:3131] Downcasting torch.float32 to torch.float16.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># WARNING 05-29 21:53:30 [arg_utils.py:1583] --task transcription is not supported by the V1 Engine. Falling back to V0.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:46 [__init__.py:243] Automatically detected platform cuda.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:54 [api_server.py:257] Started engine process with PID 9035</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:54 [__init__.py:31] Available plugins for group vllm.general_plugins:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:54 [__init__.py:33] - lora_filesystem_resolver -&gt; vllm.plugins.lora_resolvers.filesystem_resolver:register_filesystem_resolver</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:54 [__init__.py:36] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:54 [llm_engine.py:230] Initializing a V0 LLM engine (v0.9.0) with config: model=&#39;openai/whisper-small&#39;, speculative_config=None, tokenizer=&#39;openai/whisper-small&#39;, skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config={}, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=448, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(backend=&#39;auto&#39;, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_backend=&#39;&#39;), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=openai/whisper-small, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=None, chunked_prefill_enabled=False, use_async_output_proc=True, pooler_config=None, compilation_config={&#34;compile_sizes&#34;: [], &#34;inductor_compile_config&#34;: {&#34;enable_auto_functionalized_v2&#34;: false}, &#34;cudagraph_capture_sizes&#34;: [256, 248, 240, 232, 224, 216, 208, 200, 192, 184, 176, 168, 160, 152, 144, 136, 128, 120, 112, 104, 96, 88, 80, 72, 64, 56, 48, 40, 32, 24, 16, 8, 4, 2, 1], &#34;max_capture_size&#34;: 256}, use_cached_outputs=True,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># tokenizer_config.json: 100%|███████████████████████████████████████████████████| 283k/283k [00:00&lt;00:00, 4.41MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># vocab.json: 100%|██████████████████████████████████████████████████████████████| 836k/836k [00:00&lt;00:00, 33.2MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># tokenizer.json: 100%|████████████████████████████████████████████████████████| 2.48M/2.48M [00:00&lt;00:00, 31.7MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># merges.txt: 100%|██████████████████████████████████████████████████████████████| 494k/494k [00:00&lt;00:00, 14.5MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># normalizer.json: 100%|████████████████████████████████████████████████████████| 52.7k/52.7k [00:00&lt;00:00, 242MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># added_tokens.json: 100%|██████████████████████████████████████████████████████| 34.6k/34.6k [00:00&lt;00:00, 203MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># special_tokens_map.json: 100%|███████████████████████████████████████████████| 2.19k/2.19k [00:00&lt;00:00, 34.0MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># generation_config.json: 100%|████████████████████████████████████████████████| 3.87k/3.87k [00:00&lt;00:00, 48.9MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:55 [cuda.py:292] Using Flash Attention backend.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:56 [parallel_state.py:1064] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:56 [model_runner.py:1170] Starting to load model openai/whisper-small...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:53:57 [weight_utils.py:291] Using model weights format [&#39;*.safetensors&#39;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># model.safetensors: 100%|████████████████████████████████████████████████████████| 967M/967M [00:03&lt;00:00, 294MB/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:01 [weight_utils.py:307] Time spent downloading weights for openai/whisper-small: 3.485868 seconds</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:01 [weight_utils.py:344] No model.safetensors.index.json found in remote.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00&lt;?, ?it/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00&lt;00:00,  4.22it/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00&lt;00:00,  4.22it/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:01 [default_loader.py:280] Loading weights took 0.28 seconds</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:01 [model_runner.py:1202] Model loading took 0.4668 GiB and 5.083266 seconds</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:03 [enc_dec_model_runner.py:315] Starting profile run for multi-modal models.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:07 [worker.py:291] Memory profiling takes 5.44 seconds</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:07 [worker.py:291] the current vLLM instance can use total_gpu_memory (23.54GiB) x gpu_memory_utilization (0.90) = 21.19GiB</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:07 [worker.py:291] model weights take 0.47GiB; non_torch_memory takes 0.08GiB; PyTorch activation peak memory takes 6.29GiB; the rest of the memory reserved for KV Cache is 14.35GiB.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:07 [executor_base.py:112] # cuda blocks: 26125, # CPU blocks: 7281</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:07 [executor_base.py:117] Maximum concurrency for 448 tokens per request: 933.04x</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:12 [model_runner.py:1512] Capturing cudagraphs for decoding. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set &#39;enforce_eager=True&#39; or use &#39;--enforce-eager&#39; in the CLI. If out-of-memory error occurs during cudagraph capture, consider decreasing `gpu_memory_utilization` or switching to eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Capturing CUDA graph shapes: 100%|████████████████████████████████████████████████| 35/35 [00:15&lt;00:00,  2.22it/s]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:27 [model_runner.py:1670] Graph capturing finished in 16 secs, took 0.15 GiB</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:27 [llm_engine.py:428] init engine (profile, create kv cache, warmup model) took 25.88 seconds</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [api_server.py:1336] Starting vLLM API server on http://0.0.0.0:8002</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:28] Available routes are:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /openapi.json, Methods: HEAD, GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /docs, Methods: HEAD, GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /docs/oauth2-redirect, Methods: HEAD, GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /redoc, Methods: HEAD, GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /health, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /load, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /ping, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /ping, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /tokenize, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /detokenize, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /v1/models, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /version, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /v1/chat/completions, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /v1/completions, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /v1/embeddings, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /pooling, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /classify, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /score, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /v1/score, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /v1/audio/transcriptions, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /rerank, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /v1/rerank, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /v2/rerank, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /invocations, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 21:54:29 [launcher.py:36] Route: /metrics, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Started server process [8831]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Waiting for application startup.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Application startup complete.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># And update your router to point there:</span>
+</span></span><span style="display:flex;"><span>export VLLM_BACKEND_URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://localhost:8002&#34;</span>
+</span></span><span style="display:flex;"><span>uvicorn main_router:app <span style="color:#f92672">--</span>reload <span style="color:#f92672">--</span>port <span style="color:#ae81ff">8000</span>
+</span></span></code></pre></div><h3 id="also-run-the-production-stacks">also run the production stacks</h3>
+<p>Good thing we&rsquo;ve the consistent python env, we can set the <code>PYTHONPATH</code></p>
+<p>also install the dependencies for production-stack in editable mode</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>source /workspace/.venv/bin/activate
+</span></span><span style="display:flex;"><span>pip install -e /workspace/production-stack<span style="color:#f92672">[</span>dev<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>[!NOTE] production-stack need python 3.12, let&rsquo;s use a python 3.12 venv</p>
+<p>If you faced no space while installing, move cache to workspace</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export PIP_CACHE_DIR<span style="color:#f92672">=</span>/workspace/.pip_cache
+</span></span><span style="display:flex;"><span>mkdir -p /workspace/.pip_cache
+</span></span><span style="display:flex;"><span>pip cache purge            <span style="color:#75715e"># clear the old cache on overlay</span>
+</span></span><span style="display:flex;"><span>pip install vllm<span style="color:#f92672">[</span>audio<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>pip install -e production-stack<span style="color:#f92672">[</span>dev<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>If there&rsquo;s no pip locally, install the pip</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>workspace<span style="color:#f92672">)</span> root@33e3bb091952:/workspace# which pip
+</span></span><span style="display:flex;"><span>/usr/local/bin/pip
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>workspace<span style="color:#f92672">)</span> root@33e3bb091952:/workspace# python -m pip install --upgrade pip setuptools
+</span></span><span style="display:flex;"><span>/workspace/.venv/bin/python: No module named pip
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>workspace<span style="color:#f92672">)</span> root@33e3bb091952:/workspace# ls .venv/
+</span></span><span style="display:flex;"><span>CACHEDIR.TAG  bin  lib  lib64  pyvenv.cfg
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>workspace<span style="color:#f92672">)</span> root@33e3bb091952:/workspace# ls .venv/bin
+</span></span><span style="display:flex;"><span>activate      activate.csh   activate.nu   activate_this.py  pydoc.bat  python3
+</span></span><span style="display:flex;"><span>activate.bat  activate.fish  activate.ps1  deactivate.bat    python     python3.12
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>workspace<span style="color:#f92672">)</span> root@33e3bb091952:/workspace# python -m ensurepip --upgrade
+</span></span><span style="display:flex;"><span>Looking in links: /tmp/tmp8w8h4iwe
+</span></span><span style="display:flex;"><span>Processing /tmp/tmp8w8h4iwe/pip-23.2.1-py3-none-any.whl
+</span></span><span style="display:flex;"><span>Installing collected packages: pip
+</span></span><span style="display:flex;"><span>Successfully installed pip-23.2.1
+</span></span></code></pre></div><p>Install vLLM (with audio) without filling the small overlay cache</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export PIP_NO_CACHE_DIR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>pip install vllm<span style="color:#f92672">[</span>audio<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Install router in editable mode</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -e production-stack<span style="color:#f92672">[</span>dev<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>verify both are installed under <code>python3.12</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip list | grep -E <span style="color:#e6db74">&#34;vllm|vllm-router&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (workspace) root@33e3bb091952:/workspace# pip list | grep -E &#34;vllm|vllm-router&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># vllm                                     0.9.0</span>
+</span></span></code></pre></div><h3 id="testing-script">Testing script</h3>
+<ol>
+<li>start the whisper backend</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vllm serve --task transcription openai/whisper-small <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --host 0.0.0.0 --port <span style="color:#ae81ff">8002</span>
+</span></span></code></pre></div><ol start="2">
+<li>Started the production-stack router (your main_router on port 8000), for example with:</li>
+</ol>
+<ul>
+<li>add this to <code>src/vllm_router/run-router.sh</code> and comment other router services for testing</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Use this command when testing with whisper transcription</span>
+</span></span><span style="display:flex;"><span>ROUTER_PORT<span style="color:#f92672">=</span>$1
+</span></span><span style="display:flex;"><span>BACKEND_URL<span style="color:#f92672">=</span>$2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python3 -m vllm_router.app <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --host 0.0.0.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --port <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>ROUTER_PORT<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --service-discovery static <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-backends <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>BACKEND_URL<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-models <span style="color:#e6db74">&#34;openai/whisper-small&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-model-types <span style="color:#e6db74">&#34;transcription&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --routing-logic roundrobin <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --log-stats <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --engine-stats-interval <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --request-stats-window <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To disable this warning, you can either:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#         - Avoid using `tokenizers` before the fork if possible</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#         - Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [api_server.py:1336] Starting vLLM API server on http://0.0.0.0:8002</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:28] Available routes are:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /openapi.json, Methods: HEAD, GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /docs, Methods: HEAD, GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /docs/oauth2-redirect, Methods: HEAD, GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /redoc, Methods: HEAD, GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /health, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /load, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /ping, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /ping, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /tokenize, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /detokenize, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /v1/models, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /version, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /v1/chat/completions, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /v1/completions, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /v1/embeddings, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /pooling, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /classify, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /score, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /v1/score, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /v1/audio/transcriptions, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /rerank, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /v1/rerank, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /v2/rerank, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /invocations, Methods: POST</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO 05-29 23:29:15 [launcher.py:36] Route: /metrics, Methods: GET</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Started server process [9747]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Waiting for application startup.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Application startup complete.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     127.0.0.1:46250 - &#34;GET /metrics HTTP/1.1&#34; 200 OK</span>
+</span></span></code></pre></div><ul>
+<li>make sure make it executable</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>workspace<span style="color:#f92672">)</span> root@33e3bb091952:/workspace/production-stack# cd src/vllm_router
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>workspace<span style="color:#f92672">)</span> root@33e3bb091952:/workspace/production-stack# chmod +x run-router.sh
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>workspace<span style="color:#f92672">)</span> root@33e3bb091952:/workspace/production-stack# ./run-router.sh <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>workspace<span style="color:#f92672">)</span> root@33e3bb091952:/workspace/production-stack/src/vllm_router# ./run-router.sh <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:30:44,964] INFO: Scraping metrics from 1 serving engine(s) (engine_stats.py:136:vllm_router.stats.engine_stats)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:30:44,964] INFO: Initializing round-robin routing logic (routing_logic.py:392:vllm_router.routers.routing_logic)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Started server process [10309]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Waiting for application startup.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:30:45,089] INFO: httpx AsyncClient instantiated. Id 140322398720160 (httpx_client.py:31:vllm_router.httpx_client)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Application startup complete.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:30:54,965] INFO:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Server: http://localhost:8002</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Models:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   - openai/whisper-small</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  Engine Stats: Running Requests: 0.0, Queued Requests: 0.0, GPU Cache Hit Rate: 0.00</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  Request Stats: No stats available</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  (log_stats.py:104:vllm_router.stats.log_stats)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:30:54,984] INFO: Scraping metrics from 1 serving engine(s) (engine_stats.py:136:vllm_router.stats.engine_stats)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:31:04,966] INFO:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Server: http://localhost:8002</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Models:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   - openai/whisper-small</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  Engine Stats: Running Requests: 0.0, Queued Requests: 0.0, GPU Cache Hit Rate: 0.00</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  Request Stats: No stats available</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  (log_stats.py:104:vllm_router.stats.log_stats)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:31:04,991] INFO: Scraping metrics from 1 serving engine(s) (engine_stats.py:136:vllm_router.stats.engine_stats)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:31:14,966] INFO:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Server: http://localhost:8002</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Models:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   - openai/whisper-small</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  Engine Stats: Running Requests: 0.0, Queued Requests: 0.0, GPU Cache Hit Rate: 0.00</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  Request Stats: No stats available</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  (log_stats.py:104:vllm_router.stats.log_stats)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:31:14,997] INFO: Scraping metrics from 1 serving engine(s) (engine_stats.py:136:vllm_router.stats.engine_stats)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:31:24,967] INFO:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Server: http://localhost:8002</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Models:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   - openai/whisper-small</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  Engine Stats: Running Requests: 0.0, Queued Requests: 0.0, GPU Cache Hit Rate: 0.00</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  Request Stats: No stats available</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  (log_stats.py:104:vllm_router.stats.log_stats)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [2025-05-29 23:31:25,004] INFO: Scraping metrics from 1 serving engine(s) (engine_stats.py:136:vllm_router.stats.engine_stats)</span>
+</span></span></code></pre></div><ol start="3">
+<li>smoke test the transcription endpoint</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -v http://localhost:8000/v1/audio/transcriptions <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -F <span style="color:#e6db74">&#39;file=@/path/to/audio.wav;type=audio/wav&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -F <span style="color:#e6db74">&#39;model=whisper-small&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -F <span style="color:#e6db74">&#39;language=en&#39;</span>
+</span></span></code></pre></div><p>[!NOTE] Record an input audio before testing</p>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="enabling-the-transcription-model-type">Enabling the <code>transcription</code> model type</h3>
+<p>Add a new enum member in <code>utils.py</code> so the parser recognizes transcription as a valid model type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ModelType</span>(enum<span style="color:#f92672">.</span>Enum):
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">…</span>  
+</span></span><span style="display:flex;"><span>    transcription <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/v1/audio/transcriptions&#34;</span>
+</span></span></code></pre></div><p>Then include it in your get_all_fields() so validate_static_model_types() accepts it .</p>
+<h3 id="parser-validation">Parser validation</h3>
+<p>Update <code>validate_static_model_types</code> in <code>parsers/parser.py</code> to allow the new <code>transcription</code> string:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">validate_static_model_types</span>(model_types: str <span style="color:#f92672">|</span> <span style="color:#66d9ef">None</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">…</span>  
+</span></span><span style="display:flex;"><span>    all_models <span style="color:#f92672">=</span> utils<span style="color:#f92672">.</span>ModelType<span style="color:#f92672">.</span>get_all_fields()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># now includes &#39;transcription&#39;</span>
+</span></span></code></pre></div><p>This ensures <code>--static-model-types</code> transcription passes validation .</p>
+<h3 id="main-router-proxy-logic">Main router proxy logic</h3>
+<p>In <code>routers/main_router.py</code>’s <code>audio_transcriptions</code> handler, use the same service‐discovery + routing logic you already have for chat/completions, but:</p>
+<ol>
+<li>Filter by <code>model_label==&quot;transcription&quot;</code> (or skip it in dev) and <code>model in ep.model_names</code>.</li>
+<li>Increase HTTPX timeout, since Whisper can take a while:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">with</span> httpx<span style="color:#f92672">.</span>AsyncClient(
+</span></span><span style="display:flex;"><span>    base_url<span style="color:#f92672">=</span>chosen_url,
+</span></span><span style="display:flex;"><span>    timeout<span style="color:#f92672">=</span>httpx<span style="color:#f92672">.</span>Timeout(connect<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, read<span style="color:#f92672">=</span><span style="color:#ae81ff">120</span>, write<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, pool<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span>) <span style="color:#66d9ef">as</span> client:
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">…</span>
+</span></span></code></pre></div><ol start="3">
+<li><strong>Proxy</strong> the multipart form exactly to /v1/audio/transcriptions on the backend .</li>
+</ol>
+<h3 id="smoke-testing">Smoke-Testing</h3>
+<ol>
+<li>Start the Whisper backend on port 8002:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vllm serve --task transcription openai/whisper-small <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --host 0.0.0.0 --port <span style="color:#ae81ff">8002</span>
+</span></span></code></pre></div><ol start="2">
+<li>run the modified router on port 8000:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./run-router.sh <span style="color:#ae81ff">8000</span> http://localhost:8002
+</span></span></code></pre></div><ol start="3">
+<li>hit the endpoint with <code>curl</code>, noting you must specify a valid <code>response_format</code> (e.g. <code>json</code>):</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -v http://localhost:8000/v1/audio/transcriptions <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -F <span style="color:#e6db74">&#39;file=@/path/to/audio.wav;type=audio/wav&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -F <span style="color:#e6db74">&#39;model=openai/whisper-small&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -F <span style="color:#e6db74">&#39;response_format=json&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -F <span style="color:#e6db74">&#39;language=en&#39;</span>
+</span></span></code></pre></div><ol start="4">
+<li>Finally, you should get back something like:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;text&#34;</span>:<span style="color:#e6db74">&#34;…your transcription…&#34;</span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>which confirms end-to-end routing.</p>
+<h2 id="troubleshooting--tips">Troubleshooting &amp; Tips</h2>
+<ul>
+<li>
+<p><em>“No transcription backend” 503</em>
+Means your router didn’t detect any backend with <code>model_label==&quot;transcription&quot;</code>. Double-check <code>--static-model-labels transcription</code> or skip the label filter in dev.</p>
+</li>
+<li>
+<p><em>Timeouts</em>
+If you see <code>ReadTimeout</code>, bump up <code>read</code> in <code>httpx.Timeout(...)</code>.</p>
+</li>
+<li>
+<p><em>Response format errors</em>
+Whisper only accepts one of <code>json</code>, <code>text</code>, <code>srt</code>, <code>verbose_json</code>, <code>vtt</code> for <code>response_format</code>.</p>
+</li>
+</ul>
 
     </div>
     <div class="post-footer">

@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>MaxLength // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.147.2">
+    <meta name="generator" content="Hugo 0.147.6">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -30,7 +30,7 @@ maxLength = 3
 题目思路 一开始，我看到了无重复，set不会有重复，但是set不能保证你拿的是连续的，不是连续的也就不能称之为sublist 接着，我试了暴力解法，会超时，思路是双指针，右指针没有重复就右移， 有重复左指针向右移动一个防止漏掉前面的可能性 这个解法缺点是每一次指针移动都要检查答案是否可行，每一次检查又要loop从左指针到右指针，总共需要O(mn), polynomial time. 首先要无重复， 那么我们一旦找到了重复的数字，由于需要return连续的subarray，我们就只能去掉所有在第一个重复的数的后方的所有元素 找到无重复sublist：
 for i in arr: while i in l: l.pop(0) l.append(i) 之后我们在考虑怎样得到最长sublist：">
 
-    <meta property="og:url" content="https://davidgao7.github.io/posts/maxlength/">
+    <meta property="og:url" content="http://localhost:1313/posts/maxlength/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="MaxLength">
   <meta property="og:description" content="一步一个脚印，现在就是最艰难的时刻，不要懒，不要脸往前冲就行了
