@@ -6,8 +6,15 @@
     <description>Recent content in Runpod on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 10 May 2025 02:30:34 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 30 May 2025 13:49:26 -0400</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/runpod/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vllm V1 Whisper Transcription</title>
+      <link>http://localhost:1313/posts/vllm-v1-whisper-transcription/</link>
+      <pubDate>Fri, 30 May 2025 13:49:26 -0400</pubDate>
+      <guid>http://localhost:1313/posts/vllm-v1-whisper-transcription/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;In this blog I&amp;rsquo;ll refine my work process for the whisper transcription api implementation , as a support material for &lt;a href=&#34;https://github.com/vllm-project/production-stack/pull/469&#34;&gt;transcription api endpoint pr&lt;/a&gt;, here are step by step how I did it&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h1 id=&#34;create-a-gpu-environment&#34;&gt;Create a GPU environment&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;I use &lt;em&gt;Runpod.io&lt;/em&gt; for renting a RTX4090.&lt;/li&gt;&#xA;&lt;li&gt;You will get ssh access when initialize a pod.&lt;/li&gt;&#xA;&lt;li&gt;Some trails and errors details can reference &lt;a href=&#34;https://davidgao7.github.io/posts/llm-production/&#34;&gt;Deploying LLMs in a single Machine&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;clone-the-repo-setup-python-environment-with-uv&#34;&gt;Clone the repo, Setup python environment with uv&lt;/h1&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd workspace/  &lt;span style=&#34;color:#75715e&#34;&gt;# workspace has the largest size&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apt update &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt upgrade&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -LsSf https://astral.sh/uv/install.sh | sh&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export PATH&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$HOME&lt;span style=&#34;color:#e6db74&#34;&gt;/.local/bin:&lt;/span&gt;$PATH&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;source ~/.bashrc&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then you can use &lt;code&gt;uv&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Wrong Vllm Production Stack Setup</title>
       <link>http://localhost:1313/posts/wrong-vllm-production-stack-setup/</link>

@@ -4,7 +4,7 @@
     <title>Vllm V1 Whisper Transcription // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.147.6">
+    <meta name="generator" content="Hugo 0.147.7">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -91,7 +91,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          3 min read
+          6 min read
         </div>
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
@@ -198,56 +198,99 @@ window.MathJax = {
 </span></span><span style="display:flex;"><span>                }
 </span></span></code></pre></div><h1 id="testing">Testing</h1>
 <ul>
-<li>create a shell script to take <code>router port</code>, <code>backend_url</code>, spin up the vllm api endpoint</li>
+<li>
+<p>create a shell script to take <code>router port</code>, <code>backend_url</code>, spin up the vllm api endpoint</p>
+</li>
+<li>
+<p>command to serve the model engine</p>
+</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ROUTER_PORT<span style="color:#f92672">=</span>$1
-</span></span><span style="display:flex;"><span>BACKEND_URL<span style="color:#f92672">=</span>$2
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>python3 -m vllm_router.app <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --host 0.0.0.0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --port <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>ROUTER_PORT<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># vllm backend serve on port 8002:</span>
+</span></span><span style="display:flex;"><span>vllm serve --task transcription openai/whisper-small <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>           --host 0.0.0.0 --port <span style="color:#ae81ff">8002</span>
+</span></span></code></pre></div><ul>
+<li>command to run the router, connect to the backend</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># router serve on port 8000, connect to the vllm backend on port 8002:</span>
+</span></span><span style="display:flex;"><span>uv run python3 -m vllm_router.app <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --host 0.0.0.0 --port <span style="color:#ae81ff">8000</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --service-discovery static <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-backends <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>BACKEND_URL<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-backends <span style="color:#e6db74">&#34;http://0.0.0.0:8002&#34;</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-models <span style="color:#e6db74">&#34;openai/whisper-small&#34;</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --static-model-types <span style="color:#e6db74">&#34;transcription&#34;</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --routing-logic roundrobin <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --log-stats <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --engine-stats-interval <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --request-stats-window <span style="color:#ae81ff">10</span>
-</span></span></code></pre></div><p>Then wait till it&rsquo;s listen on the port, you can post an audio file to the endpoint, for example</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -v http://localhost:8000/v1/audio/transcriptions <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -F <span style="color:#e6db74">&#39;file=@/workspace/production-stack/src/vllm_router/audo_transcriptions_test.wav;type=audio/wav&#39;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -F <span style="color:#e6db74">&#39;model=openai/whisper-small&#39;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -F <span style="color:#e6db74">&#39;response_format=json&#39;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -F <span style="color:#e6db74">&#39;language=en&#39;</span>
+</span></span></code></pre></div><p><strong>Note</strong> that the port for <code>--static-backends</code> is the port you set for the vllm serve command, in this case <code>8002</code>.</p>
+<p>Then wait till it&rsquo;s listen on the port, you can post an audio file to the endpoint, for example</p>
+<ul>
+<li>command to get the transcription result as json by using <code>curl</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># when calling the endpoint, make sure the file is a wav audio file</span>
+</span></span><span style="display:flex;"><span>curl -v http://localhost:8002/v1/audio/transcriptions <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;file=@/workspace/production-stack/src/vllm_router/audio_transcription_test_06_01.wav;type=audio/wav&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;model=openai/whisper-small&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;response_format=json&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;language=en&#39;</span>
 </span></span></code></pre></div><p>In the test audio file, I said: &ldquo;Testing testing, testing the whisper small model; testing testing, testing the audio transcription function; testing testing, testing the whisper small model.&rdquo;</p>
-<p>You will see the response like this</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>*   Trying 127.0.0.1:8000...
-</span></span><span style="display:flex;"><span>* Connected to localhost <span style="color:#f92672">(</span>127.0.0.1<span style="color:#f92672">)</span> port <span style="color:#ae81ff">8000</span> <span style="color:#f92672">(</span><span style="color:#75715e">#0)</span>
+<h3 id="log-for-running-vllm-backend">Log for running vllm backend</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>INFO 06-01 10:51:27 <span style="color:#f92672">[</span>logger.py:39<span style="color:#f92672">]</span> Received request trsc-310b30730a4a433d9d9c84437206579c: prompt: <span style="color:#e6db74">&#39;&lt;|startoftranscript|&gt;&lt;|en|&gt;&lt;|transcribe|&gt;&lt;|notimestamps|&gt;&#39;</span>, params: SamplingParams<span style="color:#f92672">(</span>n<span style="color:#f92672">=</span>1, presence_penalty<span style="color:#f92672">=</span>0.0, frequency_penalty<span style="color:#f92672">=</span>0.0, repetition_penalty<span style="color:#f92672">=</span>1.0, temperature<span style="color:#f92672">=</span>0.0, top_p<span style="color:#f92672">=</span>1.0, top_k<span style="color:#f92672">=</span>-1, min_p<span style="color:#f92672">=</span>0.0, seed<span style="color:#f92672">=</span>None, stop<span style="color:#f92672">=[]</span>, stop_token_ids<span style="color:#f92672">=[]</span>, bad_words<span style="color:#f92672">=[]</span>, include_stop_str_in_output<span style="color:#f92672">=</span>False, ignore_eos<span style="color:#f92672">=</span>False, max_tokens<span style="color:#f92672">=</span>448, min_tokens<span style="color:#f92672">=</span>0, logprobs<span style="color:#f92672">=</span>None, prompt_logprobs<span style="color:#f92672">=</span>None, skip_special_tokens<span style="color:#f92672">=</span>True, spaces_between_special_tokens<span style="color:#f92672">=</span>True, truncate_prompt_tokens<span style="color:#f92672">=</span>None, guided_decoding<span style="color:#f92672">=</span>None, extra_args<span style="color:#f92672">=</span>None<span style="color:#f92672">)</span>, prompt_token_ids: None, lora_request: None, prompt_adapter_request: None.
+</span></span><span style="display:flex;"><span>INFO 06-01 10:51:27 <span style="color:#f92672">[</span>engine.py:310<span style="color:#f92672">]</span> Added request trsc-310b30730a4a433d9d9c84437206579c.
+</span></span><span style="display:flex;"><span>INFO 06-01 10:51:27 <span style="color:#f92672">[</span>metrics.py:481<span style="color:#f92672">]</span> Avg prompt throughput: 0.5 tokens/s, Avg generation throughput: 0.1 tokens/s, Running: <span style="color:#ae81ff">1</span> reqs, Swapped: <span style="color:#ae81ff">0</span> reqs, Pending: <span style="color:#ae81ff">0</span> reqs, GPU KV cache usage: 0.4%, CPU KV cache usage: 0.0%.
+</span></span><span style="display:flex;"><span>INFO:     127.0.0.1:41532 - <span style="color:#e6db74">&#34;POST /v1/audio/transcriptions HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>INFO 06-01 10:51:37 <span style="color:#f92672">[</span>metrics.py:481<span style="color:#f92672">]</span> Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 1.8 tokens/s, Running: <span style="color:#ae81ff">0</span> reqs, Swapped: <span style="color:#ae81ff">0</span> reqs, Pending: <span style="color:#ae81ff">0</span> reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+</span></span><span style="display:flex;"><span>INFO 06-01 10:51:47 <span style="color:#f92672">[</span>metrics.py:481<span style="color:#f92672">]</span> Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: <span style="color:#ae81ff">0</span> reqs, Swapped: <span style="color:#ae81ff">0</span> reqs, Pending: <span style="color:#ae81ff">0</span> reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+</span></span></code></pre></div><p>And this is debug output, shows it hits my code:</p>
+<h3 id="log-for-running-vllm-router">Log for running vllm router</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">==================================================</span>
+</span></span><span style="display:flex;"><span>Server: http://localhost:8002
+</span></span><span style="display:flex;"><span>Models:
+</span></span><span style="display:flex;"><span>  - openai/whisper-small
+</span></span><span style="display:flex;"><span> Engine Stats: Running Requests: 0.0, Queued Requests: 0.0, GPU Cache Hit Rate: 0.00
+</span></span><span style="display:flex;"><span> Request Stats: No stats available
+</span></span><span style="display:flex;"><span>--------------------------------------------------
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==================================================</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>log_stats.py:104:vllm_router.stats.log_stats<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-05-30 05:58:36,809<span style="color:#f92672">]</span> INFO: Scraping metrics from <span style="color:#ae81ff">1</span> serving engine<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>engine_stats.py:136:vllm_router.stats.engine_stats<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-05-30 05:58:43,042<span style="color:#f92672">]</span> INFO: Received <span style="color:#ae81ff">200</span> from whisper backend <span style="color:#f92672">(</span>main_router.py:293:vllm_router.routers.main_router<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-05-30 05:58:43,042<span style="color:#f92672">]</span> DEBUG: <span style="color:#f92672">====</span> Whisper response payload <span style="color:#f92672">====</span> <span style="color:#f92672">(</span>main_router.py:298:vllm_router.routers.main_router<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-05-30 05:58:43,042<span style="color:#f92672">]</span> DEBUG: <span style="color:#f92672">{</span><span style="color:#e6db74">&#39;text&#39;</span>: <span style="color:#e6db74">&#39; Testing testing testing the whisper small model testing testing testing the audio transcription function testing testing testing the whisper small model&#39;</span><span style="color:#f92672">}</span> <span style="color:#f92672">(</span>main_router.py:299:vllm_router.routers.main_router<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-05-30 05:58:43,042<span style="color:#f92672">]</span> DEBUG: <span style="color:#f92672">====</span> Whisper response payload <span style="color:#f92672">====</span> <span style="color:#f92672">(</span>main_router.py:300:vllm_router.routers.main_router<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-05-30 05:58:43,042<span style="color:#f92672">]</span> DEBUG: Backend response headers: Headers<span style="color:#f92672">({</span><span style="color:#e6db74">&#39;date&#39;</span>: <span style="color:#e6db74">&#39;Fri, 30 May 2025 05:58:31 GMT&#39;</span>, <span style="color:#e6db74">&#39;server&#39;</span>: <span style="color:#e6db74">&#39;uvicorn&#39;</span>, <span style="color:#e6db74">&#39;content-length&#39;</span>: <span style="color:#e6db74">&#39;164&#39;</span>, <span style="color:#e6db74">&#39;content-type&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span><span style="color:#f92672">})</span> <span style="color:#f92672">(</span>main_router.py:302:vllm_router.routers.main_router<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-05-30 05:58:43,042<span style="color:#f92672">]</span> DEBUG: Backend response body <span style="color:#f92672">(</span>truncated<span style="color:#f92672">)</span>: b<span style="color:#e6db74">&#39;{&#34;text&#34;:&#34; Testing testing testing the whisper small model testing testing testing the audio transcription function testing testing testing the whisper small model&#34;}&#39;</span> <span style="color:#f92672">(</span>main_router.py:303:vllm_router.routers.main_router<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>INFO:     127.0.0.1:49284 - <span style="color:#e6db74">&#34;POST /v1/audio/transcriptions HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-05-30 05:58:46,769<span style="color:#f92672">]</span> INFO:
+</span></span></code></pre></div><h3 id="logresult-of-the-posting-curl-command">Log/result of the posting (curl command)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>*   Trying 127.0.0.1:8002...
+</span></span><span style="display:flex;"><span>* Connected to localhost <span style="color:#f92672">(</span>127.0.0.1<span style="color:#f92672">)</span> port <span style="color:#ae81ff">8002</span> <span style="color:#f92672">(</span><span style="color:#75715e">#0)</span>
 </span></span><span style="display:flex;"><span>&gt; POST /v1/audio/transcriptions HTTP/1.1
-</span></span><span style="display:flex;"><span>&gt; Host: localhost:8000
+</span></span><span style="display:flex;"><span>&gt; Host: localhost:8002
 </span></span><span style="display:flex;"><span>&gt; User-Agent: curl/7.81.0
 </span></span><span style="display:flex;"><span>&gt; Accept: */*
-</span></span><span style="display:flex;"><span>&gt; Content-Length: <span style="color:#ae81ff">969308</span>
-</span></span><span style="display:flex;"><span>&gt; Content-Type: multipart/form-data; boundary<span style="color:#f92672">=</span>------------------------33ea69d796e611cf
+</span></span><span style="display:flex;"><span>&gt; Content-Length: <span style="color:#ae81ff">1275490</span>
+</span></span><span style="display:flex;"><span>&gt; Content-Type: multipart/form-data; boundary<span style="color:#f92672">=</span>------------------------058cd4e05f99b8bc
+</span></span><span style="display:flex;"><span>&gt; Expect: 100-continue
 </span></span><span style="display:flex;"><span>&gt;
+</span></span><span style="display:flex;"><span>* Mark bundle as not supporting multiuse
+</span></span><span style="display:flex;"><span>&lt; HTTP/1.1 <span style="color:#ae81ff">100</span> Continue
 </span></span><span style="display:flex;"><span>* We are completely uploaded and fine
 </span></span><span style="display:flex;"><span>* Mark bundle as not supporting multiuse
 </span></span><span style="display:flex;"><span>&lt; HTTP/1.1 <span style="color:#ae81ff">200</span> OK
-</span></span><span style="display:flex;"><span>&lt; date: Fri, <span style="color:#ae81ff">30</span> May <span style="color:#ae81ff">2025</span> 05:58:32 GMT
+</span></span><span style="display:flex;"><span>&lt; date: Sun, <span style="color:#ae81ff">01</span> Jun <span style="color:#ae81ff">2025</span> 10:51:27 GMT
 </span></span><span style="display:flex;"><span>&lt; server: uvicorn
-</span></span><span style="display:flex;"><span>&lt; date: Fri, <span style="color:#ae81ff">30</span> May <span style="color:#ae81ff">2025</span> 05:58:31 GMT
-</span></span><span style="display:flex;"><span>&lt; server: uvicorn
-</span></span><span style="display:flex;"><span>&lt; content-length: <span style="color:#ae81ff">164</span>
+</span></span><span style="display:flex;"><span>&lt; content-length: <span style="color:#ae81ff">80</span>
 </span></span><span style="display:flex;"><span>&lt; content-type: application/json
 </span></span><span style="display:flex;"><span>&lt;
 </span></span><span style="display:flex;"><span>* Connection <span style="color:#75715e">#0 to host localhost left intact</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;text&#34;</span>:<span style="color:#e6db74">&#34; Testing testing testing the whisper small model testing testing testing the audio transcription function testing testing testing the whisper small model&#34;</span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>result json:</p>
+</span></span></code></pre></div><p>The &ldquo;clean&rdquo; output of the transcription is, in json format:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;text&#34;</span>:<span style="color:#e6db74">&#34; Testing testing testing the whisper small model testing testing testing the audio transcription function testing testing testing the whisper small model&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div>
+</span></span></code></pre></div><p>Which is what I said in the audio file.</p>
+<p>This conclude that the whisper transcription api endpoint is working as expected.</p>
+
     </div>
     <div class="post-footer">
       
