@@ -4,7 +4,7 @@
     <title>Vllm V1 Whisper Transcription // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.147.7">
+    <meta name="generator" content="Hugo 0.147.8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -91,7 +91,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          6 min read
+          7 min read
         </div>
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
@@ -148,7 +148,16 @@ window.MathJax = {
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@main_router.post</span>(<span style="color:#e6db74">&#34;/v1/audio/transcriptions&#34;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">audio_transcriptions</span>(
 </span></span><span style="display:flex;"><span>    file: UploadFile <span style="color:#f92672">=</span> File(<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>    model: str <span style="color:#f92672">=</span> Form(<span style="color:#f92672">...</span>),
+</span></span><span style="display:flex;"><span>    prompt: str <span style="color:#f92672">|</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">=</span> Form(<span style="color:#66d9ef">None</span>),
+</span></span><span style="display:flex;"><span>    response_format: str <span style="color:#f92672">|</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">=</span> Form(<span style="color:#e6db74">&#34;json&#34;</span>),
+</span></span><span style="display:flex;"><span>    temperature: float <span style="color:#f92672">|</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">=</span> Form(<span style="color:#66d9ef">None</span>),
+</span></span><span style="display:flex;"><span>    language: str <span style="color:#f92672">=</span> Form(<span style="color:#e6db74">&#34;en&#34;</span>),
 </span></span><span style="display:flex;"><span>):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># filter url for audio transcription endpoints</span>
+</span></span><span style="display:flex;"><span>    transcription_endpoints <span style="color:#f92672">=</span> [ep <span style="color:#66d9ef">for</span> ep <span style="color:#f92672">in</span> endpoints <span style="color:#66d9ef">if</span> model <span style="color:#f92672">==</span> ep<span style="color:#f92672">.</span>model_name]
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># pick one using the router&#39;s configured logic (roundrobin, least-loaded, etc.)</span>
 </span></span><span style="display:flex;"><span>    chosen_url <span style="color:#f92672">=</span> router<span style="color:#f92672">.</span>route_request(
 </span></span><span style="display:flex;"><span>        transcription_endpoints,
@@ -206,12 +215,27 @@ window.MathJax = {
 </li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># vllm backend serve on port 8002:</span>
-</span></span><span style="display:flex;"><span>vllm serve --task transcription openai/whisper-small <span style="color:#ae81ff">\
+</span></span><span style="display:flex;"><span>uv run vllm serve --task transcription openai/whisper-small <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>           --host 0.0.0.0 --port <span style="color:#ae81ff">8002</span>
-</span></span></code></pre></div><ul>
+</span></span></code></pre></div><hr>
+<p>[!NOTE] vllm process won&rsquo;t die when you stop it, you can <code>kill -9</code> the process</p>
+<p>no wonder I always got no resoruces in pod&hellip; oof</p>
+<p><img src="/images/vllm-wont-die-itself.png" alt="vllm processes"></p>
+<p>kill all the vllm processes</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pkill -f <span style="color:#e6db74">&#34;vllm serve&#34;</span>
+</span></span></code></pre></div><p>or kill by python path (more board)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pkill -f <span style="color:#e6db74">&#34;/workspace/production-stack/.venv/bin/python3&#34;</span>
+</span></span></code></pre></div><hr>
+<ul>
 <li>command to run the router, connect to the backend</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># router serve on port 8000, connect to the vllm backend on port 8002:</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $# -ne <span style="color:#ae81ff">2</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Usage </span>$0<span style="color:#e6db74"> &lt;router port&gt; &lt;backend url&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>    exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># router serve on port 8000, connect to the vllm backend on port 8002:</span>
 </span></span><span style="display:flex;"><span>uv run python3 -m vllm_router.app <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --host 0.0.0.0 --port <span style="color:#ae81ff">8000</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --service-discovery static <span style="color:#ae81ff">\
@@ -222,6 +246,7 @@ window.MathJax = {
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --log-stats <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --engine-stats-interval <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --request-stats-window <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>    --static-backend-health-checks <span style="color:#75715e"># Enable this flag to make vllm-router check periodically if the models work by sending dummy requests to their endpoints.</span>
 </span></span></code></pre></div><p><strong>Note</strong> that the port for <code>--static-backends</code> is the port you set for the vllm serve command, in this case <code>8002</code>.</p>
 <p>Then wait till it&rsquo;s listen on the port, you can post an audio file to the endpoint, for example</p>
 <ul>
@@ -233,8 +258,25 @@ window.MathJax = {
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;model=openai/whisper-small&#39;</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;response_format=json&#39;</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;language=en&#39;</span>
-</span></span></code></pre></div><p>In the test audio file, I said: &ldquo;Testing testing, testing the whisper small model; testing testing, testing the audio transcription function; testing testing, testing the whisper small model.&rdquo;</p>
-<h3 id="log-for-running-vllm-backend">Log for running vllm backend</h3>
+</span></span></code></pre></div><h3 id="handling-emptyno-audio-file-request">Handling empty(no) audio file request</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># one of the match case in python switch statement</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span> ModelType<span style="color:#f92672">.</span>transcription:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Generate a 0.1 second silent audio file</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> io<span style="color:#f92672">.</span>BytesIO() <span style="color:#66d9ef">as</span> wav_buffer:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">with</span> wave<span style="color:#f92672">.</span>open(wav_buffer, <span style="color:#e6db74">&#34;wb&#34;</span>) <span style="color:#66d9ef">as</span> wf:
+</span></span><span style="display:flex;"><span>            wf<span style="color:#f92672">.</span>setnchannels(<span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># mono audio channel, standard configuration</span>
+</span></span><span style="display:flex;"><span>            wf<span style="color:#f92672">.</span>setsampwidth(<span style="color:#ae81ff">2</span>)  <span style="color:#75715e"># 16 bit audio, common bit depth for wav file</span>
+</span></span><span style="display:flex;"><span>            wf<span style="color:#f92672">.</span>setframerate(<span style="color:#ae81ff">16000</span>)  <span style="color:#75715e"># 16 kHz sample rate</span>
+</span></span><span style="display:flex;"><span>            wf<span style="color:#f92672">.</span>writeframes(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x00\x00</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1600</span>)  <span style="color:#75715e"># 0.1 second of silence</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># retrieves the generated wav bytes, return</span>
+</span></span><span style="display:flex;"><span>        wav_bytes <span style="color:#f92672">=</span> wav_buffer<span style="color:#f92672">.</span>getvalue()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;file&#34;</span>: (<span style="color:#e6db74">&#34;empty.wav&#34;</span>, wav_bytes, <span style="color:#e6db74">&#34;audio/wav&#34;</span>),
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h3 id="log-for-running-vllm-backend">Log for running vllm backend</h3>
+<p>In the test audio file, I said: &ldquo;Testing testing, testing the whisper small model; testing testing, testing the audio transcription function; testing testing, testing the whisper small model.&rdquo;</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>INFO 06-01 10:51:27 <span style="color:#f92672">[</span>logger.py:39<span style="color:#f92672">]</span> Received request trsc-310b30730a4a433d9d9c84437206579c: prompt: <span style="color:#e6db74">&#39;&lt;|startoftranscript|&gt;&lt;|en|&gt;&lt;|transcribe|&gt;&lt;|notimestamps|&gt;&#39;</span>, params: SamplingParams<span style="color:#f92672">(</span>n<span style="color:#f92672">=</span>1, presence_penalty<span style="color:#f92672">=</span>0.0, frequency_penalty<span style="color:#f92672">=</span>0.0, repetition_penalty<span style="color:#f92672">=</span>1.0, temperature<span style="color:#f92672">=</span>0.0, top_p<span style="color:#f92672">=</span>1.0, top_k<span style="color:#f92672">=</span>-1, min_p<span style="color:#f92672">=</span>0.0, seed<span style="color:#f92672">=</span>None, stop<span style="color:#f92672">=[]</span>, stop_token_ids<span style="color:#f92672">=[]</span>, bad_words<span style="color:#f92672">=[]</span>, include_stop_str_in_output<span style="color:#f92672">=</span>False, ignore_eos<span style="color:#f92672">=</span>False, max_tokens<span style="color:#f92672">=</span>448, min_tokens<span style="color:#f92672">=</span>0, logprobs<span style="color:#f92672">=</span>None, prompt_logprobs<span style="color:#f92672">=</span>None, skip_special_tokens<span style="color:#f92672">=</span>True, spaces_between_special_tokens<span style="color:#f92672">=</span>True, truncate_prompt_tokens<span style="color:#f92672">=</span>None, guided_decoding<span style="color:#f92672">=</span>None, extra_args<span style="color:#f92672">=</span>None<span style="color:#f92672">)</span>, prompt_token_ids: None, lora_request: None, prompt_adapter_request: None.
 </span></span><span style="display:flex;"><span>INFO 06-01 10:51:27 <span style="color:#f92672">[</span>engine.py:310<span style="color:#f92672">]</span> Added request trsc-310b30730a4a433d9d9c84437206579c.
 </span></span><span style="display:flex;"><span>INFO 06-01 10:51:27 <span style="color:#f92672">[</span>metrics.py:481<span style="color:#f92672">]</span> Avg prompt throughput: 0.5 tokens/s, Avg generation throughput: 0.1 tokens/s, Running: <span style="color:#ae81ff">1</span> reqs, Swapped: <span style="color:#ae81ff">0</span> reqs, Pending: <span style="color:#ae81ff">0</span> reqs, GPU KV cache usage: 0.4%, CPU KV cache usage: 0.0%.
