@@ -254,7 +254,7 @@ window.MathJax = {
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># when calling the endpoint, make sure the file is a wav audio file</span>
 </span></span><span style="display:flex;"><span>curl -v http://localhost:8002/v1/audio/transcriptions <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;file=@/workspace/production-stack/src/vllm_router/audio_transcription_test_06_01.wav;type=audio/wav&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;file=@/workspace/production-stack/src/vllm_router/audio_transcriptions_test.wav;type=audio/wav&#39;</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;model=openai/whisper-small&#39;</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;response_format=json&#39;</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     -F <span style="color:#e6db74">&#39;language=en&#39;</span>
