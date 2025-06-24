@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <title>Jump Game // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.147.8">
+    <meta name="generator" content="Hugo 0.147.9">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -21,7 +21,7 @@
 输入： nums = [2,3,1,1,4] 输出： true 解释： 可以先跳1步， 从下标0到下标1， 然后再从下标1跳3步到达最后一个下标。 示例2:
 输入： nums = [3,2,1,0,4] 输出： false 解释： 最开始为3就决定了你至多只能走到0，永远都到达不了最后一个 思路 class Solution { public boolean canJump(int[] nums) { // 关键：可跳的范围 // 问题转化为：跳跃范围能不能覆盖到终点 //base case if (nums.length == 1){ return true; } // 覆盖范围: 看看能不能覆盖到终点 int coverRange = nums[0]; //最开始至多能走几步 for(int i=0;i&lt;=coverRange;i&#43;&#43;){ //i&#43;nums[i]: 能跳的范围 coverRange = Math.max(coverRange, i &#43; nums[i]); // 如果中途到了 if(coverRange &gt;= nums.length-1){ return true; } } return false; } }">
 
-    <meta property="og:url" content="http://localhost:1313/posts/jump-game/">
+    <meta property="og:url" content="https://davidgao7.github.io/posts/jump-game/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="Jump Game">
   <meta property="og:description" content="题目描述 给定一个non-negative array nums, 你最初位于数组的第一个下标。数组中的每个元素代表你在该位置可以跳跃的最大长度。
