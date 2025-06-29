@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Vllm V1 Whisper Transcription // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
@@ -18,7 +18,7 @@
   <meta name="twitter:description" content="In this blog I’ll refine my work process for the whisper transcription api implementation , as a support material for transcription api endpoint pr, here are step by step how I did it
 Create a GPU environment I use Runpod.io for renting a RTX4090. You will get ssh access when initialize a pod. Some trails and errors details can reference Deploying LLMs in a single Machine Clone the repo, Setup python environment with uv cd workspace/ # workspace has the largest size apt update &amp;&amp; apt upgrade curl -LsSf https://astral.sh/uv/install.sh | sh export PATH=&#34;$HOME/.local/bin:$PATH&#34; source ~/.bashrc Then you can use uv">
 
-    <meta property="og:url" content="https://davidgao7.github.io/posts/vllm-v1-whisper-transcription/">
+    <meta property="og:url" content="http://localhost:1313/posts/vllm-v1-whisper-transcription/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="Vllm V1 Whisper Transcription">
   <meta property="og:description" content="In this blog I’ll refine my work process for the whisper transcription api implementation , as a support material for transcription api endpoint pr, here are step by step how I did it
@@ -132,8 +132,11 @@ window.MathJax = {
 </span></span><span style="display:flex;"><span>pip install -e /workspace/production-stack<span style="color:#f92672">[</span>dev<span style="color:#f92672">]</span>
 </span></span></code></pre></div><p>Wait till it finishes, it will take a while to download the dependencies.</p>
 <p>Install vLLM (with audio) without filling the small overlay cache</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install vllm<span style="color:#f92672">[</span>audio<span style="color:#f92672">]</span>
-</span></span></code></pre></div><p>Verify you have both <em>vllm</em> and <em>vllm-router</em> installed</p>
+<blockquote>
+<p>Compiling large C++/CUDA codebases is a very memory-intensive process. By default, the build system tries to use all available CPU cores to compile files in parallel (e.g., you might see -j=32 in the logs, meaning 32 parallel jobs). On a machine with limited RAM, this can easily exhaust all available memory and cause the compiler to segfault.</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MAX_JOBS<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> pip install <span style="color:#e6db74">&#34;vllm[audio] @ git+https://github.com/vllm-project/vllm.git&#34;</span>
+</span></span></code></pre></div><p>[!NOTE] If you have cuda and build failed,</p>
+<p>Verify you have both <em>vllm</em> and <em>vllm-router</em> installed</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip list | grep -E <span style="color:#e6db74">&#34;vllm|vllm-router&#34;</span>
 </span></span></code></pre></div><h1 id="code-implementation-snippet">Code implementation snippet</h1>
 <p>In <em>production-stack</em> repo</p>
@@ -215,8 +218,7 @@ window.MathJax = {
 </li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># vllm backend serve on port 8002:</span>
-</span></span><span style="display:flex;"><span>uv run vllm serve --task transcription openai/whisper-small <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>           --host 0.0.0.0 --port <span style="color:#ae81ff">8002</span>
+</span></span><span style="display:flex;"><span>uv run vllm serve --task transcription openai/whisper-small --host 0.0.0.0 --port <span style="color:#ae81ff">8002</span> --trust-remote-code
 </span></span></code></pre></div><hr>
 <p>[!NOTE] vllm process won&rsquo;t die when you stop it, you can <code>kill -9</code> the process</p>
 <p>no wonder I always got no resoruces in pod&hellip; oof</p>
