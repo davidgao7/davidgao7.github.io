@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Install Arch Linux Btw // davidgao7 blog</title>
+    <link rel="shortcut icon" href="/images/favicon.jpg" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.148.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="David Gao" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Install Arch Linux Btw">
+  <meta name="twitter:description" content="I happend to get a ThinkPad x240 the day before yesterday, so I want to try it.
+Arch install documentations can be found here Quick preview guide Prepareation download ISO file in USB flash drive you can find mirror site to download faster make the usb dirve bootable download rufus
+Lenovo ThinkPad x240 uses a GUID Partition Table (GPT) scheme, especially when installed with Windows 8 or later(windows 11 in my case).">
+
+    <meta property="og:url" content="http://localhost:1313/posts/install-arch-linux-btw/">
+  <meta property="og:site_name" content="davidgao7 blog">
+  <meta property="og:title" content="Install Arch Linux Btw">
+  <meta property="og:description" content="I happend to get a ThinkPad x240 the day before yesterday, so I want to try it.
+Arch install documentations can be found here Quick preview guide Prepareation download ISO file in USB flash drive you can find mirror site to download faster make the usb dirve bootable download rufus
+Lenovo ThinkPad x240 uses a GUID Partition Table (GPT) scheme, especially when installed with Windows 8 or later(windows 11 in my case).">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-07-14T13:59:09+08:00">
+    <meta property="article:modified_time" content="2025-07-14T13:59:09+08:00">
+    <meta property="article:tag" content="Arch">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Docs">
+
+
+    
+      <script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js">
+</script>
+
+
+    
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/images/avatar.jpg" alt="David Gao" /></a>
+      <span class="app-header-title">davidgao7 blog</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Note new findings every day to let the magic happen!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/davidgao7" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+          <a href="https://x.com/AiiGen71976j" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-x" viewBox="0 0 24 24" fill="currentColor"><title>X</title><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Install Arch Linux Btw</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Jul 14, 2025
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          2 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/arch/">Arch</a>
+              <a class="tag" href="/tags/linux/">Linux</a>
+              <a class="tag" href="/tags/docs/">Docs</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <blockquote>
+<p>I happend to get a ThinkPad x240 the day before yesterday, so I want to try it.</p></blockquote>
+<ul>
+<li>Arch install documentations can be found <a href="https://wiki.archlinux.org/title/Installation_guide">here</a></li>
+<li><a href="https://www.youtube.com/watch?v=yYyh3PrIB7w">Quick preview guide</a></li>
+</ul>
+<h1 id="prepareation">Prepareation</h1>
+<ol>
+<li>download ISO file in USB flash drive</li>
+</ol>
+<ul>
+<li>you can find <a href="https://mirrors.aliyun.com/archlinux/iso/2025.07.01/">mirror site</a> to download faster</li>
+</ul>
+<ol start="2">
+<li>make the usb dirve bootable</li>
+</ol>
+<ul>
+<li>
+<p>download <a href="https://rufus.ie/en/">rufus</a></p>
+</li>
+<li>
+<p>Lenovo ThinkPad x240 uses a GUID Partition Table (GPT) scheme, especially when installed with Windows 8 or later(windows 11 in my case).</p>
+</li>
+</ul>
+<ol start="3">
+<li>boot option</li>
+</ol>
+<ul>
+<li>I don&rsquo;t want windows anymore, so for partition I will leave it for this iso.</li>
+</ul>
+<img src="/images/rufus-partition-settings.png">
+<p>[!NOTE] when do partition, you need to move iso file to another disk.</p>
+<ul>
+<li>Find the BIOS settings
+<ul>
+<li>how to enter BIOS for Lenovo: (F2)</li>
+<li>if pc boot too quickly, you can also go to BIOS through <code>settings -&gt; update and recovery -&gt; recovery -&gt; advanced startup</code></li>
+</ul>
+</li>
+</ul>
+<img src="/images/advanced-settings-loc.jpg">
+<ul>
+<li>
+<p><a href="https://pcsupport.lenovo.com/us/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x240/20am/solutions/ht500222-recommended-ways-to-enter-bios-boot-menu-thinkpad-thinkcentre-thinkstation">source</a></p>
+</li>
+<li>
+<p><a href="https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/disabling-secure-boot?view=windows-10#disable-secure-boot">disable secure boot (not need,  but at least I konw hot to spin up this menu now &hellip; )</a>
+<img src="/images/disable-secure-boot.png"></p>
+</li>
+<li>
+<p>F12 Boot Menu, <a href="https://support.lenovo.com/us/en/solutions/ht500207-how-to-boot-from-usb-disk-in-the-bios-boot-menu-windows-8-windows-10-ideapadlenovo-laptops">source</a></p>
+</li>
+</ul>
+<ol start="4">
+<li>Point the current boot device to the one which has the Arch Linux installation medium.</li>
+</ol>
+<img src="/images/boot-manu-boot-location.png">
+<p>If you are <em>lucky</em>, you will see this</p>
+<img src="/images/legacy-boot-error.png">
+<p>it tells me to enable UEFI boot, and after <a href="https://cybertechnosys.com/how-to-enable-uefi-boot-lenovo-thinkpad/">searching</a> I realized I should  enable secure boot&hellip;</p>
+<p>After changing to secure boot, I got <em>image failed to verify, access denied</em> error.</p>
+<img src="/images/secure-boot-image-failed-verify-access-denied.png">
+<p>Solution:</p>
+<ol>
+<li>disable secure boot</li>
+<li>ensure system is set to UEFI boot mode (not legacy/CSM)</li>
+<li>check rufus settings  (I did correct)</li>
+</ol>
+<p>LFG!</p>
+<img src="/images/arch-btw.png">
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
