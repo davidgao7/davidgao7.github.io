@@ -90,7 +90,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          2 min read
+          3 min read
         </div>
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
@@ -171,6 +171,62 @@ window.MathJax = {
 </ol>
 <p>LFG!</p>
 <img src="/images/arch-btw.png">
+<p>[!NOTE] right now arch linux is still in the flash drive. Need to install on hard disk.</p>
+<p>console keymap default keyboard layout is US, we good.</p>
+<p>Verify the boot mode:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /sys/firmware/efi/fw_platform_size
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 64</span>
+</span></span></code></pre></div><ul>
+<li>If the command returns 64, the system is booted in UEFI mode and has a 64-bit x64 UEFI.</li>
+<li>If the command returns 32, the system is booted in UEFI mode and has a 32-bit IA32 UEFI. While this is supported, it will limit the boot loader choice to those that support mixed mode booting.</li>
+<li>If it returns No such file or directory, the system may be booted in BIOS (or CSM) mode.</li>
+<li>If the system did not boot in the mode you desired (UEFI vs BIOS), refer to your motherboard&rsquo;s manual.</li>
+</ul>
+<p>update the system clock, set timezone and time.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ln -sf /usr/share/zoneinfo/PRC /etc/localtime  <span style="color:#75715e"># or current timezone you&#39;re in</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ls /usr/share/zoneinfo to see what zone they have</span>
+</span></span></code></pre></div><p>set hardware clock from the system clock so that it persists across reboots</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hwclock --systohc
+</span></span></code></pre></div><h2 id="todo-partition-the-disks">TODO: Partition the disks</h2>
+<p>use a partitioning tool like <code>fdisk</code> to modify partition tables. e.g.:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fdisk /dev/the_disk_to_be_partitioned
+</span></span></code></pre></div><p><a href="https://www.youtube.com/watch?v=LPYfoFSXB9A">example fdisk partition tutorial</a></p>
+<p>I&rsquo;m using UEFI/GPT layout, menu suggest:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Mount point on the installed system</th>
+          <th>Partition</th>
+          <th>Partition type GUID</th>
+          <th>Suggested size</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>/boot or /efi1</td>
+          <td>/dev/sda1</td>
+          <td>C12A7328-F81F-11D2-BA4B-00A0C93EC93B: EFI system partition</td>
+          <td>1 GiB</td>
+      </tr>
+      <tr>
+          <td>[SWAP]</td>
+          <td>/dev/sda2</td>
+          <td>0657FD6D-A4AB-43C4-84E5-0933C84B4F4F: Linux swap</td>
+          <td>At least 4 GiB or the size of RAM to use hibernation</td>
+      </tr>
+      <tr>
+          <td>/</td>
+          <td>/dev/sda3</td>
+          <td>4F68BCE3-E8CD-4DB1-96E7-FBCAF984B709: Linux x86-64 root (/)</td>
+          <td>Remainder of the device. At least 23–32 GiB.</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="customization">Customization</h1>
+<h2 id="package-manager">Package manager</h2>
+<blockquote>
+<p>For the package manager I choose to use <a href="https://wiki.archlinux.org/title/Pacman">pacman</a> because it has better integration with Arch build system. It can manage packages whether from official repositories or user&rsquo;s own builds.</p></blockquote>
 
     </div>
     <div class="post-footer">
