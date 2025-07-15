@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <title>Install Arch Linux Btw // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
@@ -19,7 +19,7 @@
 Arch install documentations can be found here Quick preview guide Prepareation download ISO file in USB flash drive you can find mirror site to download faster make the usb dirve bootable download rufus
 Lenovo ThinkPad x240 uses a GUID Partition Table (GPT) scheme, especially when installed with Windows 8 or later(windows 11 in my case).">
 
-    <meta property="og:url" content="http://localhost:1313/posts/install-arch-linux-btw/">
+    <meta property="og:url" content="https://davidgao7.github.io/posts/install-arch-linux-btw/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="Install Arch Linux Btw">
   <meta property="og:description" content="I happend to get a ThinkPad x240 the day before yesterday, so I want to try it.
@@ -189,7 +189,9 @@ window.MathJax = {
 </span></span></code></pre></div><p>set hardware clock from the system clock so that it persists across reboots</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hwclock --systohc
 </span></span></code></pre></div><h2 id="todo-partition-the-disks">TODO: Partition the disks</h2>
-<p>use a partitioning tool like <code>fdisk</code> to modify partition tables. e.g.:</p>
+<p>When recognized by the live system, disks are assigned to a block device such as <code>/dev/sda</code>, <code>/dev/nvme0n1</code> or <code>/dev/mmcblk0</code>. To identify these devices, use <em>lsblk</em> or <em>fdisk</em>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fdisk -l
+</span></span></code></pre></div><p>use a partitioning tool like <code>fdisk</code> to modify partition tables. e.g.:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fdisk /dev/the_disk_to_be_partitioned
 </span></span></code></pre></div><p><a href="https://www.youtube.com/watch?v=LPYfoFSXB9A">example fdisk partition tutorial</a></p>
 <p>I&rsquo;m using UEFI/GPT layout, menu suggest:</p>

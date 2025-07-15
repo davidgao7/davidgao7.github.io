@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Route Planning on davidgao7 blog</title>
-    <link>http://localhost:1313/tags/route-planning/</link>
+    <link>https://davidgao7.github.io/tags/route-planning/</link>
     <description>Recent content in Route Planning on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 26 Mar 2025 16:41:21 -0400</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/route-planning/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://davidgao7.github.io/tags/route-planning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Evolution of Route Planning in Urban Environments</title>
-      <link>http://localhost:1313/posts/evolution-of-route-planning-in-urban-env/</link>
+      <link>https://davidgao7.github.io/posts/evolution-of-route-planning-in-urban-env/</link>
       <pubDate>Wed, 26 Mar 2025 16:41:21 -0400</pubDate>
-      <guid>http://localhost:1313/posts/evolution-of-route-planning-in-urban-env/</guid>
+      <guid>https://davidgao7.github.io/posts/evolution-of-route-planning-in-urban-env/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Route planning is the backbone of modern transportation in megacities like Shanghai, enabling efficient navigation through complex road networks. Over the decades, the field has evolved from simple graph searches on static maps to sophisticated AI-driven systems that account for real-time data and even integrate large language models. This report provides a chronological overview of key route planning methods, from classical algorithms (breadth-first search, Dijkstra’s algorithm, etc.) to cutting-edge approaches (reinforcement learning, deep learning, and LLM-assisted planning). For each method, we summarize the main idea in one sentence, present core mathematical details (with annotated formulas), and give a theoretical example alongside a real-world example. We then discuss how Large Language Models (LLMs) are being incorporated into route planning (with academic and industrial citations), followed by an analysis of Baidu’s advancements in route planning (including deployments in cities like Shanghai and performance metrics). Finally, we compare Baidu’s work with global leaders (Google, Tesla, Amazon, Apple), identify gaps and their causes (data, regulatory, tech stack), and suggest steps to bridge these gaps. Key breakthroughs and paradigm shifts are highlighted throughout. Relevant codebases (especially Python implementations) are linked for further exploration.&lt;/p&gt;</description>
     </item>
   </channel>
