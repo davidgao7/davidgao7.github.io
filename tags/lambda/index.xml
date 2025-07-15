@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lambda on davidgao7 blog</title>
-    <link>https://davidgao7.github.io/tags/lambda/</link>
+    <link>http://localhost:56888/tags/lambda/</link>
     <description>Recent content in Lambda on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 30 May 2025 13:49:26 -0400</lastBuildDate>
-    <atom:link href="https://davidgao7.github.io/tags/lambda/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:56888/tags/lambda/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vllm V1 Whisper Transcription</title>
-      <link>https://davidgao7.github.io/posts/vllm-v1-whisper-transcription/</link>
+      <link>http://localhost:56888/posts/vllm-v1-whisper-transcription/</link>
       <pubDate>Fri, 30 May 2025 13:49:26 -0400</pubDate>
-      <guid>https://davidgao7.github.io/posts/vllm-v1-whisper-transcription/</guid>
+      <guid>http://localhost:56888/posts/vllm-v1-whisper-transcription/</guid>
       <description>&lt;blockquote&gt;&#xA;&lt;p&gt;In this blog I&amp;rsquo;ll refine my work process for the whisper transcription api implementation , as a support material for &lt;a href=&#34;https://github.com/vllm-project/production-stack/pull/469&#34;&gt;transcription api endpoint pr&lt;/a&gt;, here are step by step how I did it&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h1 id=&#34;create-a-gpu-environment&#34;&gt;Create a GPU environment&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;I use &lt;em&gt;Runpod.io&lt;/em&gt; for renting a RTX4090.&lt;/li&gt;&#xA;&lt;li&gt;You will get ssh access when initialize a pod.&lt;/li&gt;&#xA;&lt;li&gt;Some trails and errors details can reference &lt;a href=&#34;https://davidgao7.github.io/posts/llm-production/&#34;&gt;Deploying LLMs in a single Machine&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;clone-the-repo-setup-python-environment-with-uv&#34;&gt;Clone the repo, Setup python environment with uv&lt;/h1&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd workspace/  &lt;span style=&#34;color:#75715e&#34;&gt;# workspace has the largest size&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apt update &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt upgrade&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -LsSf https://astral.sh/uv/install.sh | sh&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export PATH&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$HOME&lt;span style=&#34;color:#e6db74&#34;&gt;/.local/bin:&lt;/span&gt;$PATH&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;source ~/.bashrc&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then you can use &lt;code&gt;uv&lt;/code&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Wrong Vllm Production Stack Setup</title>
-      <link>https://davidgao7.github.io/posts/wrong-vllm-production-stack-setup/</link>
+      <link>http://localhost:56888/posts/wrong-vllm-production-stack-setup/</link>
       <pubDate>Sat, 10 May 2025 02:30:34 -0400</pubDate>
-      <guid>https://davidgao7.github.io/posts/wrong-vllm-production-stack-setup/</guid>
+      <guid>http://localhost:56888/posts/wrong-vllm-production-stack-setup/</guid>
       <description>&lt;h1 id=&#34;-lessons-learned-from-k3s-deployment-attempt-on-runpod&#34;&gt;📚 Lessons Learned from K3s Deployment Attempt on RunPod&lt;/h1&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;1-environment--real-server&#34;&gt;1. &lt;strong&gt;Environment ≠ Real Server&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;RunPod &amp;ldquo;pods&amp;rdquo; are &lt;strong&gt;containerized environments&lt;/strong&gt;, not real VMs.&lt;/li&gt;&#xA;&lt;li&gt;Critical kernel features (mounting filesystems, &lt;code&gt;/dev/kmsg&lt;/code&gt;, privileged container operations) are &lt;strong&gt;restricted&lt;/strong&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Even with root access inside the pod, the host kernel limits remain.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🧠 Always verify if the environment allows privileged operations before deploying Kubernetes clusters.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;2-k3s-needs-more-than-just-cpu-and-ram&#34;&gt;2. &lt;strong&gt;K3s Needs More Than Just CPU and RAM&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;K3s&lt;/strong&gt; is lightweight but &lt;strong&gt;still needs&lt;/strong&gt;:&lt;/p&gt;</description>
     </item>
     <item>
       <title>LLM Production</title>
-      <link>https://davidgao7.github.io/posts/llm-production/</link>
+      <link>http://localhost:56888/posts/llm-production/</link>
       <pubDate>Sun, 13 Apr 2025 15:13:29 -0400</pubDate>
-      <guid>https://davidgao7.github.io/posts/llm-production/</guid>
+      <guid>http://localhost:56888/posts/llm-production/</guid>
       <description>&lt;h1 id=&#34;deploying-llms-in-a-single-machine&#34;&gt;Deploying LLMs in a single Machine&lt;/h1&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;In this post, I will share my experience deploying LLMs in production. I will cover the challenges I faced, the solutions I found, and the lessons I learned along the way.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;first I managed to find a gpu from runpod to experience one complete conversation(multi-inferences).&lt;/li&gt;&#xA;&lt;li&gt;now I know that if you want to deploy this in production, you not only need multiple gpu like the one&#xA;I&amp;rsquo;m using in the following writing, you also need a system to help you manage resources (i.e. Kubernetes).&#xA;2.1. so they have the solution called &lt;code&gt;vllm production-stack&lt;/code&gt;&#xA;Got to find a cluster with powerful GPUs, OR I could just deploy the stack, since now I&amp;rsquo;ve experienced model inference. But it will be hard to tell if I deploy it successfully or not&amp;hellip;  ~(- &amp;lt;_ -)&amp;gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/vllm-project/production-stack/&#34;&gt;Reference repo&lt;/a&gt;&lt;/p&gt;</description>
     </item>
   </channel>
