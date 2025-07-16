@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=56888&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Install Arch Linux Btw // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
@@ -19,7 +19,7 @@
 Arch install documentations can be found here Quick preview guide Prepareation download ISO file in USB flash drive you can find mirror site to download faster make the usb dirve bootable download rufus
 Lenovo ThinkPad x240 uses a GUID Partition Table (GPT) scheme, especially when installed with Windows 8 or later(windows 11 in my case).">
 
-    <meta property="og:url" content="http://localhost:56888/posts/install-arch-linux-btw/">
+    <meta property="og:url" content="http://localhost:1313/posts/install-arch-linux-btw/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="Install Arch Linux Btw">
   <meta property="og:description" content="I happend to get a ThinkPad x240 the day before yesterday, so I want to try it.
@@ -90,7 +90,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          3 min read
+          11 min read
         </div>
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
@@ -188,10 +188,43 @@ window.MathJax = {
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># ls /usr/share/zoneinfo to see what zone they have</span>
 </span></span></code></pre></div><p>set hardware clock from the system clock so that it persists across reboots</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hwclock --systohc
-</span></span></code></pre></div><h2 id="todo-partition-the-disks">TODO: Partition the disks</h2>
+</span></span></code></pre></div><h2 id="partition-the-disks">Partition the disks</h2>
 <p>When recognized by the live system, disks are assigned to a block device such as <code>/dev/sda</code>, <code>/dev/nvme0n1</code> or <code>/dev/mmcblk0</code>. To identify these devices, use <em>lsblk</em> or <em>fdisk</em>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fdisk -l
-</span></span></code></pre></div><p>use a partitioning tool like <code>fdisk</code> to modify partition tables. e.g.:</p>
+</span></span></code></pre></div><p>use <code>lsblk</code> to find the device name of your PC&rsquo;s internal drive</p>
+<img src="/images/disk-before-partition.png">
+<ul>
+<li>These partitions (e.g., sda1, sda2, sda5, sda6, sda7) are remnants of the previous operating system installation (likely Windows, or a previous Linux setup) that was on your PC&rsquo;s internal drive. Each of them served a specific purpose for that OS (e.g., system reserved, primary OS partition, recovery partition, data partitions, etc.).</li>
+<li>In short: These are just the existing divisions of your hard drive from its prior use. You will be wiping these away to create your new Arch Linux partitions.</li>
+<li><code>sdb</code> is representing my flash drive, don&rsquo;t mess this one.</li>
+</ul>
+<p>I&rsquo;m thinking about keep two partiion:</p>
+<ul>
+<li><code>/home</code> for a separate partiion to keep the files safe</li>
+<li><code>/</code> for root partition</li>
+</ul>
+<p>so it will be like this:</p>
+<pre tabindex="0"><code>/                             &lt;-- Lives on /dev/sda2
+├── bin
+├── etc
+├── usr
+└── home                      &lt;-- This directory is a mount point for /dev/sda4
+    └── yourusername          &lt;-- Contents of /dev/sda4
+</code></pre><ul>
+<li>
+<p><code>/dev/sda1</code> (EFI System Partition - ESP): This is mandatory for UEFI booting.</p>
+</li>
+<li>
+<p><code>/dev/sda2</code> (Root Partition - /): This will contain all your Arch Linux system files.</p>
+</li>
+<li>
+<p><code>/dev/sda3</code> (Swap Partition): For virtual memory.</p>
+</li>
+<li>
+<p><code>/dev/sda4</code> (Home Partition - /home): This will hold all your personal user data, separate from the OS.</p>
+</li>
+</ul>
+<p>use a partitioning tool like <code>fdisk</code> to modify partition tables. e.g.:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fdisk /dev/the_disk_to_be_partitioned
 </span></span></code></pre></div><p><a href="https://www.youtube.com/watch?v=LPYfoFSXB9A">example fdisk partition tutorial</a></p>
 <p>I&rsquo;m using UEFI/GPT layout, menu suggest:</p>
@@ -225,10 +258,213 @@ window.MathJax = {
       </tr>
   </tbody>
 </table>
-<h1 id="customization">Customization</h1>
+<p>Here is the step by step guide I used when do partitioning this pc:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo fdisk /dev/sda
+</span></span></code></pre></div><ul>
+<li>wipe the other partitions</li>
+</ul>
+<img src="/images/partition-wiped.png">
+<ul>
+<li>create a new partition</li>
+</ul>
+<img src="/images/create-new-partition.png">
+<ul>
+<li>create a 50G partition for OS</li>
+</ul>
+<p>Create Partition 2: Root Partition (/ - /dev/sda2)</p>
+<pre><code>Press n and then Enter (to create a new partition).
+
+Partition number: Press Enter for the default (2).
+
+First sector: Press Enter for the default.
+
+Last sector / Size: Type +50G (for 50 Gigabytes) and then Enter. (Adjust this size if you know you need more or less, but 50G is a solid recommendation).
+
+Change partition type: Press t and then Enter.
+
+    Partition number to change: Press Enter for the default (2).
+
+    For Linux filesystem, the alias is usually 23 or 83.
+
+    Type 23 (or 83) and then Enter.
+</code></pre>
+<p>Create Partition 3: Home Partition (/home - /dev/sda3)</p>
+<pre><code>Press n and then Enter.
+
+Partition number: Press Enter for the default (3).
+
+First sector: Press Enter for the default.
+
+Last sector / Size: Press Enter to use the remainder of the disk for this partition.
+
+Change partition type: Press t and then Enter.
+
+    Partition number to change: Press Enter for the default (3).
+
+    Type 23 (or 83) and then Enter (for Linux filesystem).
+</code></pre>
+<p>The final partitons stucutures look like this:</p>
+<img src="/images/three-partitions.png">
+<ul>
+<li>
+<p>type <code>w</code> to write table to disk and exit, apply the changes</p>
+</li>
+<li>
+<p>once the partitions has been created, each newly created partition must be <em>formatted</em> with an appropriate file system</p>
+</li>
+</ul>
+<h3 id="format-the-partition-part-1---create-a-file-system">Format the partition: part 1 -&gt; Create a file system</h3>
+<p><strong><font color=red>warning</font></strong>:</p>
+<ul>
+<li>After creating a new file system, data previously stored on this partition can unlikely be recovered. Create a backup of any data you want to keep.</li>
+<li>The purpose of a given partition may restrict the choice of file system. For example, an EFI system partition must contain a FAT32 file system, and the file system containing the /boot directory must be supported by the boot loader.</li>
+</ul>
+<p>Before continuing, identify the device where the file sytem will be created and whether or not it is mounted.</p>
+<img src="/images/identify-the-device.png">
+<p>currently,</p>
+<ul>
+<li><code>loop0</code> is my live ISO filesystem (<code>squashfs</code>)</li>
+<li><code>sdb1</code> is my USB drive&rsquo;s filesystem(vfat)</li>
+<li>crucially, for <code>/dev/sda1</code>, <code>/dev/sda2</code>, and <code>dev/sda3</code>, the <code>FSTYPE</code> column is completely empty, because I haven&rsquo;t format them yet.</li>
+</ul>
+<p>Create the FAT32 file system on <code>/dev/sda1</code> (EFI System Partition):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkfs.fat -F <span style="color:#ae81ff">32</span> /dev/sda1  <span style="color:#75715e"># FAT size 32</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (This command aligns with the documentation&#39;s requirement for EFI system partitions to be FAT32.)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># mkfs.fat 4.2 (2021-01-31)</span>
+</span></span></code></pre></div><p>Create the Ext4 file system on <code>/dev/sda2</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkfs.ext4 /dev/sda2
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (This is a common and robust filesystem for your main Linux system.)</span>
+</span></span></code></pre></div><img src="/images/file-system-type-change.png">
+<p>Create the Ext4 file system on <code>/dev/sda3</code> (your Home Partition):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkfs.ext4 /dev/sda3
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (Ext4 is also excellent for your personal data.)</span>
+</span></span></code></pre></div><img src="/images/fstypes.png">
+<h2 id="mount-a-file-system">Mount a file system</h2>
+<p>So far, the operations I&rsquo;ve done before all happens in USB drive, now we can finally considering move OS to the PC hard drive</p>
+<p>Mount the root volume to <code>/mnt</code>, for example, if the root volume is <code>dev/root_partition</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mount /dev/root_partition /mnt
+</span></span></code></pre></div><p>Here are my current partitions before mount:</p>
+<img src="/images/current-partitions-before-mount.png">
+<ul>
+<li>Notice that the <code>MOUNPOINT</code> column is currently empty for <code>sda1</code>, <code>sda2</code>, <code>sda3</code></li>
+</ul>
+<p>Mount these newly formatted partitions.</p>
+<h3 id="mount-the-root-partition">Mount the Root Partition</h3>
+<ul>
+<li>root partition: <code>/dev/sda2</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mount /dev/sda2 /mnt
+</span></span></code></pre></div><p>Create any remaining mount points under <code>/mnt</code> (such as <code>/mnt/boot</code> for <code>/boot</code>) and mount the volumes in their corresponding hierarchical order.</p>
+<details>
+<summary>
+what's difference between root(/) and boot/?
+</summary>
+root (/) is the entire operating system.
+<p>boot (/boot) is a special directory within the root filesystem (or a separate partition mounted there) that contains only the files needed for the very first stages of booting the system.</p>
+<p>For UEFI, the EFI System Partition (ESP) (/dev/sda1) must be a separate FAT32 partition, and mounting it to /mnt/boot (or /mnt/boot/efi) is the standard way to set it up so your UEFI firmware can find the bootloader and load Arch Linux.</p>
+</details>
+<img src="/images/mounting-step-1.png">
+<p>Create the mount point for your EFI System Partition and Mount it (<code>/dev/sda1</code>):
+(This connects your EFI partition where the bootloader files will reside.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p /mnt/boot
+</span></span><span style="display:flex;"><span>mount /dev/sda1 /mnt/boot
+</span></span></code></pre></div><p>Create the mount point for your Home Partition and Mount it (<code>/dev/sda3</code>):
+(This connects your separate home partition to its correct place in the file system hierarchy.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mkdir -p /mnt/home
+</span></span><span style="display:flex;"><span>sudo mount /dev/sda3 /mnt/home
+</span></span></code></pre></div><img src="/images/mounting-step-2-3.png">
+<details>
+<summary>
+Why it is possible that /mnt has 50G and /mnt/home has 415.3G?
+</summary>
+<ul>
+<li>
+<p>/mnt is the mount point for your Root Partition (/dev/sda2). I sized this partition at 50GB. So, the file system mounted at /mnt will have a capacity of 50GB.</p>
+</li>
+<li>
+<p>/mnt/home is the mount point for your Home Partition (/dev/sda3). I sized this partition to take up the remainder of your disk (415.3GB). So, the file system mounted at /mnt/home will have a capacity of 415.3GB.</p>
+</li>
+</ul>
+<p>Even though /mnt/home is a directory inside /mnt in the file system hierarchy, its storage space comes from a completely separate physical partition (/dev/sda3), not from the 50GB of /dev/sda2.</p>
+<p>This is the power of separate partitions and mount points in Linux! Each mounted partition has its own independent storage capacity, even if it&rsquo;s a subdirectory of another mounted partition.</p>
+</details>
+<h1 id="system-installation">System Installation</h1>
+<p>Finally bro, the next phase is to install the base Arch Linux system onto these mounted partitions.</p>
 <h2 id="package-manager">Package manager</h2>
 <blockquote>
 <p>For the package manager I choose to use <a href="https://wiki.archlinux.org/title/Pacman">pacman</a> because it has better integration with Arch build system. It can manage packages whether from official repositories or user&rsquo;s own builds.</p></blockquote>
+<h3 id="edit-mirrorlist">Edit mirrorlist</h3>
+<p>Packages to be installed must be downloaded from <a href="https://wiki.archlinux.org/title/Mirrors">mirror servers</a>, which are defined in <code>/etc/pacman.d/mirrorlist</code>. On the live system, after connecting to the internet, <a href="https://wiki.archlinux.org/title/Reflector">reflector</a> updates the mirror list by choosing 20 most recently synchronized HTTPS mirrors and sorting them by download rate.</p>
+<p>The higher a mirror is placed in the list, the more priority it is given when downloading a package. You may want to inspect the file to see if it is satisfactory. If it is not, edit the file accordingly, and move the geographically closest mirrors to the top of the list, although other criteria should be taken into account.</p>
+<p>This file will later be copied to the new system by pacstrap, so it is worth getting right.</p>
+<h3 id="install-base-package-linux-kernel-and-fimware-for-common-hardware">Install base package, Linux kernel and fimware for common hardware</h3>
+<p>Configure mirrorlist:</p>
+<p>use <code>reflector</code> to update your <code>/etc/pacman.d/mirrorlist</code> with fast mirrors from your location</p>
+<p>[!NOTE] <font color=red>Make sure this pc has internet connection!!</font></p>
+<p>What you need to do now is connect your Wi-Fi to your home network using <code>iwctl</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>iwctl
+</span></span></code></pre></div><p>scan for available networks:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>station wlan0 scan
+</span></span></code></pre></div><p>(wait a few seconds for the scan to complete. You might not see any immediate output here.)</p>
+<p>List available networks:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>station wlan0 get-networks
+</span></span></code></pre></div><p>This will show a list of Wi-Fi networks in your area, including their SSIDs(names)</p>
+<p>Connect to your Wi-Fi network:</p>
+<p>Replace <code>YOUR_SSID</code> with the actual name of your home Wi-Fi network from the list you just saw</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>station wlan0 connect YOUR_SSID
+</span></span></code></pre></div><ul>
+<li>if your network has a password, it will prompt you for the passphrase. Type it carefully and press Enter.</li>
+</ul>
+<p><code>ctrl-c</code> or type <code>exit</code> to exit <code>iwctl</code></p>
+<p><a href="https://man.archlinux.org/man/reflector.1#EXAMPLES">reflector exmaple</a>:</p>
+<p>Select the HTTPS mirrors synchronized within the last 12 hours and located in either France or Germany, sort them by download speed, and overwrite the file /etc/pacman.d/mirrorlist with the results</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>reflector --country France,Germany --age <span style="color:#ae81ff">12</span> --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo reflector --country <span style="color:#e6db74">&#34;Your country&#34;</span> --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacstrap -K /mnt base linux linux-firmware
+</span></span></code></pre></div><p>Install CPU microcode updates - amd-ucode or intel-ucode—for hardware bug and security fixes</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacstrap -K /mnt base intel-ucode
+</span></span></code></pre></div><p>Package for accessing documentation in man and info pages:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacstrap -K /mnt man-db man-pages texinfo
+</span></span></code></pre></div><details>
+<summary>
+    why not pacman?
+</summary>
+<p><strong>pacman</strong>:</p>
+<ul>
+<li>
+<p>Is the package manager for a <strong>running Arch Linux system</strong>.</p>
+</li>
+<li>
+<p>It installs packages relative to the root directory (/) of the system it&rsquo;s currently running on.</p>
+</li>
+<li>
+<p>When you&rsquo;re in the live USB environment, <code>pacman</code> would, by default, try to install packages onto the USB drive&rsquo;s filesystem if you didn&rsquo;t specify otherwise.</p>
+</li>
+</ul>
+<p><strong>pacstrap</strong>:</p>
+<ul>
+<li>
+<p>Is a special script designed specifically for the installation process.</p>
+</li>
+<li>
+<p>The <code>-K /mnt</code> part of the command tells <code>pacstrap</code> to install the packages not to the root of the current live environment (your USB), but to the specified target directory (<code>/mnt</code>), which is where you&rsquo;ve mounted your future root partition (<code>/dev/sda2</code>).</p>
+</li>
+<li>
+<p>It &ldquo;bootstraps&rdquo; a new Arch Linux system onto a different partition. It also handles some initial setup steps that <code>pacman</code> wouldn&rsquo;t do when run normally, such as copying the mirrorlist (-K flag) and setting up basic directory structures for the new installation.</p>
+</li>
+</ul>
+<p>In essence:</p>
+<ul>
+<li>
+<p>You use pacstrap to build a new Arch Linux system onto a separate partition during installation.</p>
+</li>
+<li>
+<p>You will use pacman (without pacstrap or /mnt arguments) to manage packages after you&rsquo;ve installed Arch Linux and booted into your new system on the hard drive.</p>
+</li>
+</ul>
+<p>So, pacstrap is the correct tool for this specific &ldquo;first installation&rdquo; step.</p>
+</details>
+<h1 id="configure-the-system">Configure the system</h1>
 
     </div>
     <div class="post-footer">

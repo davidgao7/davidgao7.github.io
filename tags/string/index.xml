@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>String on davidgao7 blog</title>
-    <link>http://localhost:56888/tags/string/</link>
+    <link>http://localhost:1313/tags/string/</link>
     <description>Recent content in String on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 07 Feb 2025 22:21:31 -0500</lastBuildDate>
-    <atom:link href="http://localhost:56888/tags/string/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/string/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Minimum Length Encoding</title>
-      <link>http://localhost:56888/posts/minimum-length-encoding/</link>
+      <link>http://localhost:1313/posts/minimum-length-encoding/</link>
       <pubDate>Fri, 07 Feb 2025 22:21:31 -0500</pubDate>
-      <guid>http://localhost:56888/posts/minimum-length-encoding/</guid>
+      <guid>http://localhost:1313/posts/minimum-length-encoding/</guid>
       <description>&lt;h2 id=&#34;题目描述&#34;&gt;题目描述&lt;/h2&gt;&#xA;&lt;p&gt;Array &lt;code&gt;words&lt;/code&gt; 的&lt;strong&gt;有效编码&lt;/strong&gt;由任意 string 和下标数组&lt;code&gt;indices&lt;/code&gt;组成，&#xA;满足：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;words.length == indices.length&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;助级 string &lt;code&gt;s&lt;/code&gt; 以 &lt;code&gt;&#39;#&#39;&lt;/code&gt; 结尾&lt;/li&gt;&#xA;&lt;li&gt;对于每个下标 &lt;code&gt;indices[i]&lt;/code&gt;, &lt;code&gt;s&lt;/code&gt;的一个从&lt;code&gt;indices[i]&lt;/code&gt; 开始，到下一个&lt;code&gt;&#39;#&#39;&lt;/code&gt; 字符结束（但不包括 &lt;code&gt;&#39;#&#39;&lt;/code&gt;）的 &lt;strong&gt;子字符串&lt;/strong&gt; 恰好与 &lt;code&gt;words[i]&lt;/code&gt; 相等&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;给你一个单词数组 &lt;code&gt;words&lt;/code&gt;, 返回成功对 &lt;code&gt;words&lt;/code&gt; 进行编码的&lt;strong&gt;最小&lt;/strong&gt; 助记字符串 &lt;code&gt;s&lt;/code&gt; 的长度。&lt;/p&gt;&#xA;&lt;p&gt;Example 1&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Input: words = [&amp;#34;time&amp;#34;, &amp;#34;me&amp;#34;, &amp;#34;bell&amp;#34;]&#xA;Output: 10&#xA;&#xA;解释：&#xA;有效编码为 “time#bell#” , indices = [0, 2, 5]&#xA;&#xA;words[0] = &amp;#34;time&amp;#34;, indices = 0，substring 从 index 0 开始&#xA;words[1] = &amp;#34;me&amp;#34;, the substring of s starting from indices[1] = 2&#xA;to the next &amp;#39;#&amp;#39; is in &amp;#34;ti[me]#bell#&amp;#34;&#xA;words[2] = &amp;#34;bell&amp;#34;, start from indices[2] = 5 to the next &amp;#39;#&amp;#39; is in &amp;#34;time#[bell]#&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Example 2&lt;/p&gt;</description>
     </item>
   </channel>

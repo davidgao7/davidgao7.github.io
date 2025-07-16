@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=56888&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Rob // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
@@ -19,7 +19,7 @@
 给定一个代表每个房屋存放金额的非负整数组，计算你在不触动警报装置的情况下， 今晚能够偷窃到的最高金额。
 e.g.1 输入：nums = [2,3,2] 输出：3 解释： [2,3,2] 0 1 2 房屋首尾相连，位置0 和 位置2 不能同时碰， 但是如果只碰第一个或者第三个就没有偷第二个的金额多，所以选择只偷第二个 e.g.2 输入：nums = [1,2,3,1] 输出：4 解释： 先偷1，再偷3，因为1，3不相邻，而且1&#43;3 比 2&#43;1 大 思路 def rob(self, nums: List[int]) -&gt; int: # 计算从 n 开始能得到的最大rob def robRange(start: int, end: int) -&gt; int: first = nums[start] second = max(nums[start], nums[start &#43; 1]) # 选择从第一个还是第二个开始 for i in range(start &#43; 2, end &#43; 1): first, second = second, max(first &#43; nums[i], second) # 得到结果后作为下一个取舍的input return second # 最终的两组的最后一个作为取舍结果 # 主程序 length = len(nums) if length == 1: return nums[0] elif length == 2: return max(nums[0], nums[1]) else: return max(robRange(0, length - 2), robRange(1, length - 1)) # robRange也可以用 nums">
 
-    <meta property="og:url" content="http://localhost:56888/posts/rob/">
+    <meta property="og:url" content="http://localhost:1313/posts/rob/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="Rob">
   <meta property="og:description" content="题目 小偷偷钱，怎样偷实现最多。

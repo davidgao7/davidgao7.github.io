@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homelab on davidgao7 blog</title>
-    <link>http://localhost:56888/tags/homelab/</link>
+    <link>http://localhost:1313/tags/homelab/</link>
     <description>Recent content in Homelab on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 09 Feb 2025 14:10:48 -0500</lastBuildDate>
-    <atom:link href="http://localhost:56888/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Grafana Prometheus</title>
-      <link>http://localhost:56888/posts/grafana-prometheus/</link>
+      <link>http://localhost:1313/posts/grafana-prometheus/</link>
       <pubDate>Sun, 09 Feb 2025 14:10:48 -0500</pubDate>
-      <guid>http://localhost:56888/posts/grafana-prometheus/</guid>
+      <guid>http://localhost:1313/posts/grafana-prometheus/</guid>
       <description>&lt;h1 id=&#34;preparing&#34;&gt;Preparing&lt;/h1&gt;&#xA;&lt;ol start=&#34;0&#34;&gt;&#xA;&lt;li&gt;install helm, the package manager for Kubernetes&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://helm.sh/&#34;&gt;web&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://helm.sh/docs/intro/install/&#34;&gt;install guide&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chmod &lt;span style=&#34;color:#ae81ff&#34;&gt;700&lt;/span&gt; get_helm.sh&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./get_helm.sh&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;➜  homelab git:(master) ✗ ./get_helm.sh&#xA;Downloading https://get.helm.sh/helm-v3.17.0-linux-amd64.tar.gz&#xA;Verifying checksum... Done.&#xA;Preparing to install helm into /usr/local/bin&#xA;helm installed into /usr/local/bin/helm&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;prometheus&#34;&gt;Prometheus&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/prometheus-community/helm-charts&#34;&gt;repo&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;get Helm Repo info&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;helm repo add prometheus-community https://prometheus-community.github.io/helm-charts&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#  &amp;#34;prometheus-community&amp;#34; has been added to your repositories&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;helm repo update&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Hang tight while we grab the latest from your chart repositories...&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ...Successfully got an update from the &amp;#34;prometheus-community&amp;#34; chart repository&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Update Complete. ⎈Happy Helming!⎈&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;see &lt;a href=&#34;https://helm.sh/docs/helm/helm_repo/&#34;&gt;helm repo&lt;/a&gt; for command documentation.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Virtual Machine</title>
-      <link>http://localhost:56888/posts/virtual-machine/</link>
+      <link>http://localhost:1313/posts/virtual-machine/</link>
       <pubDate>Sat, 08 Feb 2025 01:48:34 -0500</pubDate>
-      <guid>http://localhost:56888/posts/virtual-machine/</guid>
+      <guid>http://localhost:1313/posts/virtual-machine/</guid>
       <description>&lt;h1 id=&#34;common-problem-for-ubuntudebian-based-system&#34;&gt;Common problem for Ubuntu/Debian-based system&lt;/h1&gt;&#xA;&lt;p&gt;The error message you&amp;rsquo;re encountering:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Failed to restart sshd.service: Unit sshd.service not found.&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;indicates that the &lt;code&gt;sshd.service&lt;/code&gt; unit is not recognized by your system&amp;rsquo;s service manager. This is common in certain Linux distributions, such as Ubuntu, where the SSH service is managed under a different name.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Solution:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;On Ubuntu and Debian-based systems, the SSH service is typically managed as &lt;code&gt;ssh&lt;/code&gt; instead of &lt;code&gt;sshd&lt;/code&gt;. To restart the SSH service after making configuration changes, use the following command:&lt;/p&gt;</description>
     </item>
   </channel>

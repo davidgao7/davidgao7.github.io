@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Depth First Search on davidgao7 blog</title>
-    <link>http://localhost:56888/tags/depth-first-search/</link>
+    <link>http://localhost:1313/tags/depth-first-search/</link>
     <description>Recent content in Depth First Search on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 07 Feb 2025 22:29:31 -0500</lastBuildDate>
-    <atom:link href="http://localhost:56888/tags/depth-first-search/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/depth-first-search/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Binary Tree Path Sum</title>
-      <link>http://localhost:56888/posts/binary-tree-path-sum/</link>
+      <link>http://localhost:1313/posts/binary-tree-path-sum/</link>
       <pubDate>Fri, 07 Feb 2025 22:29:31 -0500</pubDate>
-      <guid>http://localhost:56888/posts/binary-tree-path-sum/</guid>
-      <description>&lt;h2 id=&#34;题目描述&#34;&gt;题目描述&lt;/h2&gt;&#xA;&lt;p&gt;给定一个节点数为 n 的二叉树和一个值 sum ，请找出所有的根节点到叶子节点的节点值之和等于的路径，如果没有则返回空。&lt;/p&gt;&#xA;&lt;p&gt;例如：&#xA;给出如下的二叉树，sum = 22 ，&lt;/p&gt;&#xA;&lt;p&gt;given:&#xA;&lt;img src=&#34;http://localhost:56888/images/pathSumEg.png&#34; alt=&#34;binary tree&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;return&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[&#xA;  [5,4,11,2],&#xA;  [5,8,9]&#xA;]&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Space complexity: O(n)&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;Time complexity: O(n)&lt;/em&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;解题思路&#34;&gt;解题思路&lt;/h2&gt;&#xA;&lt;p&gt;题目是想让你一条一条路径找到和为sum的路径们，那我们学过的bfs(breath first search) 和 dfs(depth first search) 趁现在来复习一下&lt;/p&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s the definition of BFS (ch 22.2 Introduction to Algorithms):&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Given a graph G = (V,E) and a distinguished &lt;strong&gt;source&lt;/strong&gt; vertex s, breadth-first search systematically explores the edges of G to &amp;lsquo;discover&amp;rsquo; every vertex that is &lt;strong&gt;reachable&lt;/strong&gt; from s.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/binary-tree-path-sum/</guid>
+      <description>&lt;h2 id=&#34;题目描述&#34;&gt;题目描述&lt;/h2&gt;&#xA;&lt;p&gt;给定一个节点数为 n 的二叉树和一个值 sum ，请找出所有的根节点到叶子节点的节点值之和等于的路径，如果没有则返回空。&lt;/p&gt;&#xA;&lt;p&gt;例如：&#xA;给出如下的二叉树，sum = 22 ，&lt;/p&gt;&#xA;&lt;p&gt;given:&#xA;&lt;img src=&#34;http://localhost:1313/images/pathSumEg.png&#34; alt=&#34;binary tree&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;return&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[&#xA;  [5,4,11,2],&#xA;  [5,8,9]&#xA;]&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Space complexity: O(n)&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;Time complexity: O(n)&lt;/em&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;解题思路&#34;&gt;解题思路&lt;/h2&gt;&#xA;&lt;p&gt;题目是想让你一条一条路径找到和为sum的路径们，那我们学过的bfs(breath first search) 和 dfs(depth first search) 趁现在来复习一下&lt;/p&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s the definition of BFS (ch 22.2 Introduction to Algorithms):&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Given a graph G = (V,E) and a distinguished &lt;strong&gt;source&lt;/strong&gt; vertex s, breadth-first search systematically explores the edges of G to &amp;lsquo;discover&amp;rsquo; every vertex that is &lt;strong&gt;reachable&lt;/strong&gt; from s.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
