@@ -465,7 +465,31 @@ Why it is possible that /mnt has 50G and /mnt/home has 415.3G?
 <p>So, pacstrap is the correct tool for this specific &ldquo;first installation&rdquo; step.</p>
 </details>
 <h1 id="configure-the-system">Configure the system</h1>
-
+<h2 id="fastab">Fastab</h2>
+<p>The file <code>/mnt/etc/fstab</code> is for getting needed file systems (like the one used for the boot directory <code>/boot</code>) mounted on startup</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+</span></span></code></pre></div><img src="/images/fstab-file-generate.png">
+<h2 id="chroot">Chroot</h2>
+<p><a href="https://wiki.archlinux.org/title/Chroot">change root</a> into the new system</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arch-chroot /mnt
+</span></span></code></pre></div><img src="/images/change-root-into-new-system.png">
+<h2 id="time">Time</h2>
+<p>set the time zone</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ln -sf /usr/share/zoneinfo/PRC /etc/localtime
+</span></span></code></pre></div><p>run <a href="https://man.archlinux.org/man/hwclock.8">hwclock(8)</a> to generate <code>/etc/adjtime</code></p>
+<p>To prevent clock drift and ensure accurate time, set up time synchronization using a Network Time Protocol (NTP) client such as <a href="https://wiki.archlinux.org/title/Systemd-timesyncd">systemd-timesyncd</a></p>
+<h2 id="localization">Localization</h2>
+<p>edit <code>/etc/locale.gen</code> and uncomment <code>en_US.UTF-8</code> , <code>UTF-8</code></p>
+<p>side quest: install neovim</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S neovim
+</span></span></code></pre></div><p>home sweet home</p>
+<p>create the <code>locale.conf</code> file , and set the LANG var accordingly:</p>
+<pre tabindex="0"><code>LANG=en_US.UTF-8
+</code></pre><h2 id="network-configuration">Network configuration</h2>
+<p>To assign a consistent, identifiable name to your sytem (particularly useful in a networked environment), create the hostname file</p>
+<p><code>/etc/hostname</code></p>
+<pre tabindex="0"><code>yourhostname
+</code></pre>
     </div>
     <div class="post-footer">
       
