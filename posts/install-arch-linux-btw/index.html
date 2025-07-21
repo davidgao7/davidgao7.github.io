@@ -90,7 +90,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          11 min read
+          12 min read
         </div>
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
@@ -402,6 +402,7 @@ Why it is possible that /mnt has 50G and /mnt/home has 415.3G?
 <p>use <code>reflector</code> to update your <code>/etc/pacman.d/mirrorlist</code> with fast mirrors from your location</p>
 <p>[!NOTE] <font color=red>Make sure this pc has internet connection!!</font></p>
 <p>What you need to do now is connect your Wi-Fi to your home network using <code>iwctl</code>:</p>
+<p>[!NOTE] You will only find this command when exit root mode</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>iwctl
 </span></span></code></pre></div><p>scan for available networks:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>station wlan0 scan
@@ -489,7 +490,14 @@ Why it is possible that /mnt has 50G and /mnt/home has 415.3G?
 <p>To assign a consistent, identifiable name to your sytem (particularly useful in a networked environment), create the hostname file</p>
 <p><code>/etc/hostname</code></p>
 <pre tabindex="0"><code>yourhostname
-</code></pre>
+</code></pre><h2 id="root-password">Root password</h2>
+<p>You can setup a root password, I want to set it after complete it</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>passwd
+</span></span></code></pre></div><h1 id="reboot">Reboot</h1>
+<p>Exit the chroot environment by typing <code>exit</code> or pressing <code>ctrl+d</code></p>
+<p>optionally mannually unmount all the partitions with <code>unmount -R /mnt</code>: this allows noticing any &ldquo;busy&rdquo; partitions, and finding the cause with <a href="https://man.archlinux.org/man/fuser.1">fuser</a></p>
+<p>Finally, restart the machine by typing <code>reboot</code></p>
+
     </div>
     <div class="post-footer">
       
