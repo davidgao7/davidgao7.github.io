@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on davidgao7 blog</title>
-    <link>http://localhost:1313/tags/go/</link>
+    <link>https://davidgao7.github.io/tags/go/</link>
     <description>Recent content in Go on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 02 Mar 2025 16:56:04 -0500</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://davidgao7.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go Syntax Learning</title>
-      <link>http://localhost:1313/posts/go-syntax-learning/</link>
+      <link>https://davidgao7.github.io/posts/go-syntax-learning/</link>
       <pubDate>Sun, 02 Mar 2025 16:56:04 -0500</pubDate>
-      <guid>http://localhost:1313/posts/go-syntax-learning/</guid>
+      <guid>https://davidgao7.github.io/posts/go-syntax-learning/</guid>
       <description>&lt;h1 id=&#34;1740954205-344-reverse-string&#34;&gt;1740954205-344-reverse-string&lt;/h1&gt;&#xA;&lt;h2 id=&#34;question-description&#34;&gt;Question Description&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://leetcode.com/problems/reverse-string/description/&#34;&gt;problem link&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://neetcode.io/solutions/reverse-string&#34;&gt;solution video link&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;thought-process&#34;&gt;Thought Process&lt;/h2&gt;&#xA;&lt;p&gt;nice this is an easy problem, good for getting used to go syntax&lt;/p&gt;&#xA;&lt;p&gt;In Go, you specify the type for a variable when you need to explicitly declare its type. However, Go also supports type inference, where the type is automatically determined based on the assigned value. Here are some guidelines:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;Explicit Type Declaration:&lt;/strong&gt;&#xA;Use this when you want to specify the type explicitly.&lt;/p&gt;</description>
     </item>
   </channel>

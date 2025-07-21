@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Breadth-First Search on davidgao7 blog</title>
-    <link>http://localhost:1313/tags/breadth-first-search/</link>
+    <link>https://davidgao7.github.io/tags/breadth-first-search/</link>
     <description>Recent content in Breadth-First Search on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 16 Feb 2025 17:02:01 -0500</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/breadth-first-search/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://davidgao7.github.io/tags/breadth-first-search/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Symmetric Tree</title>
-      <link>http://localhost:1313/posts/symmetric-tree/</link>
+      <link>https://davidgao7.github.io/posts/symmetric-tree/</link>
       <pubDate>Sun, 16 Feb 2025 17:02:01 -0500</pubDate>
-      <guid>http://localhost:1313/posts/symmetric-tree/</guid>
+      <guid>https://davidgao7.github.io/posts/symmetric-tree/</guid>
       <description>&lt;h2 id=&#34;question-description&#34;&gt;Question Description&lt;/h2&gt;&#xA;&lt;p&gt;Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).&lt;/p&gt;&#xA;&lt;p&gt;Example 1:&lt;/p&gt;&#xA;&lt;p&gt;Input: root = [1,2,2,3,4,4,3]&#xA;Output: true&lt;/p&gt;&#xA;&lt;p&gt;Example 2:&lt;/p&gt;&#xA;&lt;p&gt;Input: root = [1,2,2,null,3,null,3]&#xA;Output: false&lt;/p&gt;&#xA;&lt;p&gt;Constraints:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;The number of nodes in the tree is in the range [ [1, 1000] ].&#xA;-100 &amp;lt;= Node.val &amp;lt;= 100&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Follow up: Could you solve it both recursively and iteratively?&lt;/p&gt;</description>
     </item>
   </channel>

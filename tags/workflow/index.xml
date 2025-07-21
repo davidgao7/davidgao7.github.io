@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Workflow on davidgao7 blog</title>
-    <link>http://localhost:1313/tags/workflow/</link>
+    <link>https://davidgao7.github.io/tags/workflow/</link>
     <description>Recent content in Workflow on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 22 Mar 2025 15:09:57 -0400</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/workflow/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://davidgao7.github.io/tags/workflow/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Build N8n Agent From Scratch</title>
-      <link>http://localhost:1313/posts/how-to-build-n8n-agent-from-scratch/</link>
+      <link>https://davidgao7.github.io/posts/how-to-build-n8n-agent-from-scratch/</link>
       <pubDate>Sat, 22 Mar 2025 15:09:57 -0400</pubDate>
-      <guid>http://localhost:1313/posts/how-to-build-n8n-agent-from-scratch/</guid>
+      <guid>https://davidgao7.github.io/posts/how-to-build-n8n-agent-from-scratch/</guid>
       <description>&lt;blockquote&gt;&#xA;&lt;p&gt;This is the tutorial on how to build an n8n agent from scratch.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;In this tutorial, I will show how to build an simple n8n agent locally.&lt;/p&gt;&#xA;&lt;h1 id=&#34;references&#34;&gt;References&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://docs.n8n.io/integrations/builtin/credentials/ollama/?utm_source=n8n_app&amp;amp;utm_medium=credential_settings&amp;amp;utm_campaign=create_new_credentials_modal#using-instance-url&#34;&gt;self-host ollama&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/ollama/ollama/blob/main/docs/faq.md#how-can-i-allow-additional-web-origins-to-access-ollama&#34;&gt;allow different web origins to access ollama&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/ollama/ollama/blob/main/docs/faq.md#how-do-i-configure-ollama-server&#34;&gt;how to configure ollama server&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://docs.n8n.io/hosting/starter-kits/ai-starter-kit/#what-you-can-build&#34;&gt;self-hosted AI Starter Kit | n8n Docs&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/n8n-io/self-hosted-ai-starter-kit?tab=readme-ov-file#-video-walkthrough&#34;&gt;self-hosted AI video walkthrough&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;steps&#34;&gt;Steps&lt;/h1&gt;&#xA;&lt;h2 id=&#34;1-install-n8n-on-docker&#34;&gt;1. Install n8n on docker&lt;/h2&gt;&#xA;&lt;p&gt;start n8n&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker volume create n8n_data&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once running, you can access n8n by opening: &lt;a href=&#34;http://localhost:5678&#34;&gt;http://localhost:5678&lt;/a&gt;&lt;/p&gt;</description>
     </item>
   </channel>
