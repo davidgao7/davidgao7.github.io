@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>BinaryTree Output Levely // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.148.1">
+    <meta name="generator" content="Hugo 0.148.2">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -22,7 +22,7 @@ T = TreeNode(3) T.left = TreeNode(9) T.right = TreeNode(20) T.right.left = TreeN
 题目思路 无论何时都得照顾好base case 如果给的tree结构里一个node也没有，我们不用担心什么，直接return 空[] class Solution: def levelOrder(self, root): if not root: return [] 之后， 我们用python list.pop(index=)来拿到我们想要的current node。 注意一下 pop() 和 pop(0) 的区别 pop() 是取list中最后一个元素 pop(0) 是取list中1st元素 &gt;&gt;&gt; a = [1,2,3] &gt;&gt;&gt; print(a.pop()) 3 &gt;&gt;&gt; print(a.pop(0)) 1 &gt;&gt;&gt; Note: 平时用不太熟悉的语言时遇到不确定的语法可以到terminal上玩一下当作测试，也节省了上网查找浪费的时间
 注意append node的顺序，我们首先append left child 然后 right child， 因为我们是被要求一层一层从左到右存放的 if curnode.left: queue.append(curnode.left) if curnode.right: queue.append(curnode.right) 这个过程是在遍历时先去左边的树再去右边的。按照题目规定每层print时要从左往右储存。">
 
-    <meta property="og:url" content="https://davidgao7.github.io/posts/binarytree-output-levely/">
+    <meta property="og:url" content="http://localhost:1313/posts/binarytree-output-levely/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="BinaryTree Output Levely">
   <meta property="og:description" content="题目描述 给你一个二叉树，要求一层一层get这个二叉树的层序遍历的结果

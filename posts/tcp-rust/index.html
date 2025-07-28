@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>TCP Rust // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.148.1">
+    <meta name="generator" content="Hugo 0.148.2">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -20,7 +20,7 @@ TCP-rust-issue-face-and-fixing For this page, I will take notes on tcp concepts
 Getting the basics 1. Three-Way Handshake (Connection Establishment) The TCP connection starts with the SYN → SYN-ACK → ACK process.
 Client Server | | | ---------- SYN ----------&gt; | (Client requests connection) | | | &lt;-------- SYN-ACK -------- | (Server acknowledges) | | | ---------- ACK ----------&gt; | (Client confirms connection) | | Connection Established! SYN: Client sends a connection request to the server. SYN-ACK: Server acknowledges the request and sends its own connection request. ACK: Client acknowledges the server’s response. 2. Data Transmission Once the connection is established, data flows in both directions with sequence numbers and acknowledgments.">
 
-    <meta property="og:url" content="https://davidgao7.github.io/posts/tcp-rust/">
+    <meta property="og:url" content="http://localhost:1313/posts/tcp-rust/">
   <meta property="og:site_name" content="davidgao7 blog">
   <meta property="og:title" content="TCP Rust">
   <meta property="og:description" content="TCPImplementation video Project Goal Learn how to write rust Learn how to implement TCP protocal Implement TCP in Rust

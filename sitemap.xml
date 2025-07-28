@@ -2,592 +2,595 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://davidgao7.github.io/tags/arch/</loc>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-07-21T22:11:29+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/install-hyprland/</loc>
+    <lastmod>2025-07-21T22:11:29+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2025-07-21T22:11:29+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/arch/</loc>
     <lastmod>2025-07-14T13:59:09+08:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/</loc>
+    <loc>http://localhost:1313/tags/docs/</loc>
     <lastmod>2025-07-14T13:59:09+08:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/docs/</loc>
+    <loc>http://localhost:1313/posts/install-arch-linux-btw/</loc>
     <lastmod>2025-07-14T13:59:09+08:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/install-arch-linux-btw/</loc>
+    <loc>http://localhost:1313/tags/linux/</loc>
     <lastmod>2025-07-14T13:59:09+08:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/linux/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-07-14T13:59:09+08:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/</loc>
-    <lastmod>2025-07-14T13:59:09+08:00</lastmod>
-  </url><url>
-    <loc>https://davidgao7.github.io/tags/</loc>
-    <lastmod>2025-07-14T13:59:09+08:00</lastmod>
-  </url><url>
-    <loc>https://davidgao7.github.io/tags/deployment/</loc>
+    <loc>http://localhost:1313/tags/deployment/</loc>
     <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/egpu/</loc>
+    <loc>http://localhost:1313/tags/egpu/</loc>
     <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/lambda/</loc>
+    <loc>http://localhost:1313/tags/lambda/</loc>
     <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/llm/</loc>
+    <loc>http://localhost:1313/tags/llm/</loc>
     <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/production/</loc>
+    <loc>http://localhost:1313/tags/production/</loc>
     <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/runpod/</loc>
+    <loc>http://localhost:1313/tags/runpod/</loc>
     <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/vllm/</loc>
+    <loc>http://localhost:1313/tags/vllm/</loc>
     <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/vllm-v1-whisper-transcription/</loc>
+    <loc>http://localhost:1313/posts/vllm-v1-whisper-transcription/</loc>
     <lastmod>2025-05-30T13:49:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/wrong-vllm-production-stack-setup/</loc>
+    <loc>http://localhost:1313/posts/wrong-vllm-production-stack-setup/</loc>
     <lastmod>2025-05-10T02:30:34-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/adobe/</loc>
+    <loc>http://localhost:1313/tags/adobe/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/amazon/</loc>
+    <loc>http://localhost:1313/tags/amazon/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/apple/</loc>
+    <loc>http://localhost:1313/tags/apple/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/bloomberg/</loc>
+    <loc>http://localhost:1313/tags/bloomberg/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/intuit/</loc>
+    <loc>http://localhost:1313/tags/intuit/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/ixl/</loc>
+    <loc>http://localhost:1313/tags/ixl/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/leetcode/</loc>
+    <loc>http://localhost:1313/tags/leetcode/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/linked-list/</loc>
+    <loc>http://localhost:1313/tags/linked-list/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/meta/</loc>
+    <loc>http://localhost:1313/tags/meta/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/microsoft/</loc>
+    <loc>http://localhost:1313/tags/microsoft/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/nvidia/</loc>
+    <loc>http://localhost:1313/tags/nvidia/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/oracle/</loc>
+    <loc>http://localhost:1313/tags/oracle/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/palindrome/</loc>
+    <loc>http://localhost:1313/tags/palindrome/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/palindrome-linked-list/</loc>
+    <loc>http://localhost:1313/posts/palindrome-linked-list/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/recursion/</loc>
+    <loc>http://localhost:1313/tags/recursion/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/siemens/</loc>
+    <loc>http://localhost:1313/tags/siemens/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/stack/</loc>
+    <loc>http://localhost:1313/tags/stack/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/two-pointer/</loc>
+    <loc>http://localhost:1313/tags/two-pointer/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/uber/</loc>
+    <loc>http://localhost:1313/tags/uber/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/yahoo/</loc>
+    <loc>http://localhost:1313/tags/yahoo/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/yandex/</loc>
+    <loc>http://localhost:1313/tags/yandex/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/zoho/</loc>
+    <loc>http://localhost:1313/tags/zoho/</loc>
     <lastmod>2025-05-03T18:38:09-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/deep-learning/</loc>
+    <loc>http://localhost:1313/tags/deep-learning/</loc>
     <lastmod>2025-04-23T22:34:35-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/image-classification/</loc>
+    <loc>http://localhost:1313/tags/image-classification/</loc>
     <lastmod>2025-04-23T22:34:35-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/pytorch/</loc>
+    <loc>http://localhost:1313/tags/pytorch/</loc>
     <lastmod>2025-04-23T22:34:35-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/resnet/</loc>
+    <loc>http://localhost:1313/tags/resnet/</loc>
     <lastmod>2025-04-23T22:34:35-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/training-resnet-using-pytorch/</loc>
+    <loc>http://localhost:1313/posts/training-resnet-using-pytorch/</loc>
     <lastmod>2025-04-23T22:34:35-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/finetune-llm-using-pytorch/</loc>
+    <loc>http://localhost:1313/posts/finetune-llm-using-pytorch/</loc>
     <lastmod>2025-04-22T21:08:11-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/k8s/</loc>
+    <loc>http://localhost:1313/tags/k8s/</loc>
     <lastmod>2025-04-22T11:14:45-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/vllm-deep-dive/</loc>
+    <loc>http://localhost:1313/posts/vllm-deep-dive/</loc>
     <lastmod>2025-04-22T11:14:45-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/finetune/</loc>
+    <loc>http://localhost:1313/tags/finetune/</loc>
     <lastmod>2025-04-19T16:59:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/finetune-llm-locally-using-mlx/</loc>
+    <loc>http://localhost:1313/posts/finetune-llm-locally-using-mlx/</loc>
     <lastmod>2025-04-19T16:59:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/mlx/</loc>
+    <loc>http://localhost:1313/tags/mlx/</loc>
     <lastmod>2025-04-19T16:59:26-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/llm-production/</loc>
+    <loc>http://localhost:1313/posts/llm-production/</loc>
     <lastmod>2025-04-13T15:13:29-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/a-algorithm/</loc>
+    <loc>http://localhost:1313/tags/a-algorithm/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/adaptive-cost-function-learning/</loc>
+    <loc>http://localhost:1313/tags/adaptive-cost-function-learning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/amazon-condor/</loc>
+    <loc>http://localhost:1313/tags/amazon-condor/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/amazon-logistics/</loc>
+    <loc>http://localhost:1313/tags/amazon-logistics/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/apollo-autonomous-platform/</loc>
+    <loc>http://localhost:1313/tags/apollo-autonomous-platform/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/apollo-go/</loc>
+    <loc>http://localhost:1313/tags/apollo-go/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/apple-maps/</loc>
+    <loc>http://localhost:1313/tags/apple-maps/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/autonomous-driving-rl/</loc>
+    <loc>http://localhost:1313/tags/autonomous-driving-rl/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/baidu-maps/</loc>
+    <loc>http://localhost:1313/tags/baidu-maps/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/baidu-polestar/</loc>
+    <loc>http://localhost:1313/tags/baidu-polestar/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/bellman-ford/</loc>
+    <loc>http://localhost:1313/tags/bellman-ford/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/bfs/</loc>
+    <loc>http://localhost:1313/tags/bfs/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/bidirectional-search/</loc>
+    <loc>http://localhost:1313/tags/bidirectional-search/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/chain-of-thought/</loc>
+    <loc>http://localhost:1313/tags/chain-of-thought/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/chain-of-thought-prompting/</loc>
+    <loc>http://localhost:1313/tags/chain-of-thought-prompting/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/combinatorial-optimization/</loc>
+    <loc>http://localhost:1313/tags/combinatorial-optimization/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/contraction-hierarchies/</loc>
+    <loc>http://localhost:1313/tags/contraction-hierarchies/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/conversational-ai/</loc>
+    <loc>http://localhost:1313/tags/conversational-ai/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/deep-q-network/</loc>
+    <loc>http://localhost:1313/tags/deep-q-network/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/dfs/</loc>
+    <loc>http://localhost:1313/tags/dfs/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/dgl/</loc>
+    <loc>http://localhost:1313/tags/dgl/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/dijkstra-algorithm/</loc>
+    <loc>http://localhost:1313/tags/dijkstra-algorithm/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/eta-estimation/</loc>
+    <loc>http://localhost:1313/tags/eta-estimation/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/evolution-of-route-planning-in-urban-env/</loc>
+    <loc>http://localhost:1313/posts/evolution-of-route-planning-in-urban-env/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/floyd-warshall/</loc>
+    <loc>http://localhost:1313/tags/floyd-warshall/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/google-maps/</loc>
+    <loc>http://localhost:1313/tags/google-maps/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/graph-algorithms/</loc>
+    <loc>http://localhost:1313/tags/graph-algorithms/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/graph-neural-networks/</loc>
+    <loc>http://localhost:1313/tags/graph-neural-networks/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/graph-neural-networks-for-traffic-forecasting/</loc>
+    <loc>http://localhost:1313/tags/graph-neural-networks-for-traffic-forecasting/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/graphhopper/</loc>
+    <loc>http://localhost:1313/tags/graphhopper/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/greedy-search/</loc>
+    <loc>http://localhost:1313/tags/greedy-search/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/heuristic-search/</loc>
+    <loc>http://localhost:1313/tags/heuristic-search/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/hierarchical-routing/</loc>
+    <loc>http://localhost:1313/tags/hierarchical-routing/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/imitation-learning/</loc>
+    <loc>http://localhost:1313/tags/imitation-learning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/its-intelligent-transportation-systems/</loc>
+    <loc>http://localhost:1313/tags/its-intelligent-transportation-systems/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/landmark-heuristics/</loc>
+    <loc>http://localhost:1313/tags/landmark-heuristics/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/langchain/</loc>
+    <loc>http://localhost:1313/tags/langchain/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/large-language-models/</loc>
+    <loc>http://localhost:1313/tags/large-language-models/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/last-mile-delivery/</loc>
+    <loc>http://localhost:1313/tags/last-mile-delivery/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/learning-local-heuristics/</loc>
+    <loc>http://localhost:1313/tags/learning-local-heuristics/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/llm-integration-in-navigation/</loc>
+    <loc>http://localhost:1313/tags/llm-integration-in-navigation/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/llm-route-planning/</loc>
+    <loc>http://localhost:1313/tags/llm-route-planning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/llm-assist/</loc>
+    <loc>http://localhost:1313/tags/llm-assist/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/machine-learning/</loc>
+    <loc>http://localhost:1313/tags/machine-learning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/meta-learning/</loc>
+    <loc>http://localhost:1313/tags/meta-learning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/multi-modal-transport/</loc>
+    <loc>http://localhost:1313/tags/multi-modal-transport/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/multi-stop-optimization/</loc>
+    <loc>http://localhost:1313/tags/multi-stop-optimization/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/multimodal-navigation/</loc>
+    <loc>http://localhost:1313/tags/multimodal-navigation/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/natural-language-navigation/</loc>
+    <loc>http://localhost:1313/tags/natural-language-navigation/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/navgpt/</loc>
+    <loc>http://localhost:1313/tags/navgpt/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/networkx/</loc>
+    <loc>http://localhost:1313/tags/networkx/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/neural-network-enhanced-a/</loc>
+    <loc>http://localhost:1313/tags/neural-network-enhanced-a/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/neural-path-planning/</loc>
+    <loc>http://localhost:1313/tags/neural-path-planning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/openai-api/</loc>
+    <loc>http://localhost:1313/tags/openai-api/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/or-tools/</loc>
+    <loc>http://localhost:1313/tags/or-tools/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/osrm/</loc>
+    <loc>http://localhost:1313/tags/osrm/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/personalized-route-recommendation/</loc>
+    <loc>http://localhost:1313/tags/personalized-route-recommendation/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/policy-learning/</loc>
+    <loc>http://localhost:1313/tags/policy-learning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/public-transit-optimization/</loc>
+    <loc>http://localhost:1313/tags/public-transit-optimization/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/pyg/</loc>
+    <loc>http://localhost:1313/tags/pyg/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/python/</loc>
+    <loc>http://localhost:1313/tags/python/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/q-learning/</loc>
+    <loc>http://localhost:1313/tags/q-learning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/react-prompting/</loc>
+    <loc>http://localhost:1313/tags/react-prompting/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/real-time-traffic/</loc>
+    <loc>http://localhost:1313/tags/real-time-traffic/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/reinforcement-learning/</loc>
+    <loc>http://localhost:1313/tags/reinforcement-learning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/route-planning/</loc>
+    <loc>http://localhost:1313/tags/route-planning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/self-supervised-learning/</loc>
+    <loc>http://localhost:1313/tags/self-supervised-learning/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/sequence-modeling/</loc>
+    <loc>http://localhost:1313/tags/sequence-modeling/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/shortest-path/</loc>
+    <loc>http://localhost:1313/tags/shortest-path/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/smart-city/</loc>
+    <loc>http://localhost:1313/tags/smart-city/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/stable-baselines/</loc>
+    <loc>http://localhost:1313/tags/stable-baselines/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/sumo-simulator/</loc>
+    <loc>http://localhost:1313/tags/sumo-simulator/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/tesla-autopilot/</loc>
+    <loc>http://localhost:1313/tags/tesla-autopilot/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/time-dependent-routing/</loc>
+    <loc>http://localhost:1313/tags/time-dependent-routing/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/traffic-congestion-management/</loc>
+    <loc>http://localhost:1313/tags/traffic-congestion-management/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/traffic-signal-optimization/</loc>
+    <loc>http://localhost:1313/tags/traffic-signal-optimization/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/transit-node-routing/</loc>
+    <loc>http://localhost:1313/tags/transit-node-routing/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/travel-time-prediction/</loc>
+    <loc>http://localhost:1313/tags/travel-time-prediction/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/tsp/</loc>
+    <loc>http://localhost:1313/tags/tsp/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/urban-mobility/</loc>
+    <loc>http://localhost:1313/tags/urban-mobility/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/v2x/</loc>
+    <loc>http://localhost:1313/tags/v2x/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/value-iteration-network/</loc>
+    <loc>http://localhost:1313/tags/value-iteration-network/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/vehicle-routing-problem-vrp/</loc>
+    <loc>http://localhost:1313/tags/vehicle-routing-problem-vrp/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/waymo/</loc>
+    <loc>http://localhost:1313/tags/waymo/</loc>
     <lastmod>2025-03-26T16:41:21-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/agent/</loc>
+    <loc>http://localhost:1313/tags/agent/</loc>
     <lastmod>2025-03-22T15:09:57-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/how-to-build-n8n-agent-from-scratch/</loc>
+    <loc>http://localhost:1313/posts/how-to-build-n8n-agent-from-scratch/</loc>
     <lastmod>2025-03-22T15:09:57-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/n8n/</loc>
+    <loc>http://localhost:1313/tags/n8n/</loc>
     <lastmod>2025-03-22T15:09:57-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/workflow/</loc>
+    <loc>http://localhost:1313/tags/workflow/</loc>
     <lastmod>2025-03-22T15:09:57-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/strings/</loc>
+    <loc>http://localhost:1313/tags/strings/</loc>
     <lastmod>2025-03-12T22:47:23-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/two-pointers/</loc>
+    <loc>http://localhost:1313/tags/two-pointers/</loc>
     <lastmod>2025-03-12T22:47:23-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/valid-word-abbr/</loc>
+    <loc>http://localhost:1313/posts/valid-word-abbr/</loc>
     <lastmod>2025-03-12T22:47:23-04:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/go/</loc>
+    <loc>http://localhost:1313/tags/go/</loc>
     <lastmod>2025-03-02T16:56:04-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/go-syntax-learning/</loc>
+    <loc>http://localhost:1313/posts/go-syntax-learning/</loc>
     <lastmod>2025-03-02T16:56:04-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/array/</loc>
+    <loc>http://localhost:1313/tags/array/</loc>
     <lastmod>2025-02-25T17:28:44-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/divide-arr-into-arr-with-max-diff/</loc>
+    <loc>http://localhost:1313/posts/divide-arr-into-arr-with-max-diff/</loc>
     <lastmod>2025-02-25T17:28:44-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/greedy/</loc>
+    <loc>http://localhost:1313/tags/greedy/</loc>
     <lastmod>2025-02-25T17:28:44-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/sorting/</loc>
+    <loc>http://localhost:1313/tags/sorting/</loc>
     <lastmod>2025-02-25T17:28:44-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/binary-tree/</loc>
+    <loc>http://localhost:1313/tags/binary-tree/</loc>
     <lastmod>2025-02-16T17:02:01-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/breadth-first-search/</loc>
+    <loc>http://localhost:1313/tags/breadth-first-search/</loc>
     <lastmod>2025-02-16T17:02:01-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/symmetric-tree/</loc>
+    <loc>http://localhost:1313/posts/symmetric-tree/</loc>
     <lastmod>2025-02-16T17:02:01-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/local-rag-ollama/</loc>
+    <loc>http://localhost:1313/posts/local-rag-ollama/</loc>
     <lastmod>2025-02-14T15:19:01-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/rag/</loc>
+    <loc>http://localhost:1313/tags/rag/</loc>
     <lastmod>2025-02-14T15:19:01-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/grafana-prometheus/</loc>
+    <loc>http://localhost:1313/posts/grafana-prometheus/</loc>
     <lastmod>2025-02-09T14:10:48-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/homelab/</loc>
+    <loc>http://localhost:1313/tags/homelab/</loc>
     <lastmod>2025-02-09T14:10:48-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/monitor-and-logging/</loc>
+    <loc>http://localhost:1313/tags/monitor-and-logging/</loc>
     <lastmod>2025-02-09T14:10:48-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/virtual-machine/</loc>
+    <loc>http://localhost:1313/posts/virtual-machine/</loc>
     <lastmod>2025-02-08T01:48:34-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/network/</loc>
+    <loc>http://localhost:1313/tags/network/</loc>
     <lastmod>2025-02-07T22:35:50-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/rust/</loc>
+    <loc>http://localhost:1313/tags/rust/</loc>
     <lastmod>2025-02-07T22:35:50-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/tcp/</loc>
+    <loc>http://localhost:1313/tags/tcp/</loc>
     <lastmod>2025-02-07T22:35:50-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/tcp-rust/</loc>
+    <loc>http://localhost:1313/posts/tcp-rust/</loc>
     <lastmod>2025-02-07T22:35:50-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/array-summary/</loc>
+    <loc>http://localhost:1313/posts/array-summary/</loc>
     <lastmod>2025-02-07T22:32:04-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/copy-random-list/</loc>
+    <loc>http://localhost:1313/posts/copy-random-list/</loc>
     <lastmod>2025-02-07T22:30:57-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/hash-table/</loc>
+    <loc>http://localhost:1313/tags/hash-table/</loc>
     <lastmod>2025-02-07T22:30:57-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/binary-tree-path-sum/</loc>
+    <loc>http://localhost:1313/posts/binary-tree-path-sum/</loc>
     <lastmod>2025-02-07T22:29:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/breath-first-search/</loc>
+    <loc>http://localhost:1313/tags/breath-first-search/</loc>
     <lastmod>2025-02-07T22:29:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/depth-first-search/</loc>
+    <loc>http://localhost:1313/tags/depth-first-search/</loc>
     <lastmod>2025-02-07T22:29:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/arrays/</loc>
+    <loc>http://localhost:1313/tags/arrays/</loc>
     <lastmod>2025-02-07T22:27:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/divide-and-conquer/</loc>
+    <loc>http://localhost:1313/tags/divide-and-conquer/</loc>
     <lastmod>2025-02-07T22:27:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/find-kth-largest/</loc>
+    <loc>http://localhost:1313/posts/find-kth-largest/</loc>
     <lastmod>2025-02-07T22:27:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/heap-proiority-heap/</loc>
+    <loc>http://localhost:1313/tags/heap-proiority-heap/</loc>
     <lastmod>2025-02-07T22:27:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/quick-select/</loc>
+    <loc>http://localhost:1313/tags/quick-select/</loc>
     <lastmod>2025-02-07T22:27:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/dynamic-programming/</loc>
+    <loc>http://localhost:1313/tags/dynamic-programming/</loc>
     <lastmod>2025-02-07T22:24:33-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/rob/</loc>
+    <loc>http://localhost:1313/posts/rob/</loc>
     <lastmod>2025-02-07T22:24:33-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/jump-game/</loc>
+    <loc>http://localhost:1313/posts/jump-game/</loc>
     <lastmod>2025-02-07T22:23:06-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/dictionary/</loc>
+    <loc>http://localhost:1313/tags/dictionary/</loc>
     <lastmod>2025-02-07T22:21:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/hash/</loc>
+    <loc>http://localhost:1313/tags/hash/</loc>
     <lastmod>2025-02-07T22:21:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/minimum-length-encoding/</loc>
+    <loc>http://localhost:1313/posts/minimum-length-encoding/</loc>
     <lastmod>2025-02-07T22:21:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/string/</loc>
+    <loc>http://localhost:1313/tags/string/</loc>
     <lastmod>2025-02-07T22:21:31-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/lowest-common-ancestor/</loc>
+    <loc>http://localhost:1313/posts/lowest-common-ancestor/</loc>
     <lastmod>2025-02-07T20:54:23-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/maxlength/</loc>
+    <loc>http://localhost:1313/posts/maxlength/</loc>
     <lastmod>2025-02-07T20:52:49-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/python-list/</loc>
+    <loc>http://localhost:1313/tags/python-list/</loc>
     <lastmod>2025-02-07T20:52:49-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/binary-search-tree/</loc>
+    <loc>http://localhost:1313/tags/binary-search-tree/</loc>
     <lastmod>2025-02-07T20:50:52-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/heap/</loc>
+    <loc>http://localhost:1313/tags/heap/</loc>
     <lastmod>2025-02-07T20:50:52-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/heap-bst/</loc>
+    <loc>http://localhost:1313/posts/heap-bst/</loc>
     <lastmod>2025-02-07T20:50:52-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/merge-k-sorted-lists/</loc>
+    <loc>http://localhost:1313/posts/merge-k-sorted-lists/</loc>
     <lastmod>2025-02-07T20:49:10-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/priority-queue/</loc>
+    <loc>http://localhost:1313/tags/priority-queue/</loc>
     <lastmod>2025-02-07T20:49:10-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/binarytree-output-levely/</loc>
+    <loc>http://localhost:1313/posts/binarytree-output-levely/</loc>
     <lastmod>2025-02-07T20:47:06-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/inorder-traversal/</loc>
+    <loc>http://localhost:1313/tags/inorder-traversal/</loc>
     <lastmod>2025-02-07T20:47:06-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/svm/</loc>
+    <loc>http://localhost:1313/posts/svm/</loc>
     <lastmod>2025-02-07T20:44:54-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/matrix/</loc>
+    <loc>http://localhost:1313/tags/matrix/</loc>
     <lastmod>2025-02-07T20:43:22-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/shortest-bridge/</loc>
+    <loc>http://localhost:1313/posts/shortest-bridge/</loc>
     <lastmod>2025-02-07T20:43:22-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/cout-vowel-strings/</loc>
+    <loc>http://localhost:1313/posts/cout-vowel-strings/</loc>
     <lastmod>2025-02-07T20:40:23-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/machine-learning-pipeline/</loc>
+    <loc>http://localhost:1313/posts/machine-learning-pipeline/</loc>
     <lastmod>2025-02-07T04:10:33-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/tags/pipeline/</loc>
+    <loc>http://localhost:1313/tags/pipeline/</loc>
     <lastmod>2025-02-07T04:10:33-05:00</lastmod>
   </url><url>
-    <loc>https://davidgao7.github.io/_index_of_content/</loc>
+    <loc>http://localhost:1313/_index_of_content/</loc>
   </url><url>
-    <loc>https://davidgao7.github.io/posts/_index_of_posts/</loc>
+    <loc>http://localhost:1313/posts/_index_of_posts/</loc>
   </url><url>
-    <loc>https://davidgao7.github.io/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url>
 </urlset>
