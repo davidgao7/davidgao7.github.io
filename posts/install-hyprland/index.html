@@ -93,7 +93,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          1 min read
+          2 min read
         </div>
       </div>
     </header>
@@ -114,7 +114,31 @@ window.MathJax = {
 <blockquote>
 <p>We officially run and test Hyprland on Arch and NixOS, and we guarantee Hyprland will work there. For any other distro (not based on Arch/Nix) you might have varying amounts of success. However, since Hyprland is extremely bleeding-edge, distros like Pop!_OS, Ubuntu, etc. will have major issues running Hyprland. Rolling release distros like Fedora, OpenSUSE, etc. will likely be fine.</p></blockquote>
 <h1 id="installation">Installation</h1>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S hyprland
+<p>EHHHH there&rsquo;s no internect connection, and you don&rsquo;t have <code>iwctl</code>, you can use <code>nmtui</code></p>
+<ol>
+<li>start the <code>nmtui</code></li>
+</ol>
+<p>before that make sure <code>networkManager</code> is running</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl start NetworkManager
+</span></span><span style="display:flex;"><span>nmtui
+</span></span></code></pre></div><img src="/images/connect-wifi-NetworkManager.png">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S hyprland
+</span></span></code></pre></div><p>If it doesn&rsquo;t work , try sync repo, update packages , then install</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -Syu hyprland
+</span></span></code></pre></div><p>BTW, there&rsquo;s a pre-configured hyprland setup , created by DHH, here is the <a href="https://omarchy.org/">omarchy website</a>, maybe feels like back when I choose LazyVim, get comfortable then decide to not to use a distro.</p>
+<p>Before that , install font to make neovim looks normal</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -Syu ttf-hack-nerd
+</span></span></code></pre></div><p>give pacman the ability to manager your fonts, dont by creating an Arch package.</p>
+<p>Install kitty terminal, latter will be used in hyprland too</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -Syu kitty
+</span></span></code></pre></div><p>However , the X11 DISPLAY environment variable is missing</p>
+<p>Install X11</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -Syu xorg-server xorg-xinit xorg-twm xorg-xclock xterm
+</span></span></code></pre></div><p>determine what gpu you are using</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>lspci -k | grep -EA3 <span style="color:#e6db74">&#39;VGA|3D|Display&#39;</span>
+</span></span></code></pre></div><p>For my laptop, it&rsquo;s Intel</p>
+<p>install graphics drivers and essential wayland packages</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S --needed mesa vulkan-intel hyprland kitty xorg-xwayland
 </span></span></code></pre></div>
     </div>
     <div class="post-footer">
