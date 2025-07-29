@@ -93,7 +93,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          2 min read
+          4 min read
         </div>
       </div>
     </header>
@@ -114,7 +114,7 @@ window.MathJax = {
 <blockquote>
 <p>We officially run and test Hyprland on Arch and NixOS, and we guarantee Hyprland will work there. For any other distro (not based on Arch/Nix) you might have varying amounts of success. However, since Hyprland is extremely bleeding-edge, distros like Pop!_OS, Ubuntu, etc. will have major issues running Hyprland. Rolling release distros like Fedora, OpenSUSE, etc. will likely be fine.</p></blockquote>
 <h1 id="installation">Installation</h1>
-<p>EHHHH there&rsquo;s no internect connection, and you don&rsquo;t have <code>iwctl</code>, you can use <code>nmtui</code></p>
+<p>EHHHH there&rsquo;s no internet connection, and you don&rsquo;t have <code>iwctl</code>, you can use <code>nmtui</code></p>
 <ol>
 <li>start the <code>nmtui</code></li>
 </ol>
@@ -139,6 +139,94 @@ window.MathJax = {
 </span></span></code></pre></div><p>For my laptop, it&rsquo;s Intel</p>
 <p>install graphics drivers and essential wayland packages</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S --needed mesa vulkan-intel hyprland kitty xorg-xwayland
+</span></span></code></pre></div><p>install the dependencies:</p>
+<p>install <a href="https://github.com/Jguer/yay">yay</a>, An AUR Helper Written in Go</p>
+<p>You cannot run <code>makepkg</code> in root,</p>
+<p>create a non-root user for daily use</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># useradd -m -g users -G wheel,storage,video,audio,power -s /bin/bash yourusername</span>
+</span></span><span style="display:flex;"><span>useradd -m -g users -G wheel,storage,video,audio,power -s /bin/bash davidgao
+</span></span></code></pre></div><ul>
+<li>
+<p><code>-m</code>: Creates the user&rsquo;s home directory (/home/yourusername).</p>
+</li>
+<li>
+<p><code>-g</code> users: Sets users as the primary group for this account.</p>
+</li>
+<li>
+<p><code>-G</code> wheel,storage,video,audio,power: Adds the user to common supplementary groups:</p>
+<ul>
+<li>
+<p><code>wheel</code>: This group is typically used to grant sudo access.</p>
+</li>
+<li>
+<p><code>storage</code>: Allows access to storage devices.</p>
+</li>
+<li>
+<p><code>video</code>: Grants access to video hardware.</p>
+</li>
+<li>
+<p><code>audio</code>: Grants access to sound hardware.</p>
+</li>
+<li>
+<p><code>power</code>: Allows shutdown/reboot capabilities from the user session.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>-s /bin/bash</code>: Sets Bash as the default login shell.</p>
+</li>
+</ul>
+<p>switch user</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># su - yourusername # Replace yourusername with the non-root username you created</span>
+</span></span><span style="display:flex;"><span>su davidgao
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># clone yay into davidgao&#39;s dir</span>
+</span></span><span style="display:flex;"><span>cd /home/davidgao
+</span></span></code></pre></div><p>You have to switch to non root user to build <code>yay</code></p>
+<p>You have to install go lang to build yay</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># switch to root</span>
+</span></span><span style="display:flex;"><span>su root
+</span></span><span style="display:flex;"><span>sudo pacman -S go
+</span></span></code></pre></div><p>change to user davidgao, add write access tot he yay source dir</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>su root
+</span></span><span style="display:flex;"><span>chown davidgao yay/
+</span></span></code></pre></div><p>if you are in China&hellip; set go proxy</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>unset http_proxy https_proxy ALL_PROXY
+</span></span><span style="display:flex;"><span>export GOPROXY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://goproxy.cn,direct&#34;</span> <span style="color:#f92672">&amp;&amp;</span> makepkg -si
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>su davidgao
+</span></span><span style="display:flex;"><span>sudo pacman -S --needed git base-devel
+</span></span><span style="display:flex;"><span>git clone https://aur.archlinux.org/yay.git
+</span></span><span style="display:flex;"><span>cd yay
+</span></span><span style="display:flex;"><span>makepkg -si
+</span></span></code></pre></div><p>You can also build using yay-bin (specially in China&hellip;)</p>
+<p>add <code>sudo</code> permission to the user <em>davidgao</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>id davidgao
+</span></span><span style="display:flex;"><span>usermod -aG wheel davidgao
+</span></span></code></pre></div><p>edit <code>sudoers</code> file (/etc/sudoers)</p>
+<pre tabindex="0"><code>EDITOR=vim visudo
+</code></pre><p>in the editor, find this exact line:</p>
+<pre tabindex="0"><code># %wheel ALL=(ALL:ALL) ALL
+</code></pre><p>Delete only the <code>#</code> symbol at the very beginning of that line. It should become:</p>
+<pre tabindex="0"><code>%wheel ALL=(ALL:ALL) ALL
+</code></pre><p>save and exit <code>vim</code></p>
+<p>back to non-root user (davidgao)</p>
+<p>Once you&rsquo;re logged in as davidgao, try a simple sudo command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo whoami
+</span></span></code></pre></div><ul>
+<li>It should prompt you for <code>[sudo] password for davidgao:</code>. Enter davidgao&rsquo;s password.</li>
+<li>If successful, it should output <code>root</code>. This means <code>sudo</code> is working!</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>su - davidgao   <span style="color:#75715e"># The &#39;-&#39; ensures a full relogin for group changes to take effect</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://aur.archlinux.org/yay-bin.git
+</span></span><span style="display:flex;"><span>cd yay-bin
+</span></span><span style="display:flex;"><span>makepkg -si
+</span></span></code></pre></div><img src="/images/build-yay.png">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>yay -S ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite libxrender libxcursor pixman wayland-protocols cairo pango libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio tomlplusplus hyprlang-git hyprcursor-git hyprwayland-scanner-git xcb-util-errors hyprutils-git glaze hyprgraphics-git aquamarine-git re2 hyprland-qtutils
+</span></span></code></pre></div><p>and then type</p>
+<img src="/images/yes-jojo.gif">
+<p>You can also build from source(recommended)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone --recursive https://github.com/hyprwm/Hyprland
+</span></span><span style="display:flex;"><span>cd Hyprland
+</span></span><span style="display:flex;"><span>make all <span style="color:#f92672">&amp;&amp;</span> sudo make install
 </span></span></code></pre></div>
     </div>
     <div class="post-footer">
