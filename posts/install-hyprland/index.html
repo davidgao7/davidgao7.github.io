@@ -93,7 +93,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          4 min read
+          6 min read
         </div>
       </div>
     </header>
@@ -227,8 +227,74 @@ window.MathJax = {
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone --recursive https://github.com/hyprwm/Hyprland
 </span></span><span style="display:flex;"><span>cd Hyprland
 </span></span><span style="display:flex;"><span>make all <span style="color:#f92672">&amp;&amp;</span> sudo make install
-</span></span></code></pre></div><p>EDIT: I&rsquo;m stupid, just run <code>hyprland</code> in root then you can goto main screen -&lt;_-</p>
-<img src="/images/hyprland-btw.png">
+</span></span></code></pre></div><p>EDIT: I&rsquo;m stupid, just run <code>hyprland</code> in root then you can goto main screen -&lt;_-, HOWEVER in the manual it specifically warn that</p>
+<pre tabindex="0"><code>[WARN] Do not launch Hyprland with root permissions (don’t sudo)
+</code></pre><p>If you hit &ldquo;Permission denied&rdquo; when running Hyprland as a user means that this user lacks permissions or environment setup to interact with the display hardware or Wayland&rsquo;s session management.</p>
+<p>Here are the most common reasons and how to check/fix them:</p>
+<p><strong>1. Check User Group Memberships (Most Common Initial Cause):</strong>
+Your user needs to be part of specific groups to access graphics, input, and other devices. While <code>video</code> is crucial, others like <code>input</code> and <code>render</code> are also sometimes necessary.</p>
+<ul>
+<li>
+<p>Log in as your <code>davidgao</code> user in the terminal.</p>
+</li>
+<li>
+<p>Run the following command to check your group memberships:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>id davidgao
+</span></span></code></pre></div></li>
+<li>
+<p>You should see <code>wheel</code>, <code>storage</code>, <code>video</code>, <code>audio</code>, <code>power</code> (from our <code>useradd</code> command) and potentially <code>input</code> and <code>render</code>.</p>
+<ul>
+<li>If <code>input</code> or <code>render</code> are missing, add them (as <code>root</code>):</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># First, switch to root</span>
+</span></span><span style="display:flex;"><span>exit <span style="color:#75715e"># if you are davidgao, or su -</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># As root, run:</span>
+</span></span><span style="display:flex;"><span>usermod -aG input,render davidgao
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Then, exit root and fully log out of davidgao and log back in</span>
+</span></span><span style="display:flex;"><span>exit <span style="color:#75715e"># to leave root</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Then, full logout/login as davidgao</span>
+</span></span><span style="display:flex;"><span>exit <span style="color:#75715e"># from davidgao</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Login again at the TTY prompt as davidgao</span>
+</span></span></code></pre></div><p><strong>2. Check <code>XDG_RUNTIME_DIR</code> (Crucial for Wayland):</strong>
+Wayland compositors (like Hyprland) heavily rely on a temporary directory (<code>XDG_RUNTIME_DIR</code>) that&rsquo;s set up when a user logs in. This is usually handled by <code>systemd-logind</code>.</p>
+<ul>
+<li>
+<p>As your <code>davidgao</code> user in the terminal, run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo $XDG_RUNTIME_DIR
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Expected output:</strong> A path like <code>/run/user/1000</code> (where <code>1000</code> is your user&rsquo;s UID, which you can see from <code>id davidgao</code>).</p>
+</li>
+<li>
+<p><strong>If the output is blank or missing:</strong> This means your <code>systemd</code> user session (which sets up <code>XDG_RUNTIME_DIR</code>) isn&rsquo;t starting correctly. This is often the root cause of &ldquo;Permission denied.&rdquo;</p>
+</li>
+</ul>
+<p><strong>To ensure <code>XDG_RUNTIME_DIR</code> is set up correctly:</strong></p>
+<ul>
+<li><strong>Ensure <code>systemd-logind.service</code> is running:</strong> (It should be enabled by default, but verify.)
+<ul>
+<li>Switch to <code>root</code>: <code>exit</code></li>
+<li>Check status: <code>systemctl status systemd-logind.service</code> (It should be <code>active (running)</code>).</li>
+<li>If it&rsquo;s not, enable and start it: <code>systemctl enable --now systemd-logind.service</code></li>
+<li><strong>Switch back to <code>davidgao</code>:</strong> <code>exit</code></li>
+</ul>
+</li>
+<li><strong>Perform a Full Logout and Login:</strong>
+<ul>
+<li>Even if <code>systemd-logind</code> is running, changes to user groups or the login environment often require a <strong>full logout from the TTY and then logging back in</strong> for the <code>systemd</code> user session to properly initialize.</li>
+<li>From your <code>davidgao</code> TTY session, type <code>exit</code> to log out.</li>
+<li>At the <code>login:</code> prompt, log in as <code>davidgao</code> again.</li>
+<li>Then, try <code>echo $XDG_RUNTIME_DIR</code> again. If it&rsquo;s now set, proceed.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Once <code>XDG_RUNTIME_DIR</code> is confirmed to be set (not blank) and you&rsquo;ve verified your group memberships, try launching Hyprland again as <code>davidgao</code>:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Hyprland
+</span></span></code></pre></div><img src="/images/hyprland-btw.png">
+<p>Oops this is when you run in root, here is the correct one (no anime girl, sad, but you have cursor)</p>
+<img src="/images/hyprland-no-waifu.png">
 <p>hyprland, btw</p>
 
     </div>
