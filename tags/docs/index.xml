@@ -6,8 +6,15 @@
     <description>Recent content in Docs on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Jul 2025 13:59:09 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 31 Jul 2025 12:36:55 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/docs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hyprland Rice</title>
+      <link>http://localhost:1313/posts/hyprland-rice/</link>
+      <pubDate>Thu, 31 Jul 2025 12:36:55 +0800</pubDate>
+      <guid>http://localhost:1313/posts/hyprland-rice/</guid>
+      <description>&lt;h1 id=&#34;configuring&#34;&gt;Configuring&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;The config is located in &lt;code&gt;$XDG_CONFIG_HOME/hypr/hyprland.conf&lt;/code&gt;, in most cases, that maps to &lt;code&gt;~/.config/hypr/hyprland.conf&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;You can tell Hyprland to use a specific configuration file by using the &lt;code&gt;--config&lt;/code&gt; for &lt;code&gt;-c&lt;/code&gt; argument.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The example config file can be viewed &lt;a href=&#34;https://github.com/hyprwm/Hyprland/blob/main/example/hyprland.conf&#34;&gt;here&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;[!NOTE] sometimes if you have a lot of plugins, if your machine is not powerful enough, it may seems like nvim is stucked, but just wait few seconds, lazy will do the git clone.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Install Arch Linux Btw</title>
       <link>http://localhost:1313/posts/install-arch-linux-btw/</link>
