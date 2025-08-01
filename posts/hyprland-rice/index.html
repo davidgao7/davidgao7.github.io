@@ -93,7 +93,7 @@ window.MathJax = {
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          1 min read
+          2 min read
         </div>
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
@@ -132,7 +132,20 @@ window.MathJax = {
 <pre tabindex="0"><code>input  {
     kb_options = caps:swapescape
 }
-</code></pre>
+</code></pre><h2 id="component-hyprpaper">component: hyprpaper</h2>
+<p>Install hyprpaper for wallpaper (99% of rice)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S hyprpaper
+</span></span></code></pre></div><p><a href="https://wiki.hypr.land/Hypr-Ecosystem/hyprpaper/">docs</a></p>
+<p>side quest: install nodejs to makesure copilot is running, now it&rsquo;s freezing the neovim</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -Syu nvm  <span style="color:#75715e"># node version manager</span>
+</span></span></code></pre></div><p>side quest: install zsh</p>
+<h2 id="initial-configuration">initial configuration</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo $SHELL  <span style="color:#75715e"># /bin/bash</span>
+</span></span><span style="display:flex;"><span>zsh
+</span></span></code></pre></div><p>make zsh default shell</p>
+<p>change your shell to <code>/usr/bin/zsh</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chsh -s <span style="color:#66d9ef">$(</span>which zsh<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div>
     </div>
     <div class="post-footer">
       
