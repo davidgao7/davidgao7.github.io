@@ -157,7 +157,11 @@ window.MathJax = {
 </span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;--- Building vLLM from source, this will take several minutes ---&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># MAX_JOBS=1 is a safeguard to prevent the compiler from crashing due to low RAM</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># --no-cache-dir ensures a completely fresh build</span>
-</span></span><span style="display:flex;"><span>MAX_JOBS<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> pip install --no-cache-dir <span style="color:#e6db74">&#34;vllm[audio] @ git+https://github.com/vllm-project/vllm.git&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># MAX_JOBS=1 pip install --no-cache-dir &#34;vllm[audio] @ git+https://github.com/vllm-project/vllm.git&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># you can setting a TMPDIR to make sure vllm build won&#39;t crash</span>
+</span></span><span style="display:flex;"><span>mkdir -p /workspace/build_temp
+</span></span><span style="display:flex;"><span>TMPDIR<span style="color:#f92672">=</span>/workspace/build_temp MAX_JOBS<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> uv pip install --no-cache-dir <span style="color:#e6db74">&#34;vllm[audio] @ git+https://github.com/vllm-project/vllm.git&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Part D: Install Your Project ---</span>
