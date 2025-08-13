@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Image Classification on davidgao7 blog</title>
-    <link>http://localhost:1313/tags/image-classification/</link>
+    <link>http://localhost:64053/tags/image-classification/</link>
     <description>Recent content in Image Classification on davidgao7 blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 23 Apr 2025 22:34:35 -0400</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/image-classification/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:64053/tags/image-classification/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Training Resnet Using Pytorch</title>
-      <link>http://localhost:1313/posts/training-resnet-using-pytorch/</link>
+      <link>http://localhost:64053/posts/training-resnet-using-pytorch/</link>
       <pubDate>Wed, 23 Apr 2025 22:34:35 -0400</pubDate>
-      <guid>http://localhost:1313/posts/training-resnet-using-pytorch/</guid>
+      <guid>http://localhost:64053/posts/training-resnet-using-pytorch/</guid>
       <description>&lt;h1 id=&#34;re-visit-convolutional-neural-network-cnn-architectures-plainnet--resnet-using-pytorch&#34;&gt;Re-visit Convolutional Neural Network (CNN) Architectures: PlainNet &amp;amp; ResNet using Pytorch&lt;/h1&gt;&#xA;&lt;p&gt;In this blog I will use pytorch to rebuild a classic vision model: &lt;code&gt;ResNet-50&lt;/code&gt;, to get more hands on exercise for real-world computer vision application&lt;/p&gt;&#xA;&lt;h2 id=&#34;preparation&#34;&gt;Preparation&lt;/h2&gt;&#xA;&lt;p&gt;Please make sure you have the following packages installed:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;torch&#xA;torchvision&#xA;plotly&#xA;IPython&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Import the libraries, and check the GPU availability. If you are using a Mac with MPS, it will automatically use the MPS device. Otherwise, it will use the CUDA device if available.&lt;/p&gt;</description>
     </item>
   </channel>
