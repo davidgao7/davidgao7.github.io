@@ -18,7 +18,11 @@
   <meta name="twitter:description" content="Test Github action lcoally Install act
 brew install act Install minikube for k8s enviroment
 brew install minikube Start k8s
-minikube start">
+minikube start build the docker image
+docker build --build-arg INSTALL_OPTIONAL_DEP=default -t localhost:5000/git-act-router -f docker/Dockerfile . load the image into Minikube
+minikube image load localhost:5000/git-act-router deploy with helm
+helm install vllm ./helm -f .github/values-05-secure-vllm.yaml check pods status, wait for them to be in the Running state
+kubectl get pods -w run the balidation test, any errors here, will appear directly">
 
     <meta property="og:url" content="http://localhost:1313/posts/test-github-action-yourself/">
   <meta property="og:site_name" content="davidgao7 blog">
@@ -26,7 +30,11 @@ minikube start">
   <meta property="og:description" content="Test Github action lcoally Install act
 brew install act Install minikube for k8s enviroment
 brew install minikube Start k8s
-minikube start">
+minikube start build the docker image
+docker build --build-arg INSTALL_OPTIONAL_DEP=default -t localhost:5000/git-act-router -f docker/Dockerfile . load the image into Minikube
+minikube image load localhost:5000/git-act-router deploy with helm
+helm install vllm ./helm -f .github/values-05-secure-vllm.yaml check pods status, wait for them to be in the Running state
+kubectl get pods -w run the balidation test, any errors here, will appear directly">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -101,6 +109,16 @@ window.MathJax = {
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install minikube
 </span></span></code></pre></div><p>Start k8s</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>minikube start
+</span></span></code></pre></div><p>build the docker image</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker build --build-arg INSTALL_OPTIONAL_DEP<span style="color:#f92672">=</span>default -t localhost:5000/git-act-router -f docker/Dockerfile .
+</span></span></code></pre></div><p>load the image into Minikube</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>minikube image load localhost:5000/git-act-router
+</span></span></code></pre></div><p>deploy with helm</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>helm install vllm ./helm -f .github/values-05-secure-vllm.yaml
+</span></span></code></pre></div><p>check pods status, wait for them to be in the Running state</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get pods -w
+</span></span></code></pre></div><p>run the balidation test, any errors here, will appear directly</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash .github/port-forward.sh curl-05-secure-vllm
 </span></span></code></pre></div>
     </div>
     <div class="post-footer">
