@@ -4,7 +4,7 @@
     <title>Vllm V1 Whisper Transcription // davidgao7 blog</title>
     <link rel="shortcut icon" href="/images/favicon.jpg" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.148.2">
+    <meta name="generator" content="Hugo 0.149.1">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="David Gao" />
     <meta name="description" content="" />
@@ -182,8 +182,9 @@ window.MathJax = {
 <blockquote>
 <p>Compiling large C++/CUDA codebases is a very memory-intensive process. By default, the build system tries to use all available CPU cores to compile files in parallel (e.g., you might see -j=32 in the logs, meaning 32 parallel jobs). On a machine with limited RAM, this can easily exhaust all available memory and cause the compiler to segfault.</p></blockquote>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MAX_JOBS<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> pip install --no-cache-dir <span style="color:#e6db74">&#34;vllm[audio] @ git+https://github.com/vllm-project/vllm.git&#34;</span>
-</span></span></code></pre></div><p>[!NOTE] If you have cuda and build failed,</p>
-<p>Verify you have both <em>vllm</em> and <em>vllm-router</em> installed</p>
+</span></span></code></pre></div><p>[!NOTE] If you have cuda and build failed, use <code>uv pip install</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MAX_JOBS<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> uv pip install --no-cache-dir <span style="color:#e6db74">&#34;vllm[audio] @ git+https://github.com/vllm-project/vllm.git&#34;</span>
+</span></span></code></pre></div><p>Verify you have both <em>vllm</em> and <em>vllm-router</em> installed</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip list | grep -E <span style="color:#e6db74">&#34;vllm|vllm-router&#34;</span>
 </span></span></code></pre></div><h1 id="code-implementation-snippet">Code implementation snippet</h1>
 <p>In <em>production-stack</em> repo</p>
